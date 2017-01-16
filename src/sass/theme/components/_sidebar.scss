@@ -1,0 +1,9 @@
+.sidebar {
+	width: $sidebar-width;
+	position: absolute;
+	z-index: 1;
+	top: $nav-height;
+	left: 0;
+	height: 100%;
+	border: $default-border;
+}

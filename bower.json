@@ -1,0 +1,53 @@
+{
+  "name": "angular-template",
+  "version": "1.0.0",
+  "authors": [
+    "Manh Tu"
+  ],
+  "description": "Default template for angular project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {    
+    "amcharts": "~3.15.2",
+    "angular": "~1.4.8",    
+    "bootstrap": "~3.3.5",
+    "font-awesome": "fontawesome#~4.4.0",
+    "jquery": "~2.1.4",          
+    "angular-ui-router": "0.3.1"
+  }, 
+  "overrides": {
+    "amcharts": {
+      "main": [
+        "./dist/amcharts/amcharts.js",
+        "./dist/amcharts/plugins/responsive/responsive.min.js",
+        "./dist/amcharts/serial.js",
+        "./dist/amcharts/funnel.js",
+        "./dist/amcharts/pie.js",
+        "./dist/amcharts/gantt.js"
+      ]
+    },    
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "js/dropdown.js",
+        "./dist/fonts/**.*"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/FontAwesome.otf",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2"
+      ]
+    }
+  }
+}

@@ -13,6 +13,7 @@ var gutil = require('gulp-util');
  */
 exports.paths = {
   src: 'src',
+  shader: '../src',
   dist: 'release',
   devDist: 'dev-release',
   tmp: '.tmp',

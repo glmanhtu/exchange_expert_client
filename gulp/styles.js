@@ -20,6 +20,13 @@ gulp.task('styles', function () {
   return buildStyles();
 });
 
+gulp.task('stylesAuth', function () {
+  return buildSingleScss(path.join(conf.paths.src, '/sass/auth.scss'));
+});
+gulp.task('styles404', function () {
+  return buildSingleScss(path.join(conf.paths.src, '/sass/404.scss'));
+});
+
 var buildStyles = function () {
   var sassOptions = {
     style: 'expanded'
@@ -27,7 +34,9 @@ var buildStyles = function () {
 
   var injectFiles = gulp.src([
     path.join(conf.paths.src, '/sass/**/_*.scss'),
-    '!' + path.join(conf.paths.src, '/sass/theme/conf/**/*.scss')
+    '!' + path.join(conf.paths.src, '/sass/theme/conf/**/*.scss'),
+    '!' + path.join(conf.paths.src, '/sass/404.scss'),
+    '!' + path.join(conf.paths.src, '/sass/auth.scss')
   ], {read: false});
 
   var injectOptions = {

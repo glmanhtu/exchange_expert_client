@@ -13,8 +13,10 @@ var gutil = require('gulp-util');
  */
 exports.paths = {
   src: 'src',
-  dist: 'release',  
-  tmp: '.tmp'  
+  dist: 'release',
+  devDist: 'dev-release',
+  tmp: '.tmp',
+  e2e: 'e2e'
 };
 
 /**

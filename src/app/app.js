@@ -1,13 +1,15 @@
-(function () {
-    'use strict';
-    angular
-        .module('DefaultModule', [            
-            'ui.router',                            
-            'DefaultModule.theme',
-            'DefaultModule.pages'
-        ])        
-        .run(run);
+'use strict';
 
-    function run($rootScope, $location, $http) {        
-    }    
-})();
+angular.module('BlurAdmin', [  
+  'ui.bootstrap',
+  'ui.sortable',
+  'ui.router',  
+  'toastr',
+  'smart-table',
+  "xeditable",
+  'ui.slimscroll',  
+  'angular-progress-button-styles',
+
+  'BlurAdmin.theme',
+  'BlurAdmin.pages'
+]);

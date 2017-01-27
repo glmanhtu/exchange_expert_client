@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="DefaultModule">
+<html lang="en" ng-app="ExpertExchange">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,9 +28,25 @@
 <main>    
   <div class="al-main">
     <div class="al-content">
+
       <navigation></navigation>
-      <sidebar></sidebar>
-      <div ui-view></div>
+
+      <div class="content-vertical-center">
+        <sidebar></sidebar>
+        <inputs></inputs>
+      </div>
+
+      <div ui-view>
+
+      </div>
+
+      <footer class="footer col-md-12" style="clear:both;">
+        <div class="container col-md-8 col-md-offset-2 text-center">
+          <p class="text-muted">Copyright@2016</p>
+        </div>
+      </footer>
+
+
     </div>
   </div>
   <footer class="al-footer clearfix">

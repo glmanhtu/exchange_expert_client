@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('DefaultModule.theme.components')
+    angular.module('ExpertExchange.theme.components')
         .controller('navigationCtrl', navigationCtrl);
 
     /** @ngInject */

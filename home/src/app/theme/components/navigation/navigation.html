@@ -1,24 +1,8 @@
-<div class="navigation row">  
-  <div class="nav-create" >
-    <button type="button" ng-click="toggleCreateType()" class="btn btn-primary">New</button>
-    <ul class="list-item" ng-hide="showCreateTypes == false">
-      <li><i class="fa fa-file"></i><span>Create new file</span></li>
-      <li><i class="fa fa-folder"></i><span>Create new folder</span></li>
-    </ul>
-  </div>
-  <div class="nav-address" >
-    <ul class="stack-folders" >
-      <li ng-repeat="folder in openedFolderStack" ng-click="gotoFolder(folder)">{{folder.name}}</li>
-    </ul>
-  </div>
-  <div class="nav-toolbox">
-      <ul class="global-action">
-        <li ng-click="openSetting()"><i class="fa fa-cog"></i></li>
-      </ul>
-      <ul class="file-select-action">
-        <li ng-click="copy()"><i class="fa fa-files-o"></i></li>
-        <li ng-click="cut()"><i class="fa fa-scissors"></i></li>
-        <li ng-click="trash()"><i class="fa fa-trash"></i></li>
-      </ul>      
-  </div>
+<div class="navigation">
+  <ul class="nav navbar-nav navbar-right" style="padding-right:30px;">
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Post</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Logout!</a></li>
+  </ul>
 </div>

@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular
-        .module('DefaultModule', [            
+        .module('ExpertExchange', [
             'ui.router',                            
-            'DefaultModule.theme',
-            'DefaultModule.pages'
+            'ExpertExchange.theme',
+            'ExpertExchange.pages'
         ])        
         .run(run);
 

@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  angular.module('DefaultModule.theme', [      
-      'DefaultModule.theme.components'
+  angular.module('ExpertExchange.theme', [
+      'ExpertExchange.theme.components'
   ]);
 
 })();

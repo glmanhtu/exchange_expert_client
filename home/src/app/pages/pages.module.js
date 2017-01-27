@@ -1,8 +1,9 @@
 (function () {
   'use strict';
 
-  angular.module('DefaultModule.pages', [
-      'ui.router'
+  angular.module('ExpertExchange.pages', [
+      'ui.router',
+
   ]);
 
 })();

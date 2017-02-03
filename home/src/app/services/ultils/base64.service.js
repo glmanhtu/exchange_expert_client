@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('DefaultModule')
+        .module('ExpertExchange')
         .factory('Base64', Base64);
 
     function Base64() {

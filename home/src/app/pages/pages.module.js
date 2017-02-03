@@ -1,8 +1,17 @@
 (function () {
   'use strict';
 
-  angular.module('DefaultModule.pages', [
-      'ui.router'
-  ]);
+  angular.module('ExpertExchange.pages', [
+      'ui.router',
+      'ExpertExchange.pages.home',
+      'ExpertExchange.pages.post',
+      'ExpertExchange.pages.search'
+  ]).config(routeConfig);
+
+    /** @ngInject */
+    function routeConfig($urlRouterProvider) {
+        $urlRouterProvider
+        .otherwise('/home');
+    }
 
 })();

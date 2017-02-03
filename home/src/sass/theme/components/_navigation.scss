@@ -3,6 +3,7 @@
 		&.nav-create {
 			float: left;
 			width: $sidebar-width;
+			padding-right: 20px;
 			text-align: center;
 			position: relative;
 			> button {
@@ -13,7 +14,7 @@
 				z-index: 999;
 				box-shadow: $shadow;
 				background-color: $default;
-				border: $default-border-radius;
+				
 				top: $nav-height;
 				left: 10%;				
 				padding: 10px;

@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('ExpertExchange.theme.components')
-        .controller('filterCtrl', filterCtrl);
+        .controller('searchbarCtrl', searchbarCtrl);
 
     /** @ngInject */
-    function filterCtrl($scope, $location) {
+    function searchbarCtrl($scope, $location) {
 
     }
 

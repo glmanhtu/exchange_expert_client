@@ -24,6 +24,15 @@
                 icon: 'ion-android-home',
                 order: 0,
               },
+            })
+            .state('filter', {
+              url: '/filter',
+              templateUrl: 'app/pages/form/filter/filter.html',
+              title: 'Filter',
+              sidebarMeta: {
+                icon: 'ion-android-home',
+                order: 0,
+              },
             });
       }
 

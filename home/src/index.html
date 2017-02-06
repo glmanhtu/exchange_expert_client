@@ -25,30 +25,26 @@
   <!-- endbuild -->
 </head>
 <body>
+
 <main>    
-  <div class="al-main">
-    <div class="al-content">
-
-      <navigation></navigation>
-
-      <div class="content-vertical-center">
- 
-        <div ui-view>
-
-        </div>
-      </div>
-
-      <footer class="footer col-md-12" style="clear:both;">
-        <div class="container col-md-8 col-md-offset-2 text-center">
-          <p class="text-muted">Copyright@2016</p>
-        </div>
-      </footer>
-
+  <div class="page-top">
+    <navigation></navigation>
+  </div>
+  
+  <div class="al-main content-vertical-center">
+    
+    <div ui-view>
 
     </div>
+
   </div>
-  <footer class="al-footer clearfix">
+
+  <footer class="al-footer footer col-md-12 clearfix">
+    <div class="container col-md-8 col-md-offset-2 text-center">
+      <p class="text-muted">Copyright@2016</p>
+    </div>
   </footer>  
+
 </main>
 
 <!-- build:js(src) scripts/vendor.js -->

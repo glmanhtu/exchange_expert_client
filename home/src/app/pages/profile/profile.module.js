@@ -1,16 +1,16 @@
 (function () {
   'use strict';
 
-  angular.module('ExpertExchange.pages.home', [])
+  angular.module('ExpertExchange.pages.profile', [])
     .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider
-            .state('home', {
-              url: '/home',
-              templateUrl: 'app/pages/home/home.html',
-              title: 'Homepage',
+            .state('profile', {
+              url: '/profile',
+              templateUrl: 'app/pages/profile/profile.html',
+              title: 'Profile',
               sidebarMeta: {
                 icon: 'ion-android-home',
                 order: 0,

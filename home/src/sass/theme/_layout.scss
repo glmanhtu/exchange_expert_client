@@ -7,6 +7,13 @@ body {
     clear:both;
 }
 
+.al-main {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -40px;
+}
+
+
 .al-content {
 	position: relative;
 
@@ -59,9 +66,7 @@ ul {
 @media only screen and (min-width: 360px) {
     /*[class*="col-"] {
         width: 100%;
-    }*/
-
-    
+    }*/   
 }
 
 @media only screen and (min-width: 600px) {
@@ -112,7 +117,7 @@ ul {
     .al-main {
         /* margin-left: 180px; */
         padding: 62px 0 34px;
-        min-height: 500px;
+
     }
 }
 
@@ -169,7 +174,6 @@ ul {
     .al-main {
         /* margin-left: 180px; */
         padding: 62px 0 34px;
-        min-height: 500px;
     }
 }
 
@@ -341,7 +345,7 @@ ul {
     border:1px solid#ccc;
     outline:none;
     width:100%;
-    margin:8px 0;
+    /* margin:8px 0; */
     
 }
 .sa-innate-form input[type=submit]{
@@ -351,27 +355,27 @@ ul {
     padding:10px 25px;
     font-size:14px;
     margin-top:5px;
-    }
-    .sa-innate-form input[type=submit]:hover{
+}
+.sa-innate-form input[type=submit]:hover{
     border:1px solid#db3b2b;
     background:#db3b2b;
     color:#fff;
-    }
-    
-    .sa-innate-form button{
+}
+
+.sa-innate-form button{
     border:1px solid#e64b3b;
     background:#e64b3b;
     color:#fff;
     padding:10px 25px;
     font-size:14px;
     margin-top:5px;
-    }
-    .sa-innate-form button:hover{
+}
+.sa-innate-form button:hover{
     border:1px solid#db3b2b;
     background:#db3b2b;
     color:#fff;
-    }
-    .sa-innate-form p{
-        font-size:13px;
-        padding-top:10px;
-    }
+}
+.sa-innate-form p{
+    font-size:13px;
+    padding-top:10px;
+}

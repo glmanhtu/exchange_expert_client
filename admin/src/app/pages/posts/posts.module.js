@@ -1,0 +1,21 @@
+(function () {
+  'use strict';
+
+  angular.module('BlurAdmin.pages.posts', [])
+    .config(routeConfig);
+
+  /** @ngInject */
+  function routeConfig($stateProvider, $urlRouterProvider) {
+    $stateProvider
+        .state('posts', {
+          url: '/posts',
+          templateUrl: 'app/pages/posts/posts.html',
+          title: 'Exchange Posts',
+          sidebarMeta: {
+            icon: 'ion-android-archive',
+            order: 10,
+          },
+        });
+  }
+
+})();

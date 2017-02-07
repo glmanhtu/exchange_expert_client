@@ -8,8 +8,6 @@
       'ExpertExchange.pages.search',
       'ExpertExchange.pages.profile',
       'ExpertExchange.pages.goods',
-      'ExpertExchange.pages.login',
-      'ExpertExchange.pages.register',
   ]).config(routeConfig);
 
     /** @ngInject */

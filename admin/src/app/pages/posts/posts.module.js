@@ -11,6 +11,7 @@
           url: '/posts',
           templateUrl: 'app/pages/posts/posts.html',
           title: 'Exchange Posts',
+          controller: 'postsCtrl',
           sidebarMeta: {
             icon: 'ion-android-archive',
             order: 10,

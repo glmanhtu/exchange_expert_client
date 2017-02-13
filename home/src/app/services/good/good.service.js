@@ -2,11 +2,10 @@
     'use strict';
     angular
         .module('ExpertExchange')
-        .constant('DOMAIN_SERVICE', 'http://localhost:3000')
-        .factory('goodsService', goodsService);
-    goodsService.$inject = ['$http', '$rootScope', 'DOMAIN_SERVICE'];
+        .factory('goodService', goodService);
+    goodService.$inject = ['$http', '$rootScope', 'DOMAIN_SERVICE'];
     /* @ngInject */
-    function goodsService($http, $rootScope, DOMAIN_SERVICE) {
+    function goodService($http, $rootScope, DOMAIN_SERVICE) {
         var service = {};
 
         service.test = test;

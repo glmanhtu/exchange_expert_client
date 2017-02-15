@@ -1,0 +1,148 @@
+{
+  "posts": [
+    { "id": 1, "title": "lowdb is awesome"},
+    { "id": 2, "title": "Hello World!"},
+    { "id": 3, "title": "Hello Anna!"}
+  ],
+  "user": {
+    "name": "typicode"
+  },
+  "goods": [
+	  {
+	    "id": 1,
+	    "images": [
+	      "assets/img/good/20170214-000111222.jpg",
+	      "assets/img/good/20170214-000111223.jpg",
+	      "assets/img/good/20170214-000111224.jpg",
+	      "assets/img/good/20170214-000111225.jpg"
+	    ],
+	    "address": "10 Dinh Tien Hoang",
+	    "timeUpdated": 0,
+	    "thumbnail": "string",
+	    "price": 350.92,
+	    "title": "MacBook Pro 13",
+	    "description": "It’s faster and more powerful than before, yet remarkably thinner and lighter. It has the brightest, most colorful Mac notebook display ever. And it introduces the Touch Bar — a Multi-Touch enabled strip of glass built into the keyboard for instant access to the tools you want, right when you want them. The new MacBook Pro is built on groundbreaking ideas. And it’s ready for yours.",
+	    "location": {
+	      "lat": 10.785804,
+	      "lng": 106.702522
+	    },
+	    "category": {
+	      "slug": "Computer"
+	    },
+	    "slug": "string",
+	    "timeCreated": "Febuary 14, 2017",
+	    "seller": {
+	      "email": "abc-net@info.mail",
+	      "rating": 3
+	    }
+	  },
+	  {
+	    "id": 2,
+	    "images": [
+	      "assets/img/good/20170214-000111232.jpg",
+	      "assets/img/good/20170214-000111233.jpg",
+	      "assets/img/good/20170214-000111234.jpg"
+	    ],
+	    "address": "10 Dinh Tien Hoang",
+	    "timeUpdated": 0,
+	    "thumbnail": "string",
+	    "price": 19.99,
+	    "title": "Docker Orchestration",
+	    "description": "Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.",
+	    "location": {
+	      "lat": 10.785804,
+	      "lng": 106.702522
+	    },
+	    "category": {
+	      "slug": "Book IT"
+	    },
+	    "slug": "string",
+	    "timeCreated": "Febuary 14, 2017",
+	    "seller": {
+	      "email": "books@info.mail",
+	      "rating": 3
+	    }
+	  },
+	  {
+	    "id": 3,
+	    "images": [
+	      "assets/img/good/20170214-000111242.jpg",
+	      "assets/img/good/20170214-000111243.jpg",
+	      "assets/img/good/20170214-000111244.jpg"
+	    ],
+	    "address": "10 Dinh Tien Hoang",
+	    "timeUpdated": 0,
+	    "thumbnail": "string",
+	    "price": 17.32,
+	    "title": "Wireless Mobile Internet Security, 2nd Edition",
+	    "description": "The mobile industry for wireless cellular services has grown at a rapid pace over the past decade. Similarly, Internet service technology has also made dramatic growth through the World Wide Web with a wire line infrastructure. Realization for complete wired/wireless mobile Internet technologies will become the future objectives for convergence of these technologies through multiple enhancements of both cellular mobile systems and Internet interoperability.",
+	    "location": {
+	      "lat": 10.785804,
+	      "lng": 106.702522
+	    },
+	    "category": {
+	      "slug": "Book IT"
+	    },
+	    "slug": "string",
+	    "timeCreated": "Febuary 14, 2017",
+	    "seller": {
+	      "email": "books@info.mail",
+	      "rating": 3
+	    }
+	  },
+	  {
+	    "id": 4,
+	    "images": [
+	      "assets/img/good/20170214-000111642.jpg",
+	      "assets/img/good/20170214-000111643.jpg",
+	      "assets/img/good/20170214-000111644.jpg"
+	    ],
+	    "address": "Los Angeles, California",
+	    "timeUpdated": 0,
+	    "thumbnail": "string",
+	    "price": 39.99,
+	    "title": "Raspberry Pi 3 Model B 2016",
+	    "description": "RASPBERRY PI 3 MODEL B - BLACK EDITION: Made with Advanced ENIG/Gold Plating. 1.2GHz Quad Core ARM Cortex-A53, 1GB Low Power DDR RAM, Broadcom VideoCore IV GPU, 4 Full Size USB Ports (Shared Bandwidth), 10/100 Mb Ethernet Port, HDMI 1.3 Port, 3.5mm AV Port (Composite Video Out + Stereo Out), MicroSDHC Slot, MIPI CSI Connector for Cameras, MIPI DSI Connector for Displays, 40 Pin GPIO Header, MicroUSB Power Connector",
+	    "location": {
+	      "lat": 10.785804,
+	      "lng": 106.702522
+	    },
+	    "category": {
+	      "slug": "Device IoT"
+	    },
+	    "slug": "string",
+	    "timeCreated": "Febuary 14, 2017",
+	    "seller": {
+	      "email": "raspberry@info.mail",
+	      "rating": 4
+	    }
+	  },
+	  {
+	    "id": 5,
+	    "images": [
+	      "assets/img/good/20170214-000111542.jpg",
+	      "assets/img/good/20170214-000111543.jpg",
+	      "assets/img/good/20170214-000111544.jpg"
+	    ],
+	    "address": "Toronto, Canada",
+	    "timeUpdated": 0,
+	    "thumbnail": "string",
+	    "price": 149.00,
+	    "title": "WeOn Glasses",
+	    "description": "WeON Glasses are the first glasses ever — optical or sunglasses — which interact with your smartphone or tablet. They offer you several functions, such as notifications, remote control, alerts in case of loss and customization.",
+	    "location": {
+	      "lat": 10.785804,
+	      "lng": 106.702522
+	    },
+	    "category": {
+	      "slug": "IoT"
+	    },
+	    "slug": "string",
+	    "timeCreated": "Febuary 14, 2017",
+	    "seller": {
+	      "email": "weon@info.mail",
+	      "rating": 3
+	    }
+	  }
+	]
+}

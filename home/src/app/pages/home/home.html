@@ -2,125 +2,36 @@
 <div class="col-md-12">
     <div class="col-md-8">
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="#/goods" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
+        <div ng-controller="homeCtrl">
+            <div ng-repeat="item in allPosts">
 
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="thumbnail">
+                            <a href="#/goods/{{ item.id }}" target="_blank">
+                                <img src="{{ item.images[0] }}" alt="item" style="width:100%">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="caption">
+                            <div class="entry-meta">
+                                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="">{{ item.timeCreated }}</time></span>
+                                <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.email }} </span></a></span>
+                                <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.slug }}</a></span>
+                                <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
+                                <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+                            </div>
+                            <h3>{{ item.title }}</h3>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>              
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="#/goods" target="_blank">
-                        <img src="assets/img/item_2.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:20:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Wireless Mobile Internet Security, 2nd Edition</h3>
-                    <p>The mobile industry for wireless cellular services has grown at a rapid pace over the past decade. Similarly, Internet service technology has also made dramatic growth through the World Wide Web with a wire line infrastructure. Realization for complete wired/wireless mobile Internet technologies will become the future objectives for convergence of these technologies through multiple enhancements of both cellular mobile systems and Internet interoperability.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="#/goods" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="#/goods" target="_blank">
-                        <img src="assets/img/item_2.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:20:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Wireless Mobile Internet Security, 2nd Edition</h3>
-                    <p>The mobile industry for wireless cellular services has grown at a rapid pace over the past decade. Similarly, Internet service technology has also made dramatic growth through the World Wide Web with a wire line infrastructure. Realization for complete wired/wireless mobile Internet technologies will become the future objectives for convergence of these technologies through multiple enhancements of both cellular mobile systems and Internet interoperability.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="#/goods" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
-
-        </div>
+        <hr>
 
         <div class="col-md-6 col-md-offset-3">
             <nav aria-label="Page navigation">
@@ -153,8 +64,4 @@
     </div>
 </div>
 
-
-<div ng-repeat="item in dataGoods">
-    <p>{{ item.name }}</p>
-</div>
 

@@ -1,3 +1,19 @@
+<div ng-controller="goodsCtrl">
+	<div ng-repeat="item in allPosts">
+		<div class="col-md-8 col-md-offset-2">
+			<h3><span>{{ item.title }}</span></h3>
+			<p>{{ item.body }}</p>
+		</div>
+	</div>	
+	
+	<hr>
+
+		<div class="col-md-8 col-md-offset-2">
+			<h3><span style="color: tomato;"><strong>{{ idPosts.title }}</strong></span></h3>
+			<p>{{ idPosts.body }}</p>
+		</div>
+
+</div>
 
 <div class="col-md-12">
 	<div class="col-md-6">

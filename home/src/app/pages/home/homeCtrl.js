@@ -31,7 +31,7 @@
             //10 seconds delay
             $timeout( function(){
                 vm.setPage(1);
-            }, 2000 );
+            }, 1000 );
             
         }
 

@@ -2,7 +2,7 @@
 
     <form role="form" class="form-inline">
         <div class="form-group">
-            <input class="form-control" id="searchinput" type="search" placeholder="Search City..." />
+            <input class="form-control" id="search-city" type="search" placeholder="Search City..." />
         </div>
 
         <div class="form-group">
@@ -25,164 +25,93 @@
 
     </form>
 
-    <div class="col-md-8 ">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="assets/img/item_1.jpg" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
+    <div class="col-md-8 " ng-controller="searchCtrl as vm">
+    
+        <div ng-repeat="item in vm.items">
 
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="assets/img/item_2.jpg" target="_blank">
-                        <img src="assets/img/item_2.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:20:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Wireless Mobile Internet Security, 2nd Edition</h3>
-                    <p>The mobile industry for wireless cellular services has grown at a rapid pace over the past decade. Similarly, Internet service technology has also made dramatic growth through the World Wide Web with a wire line infrastructure. Realization for complete wired/wireless mobile Internet technologies will become the future objectives for convergence of these technologies through multiple enhancements of both cellular mobile systems and Internet interoperability.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="assets/img/item_1.jpg" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="assets/img/item_2.jpg" target="_blank">
-                        <img src="assets/img/item_2.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:20:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Wireless Mobile Internet Security, 2nd Edition</h3>
-                    <p>The mobile industry for wireless cellular services has grown at a rapid pace over the past decade. Similarly, Internet service technology has also made dramatic growth through the World Wide Web with a wire line infrastructure. Realization for complete wired/wireless mobile Internet technologies will become the future objectives for convergence of these technologies through multiple enhancements of both cellular mobile systems and Internet interoperability.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="assets/img/item_1.jpg" target="_blank">
-                        <img src="assets/img/item_1.jpg" alt="item" style="width:100%">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="caption">
-                    <div class="entry-meta">
-                        <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                        <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                        <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                        <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-                        <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">0</a></span>
-                    </div>
-                    <h3>Docker Orchestration</h3>
-                    <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-6 col-md-offset-3">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <a href="#/goods/{{ item.id }}" target="_blank">
+                            <img src="{{ item.images[0] }}" alt="item" style="width:100%">
                         </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="caption">
+                        <div class="entry-meta">
+                            <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="">{{ item.timeCreated }}</time></span>
+                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.email }} </span></a></span>
+                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.slug }}</a></span>
+                            <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
+                            <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+                        </div>
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>          
+
+        <hr>
+
+        <div class="col-md-12">
+
+            <ul ng-if="vm.pager.pages.length" class="pagination">
+                <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                    <a ng-click="vm.setPage(1)">First</a>
+                </li>
+                <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                    <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
+                </li>
+                <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                    <a href="#/search" ng-click="vm.setPage(page)">{{page}}</a>
+                </li>                
+                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                    <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
+                </li>
+                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                    <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+                </li>
+            </ul>
+
         </div>
     </div>
 </div>
 
-<script src="restaurants.geojson.js"></script>
-<script>
-/* Restaurants define in restaurants.geojson.js */
-var keys = {};
-$('#searchlist').btsListFilter('#searchinput', {
-	sourceData: function(text, callback) {
-		callback( Restaurants.features );
-	},
-	sourceNode: function(data) {
-		//console.log(data.properties)
-		var $node = $('<a class="btn btn-default">'+(data.properties.name||'')+'</a>');
-		$node.data(data.properties);
-		return $node;
-	}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#search-city').keypress(function(e) {
+        if(e.which == 13) {
+            var searchString = $(this).val();
+            window.location = window.location.href + '&searchCity=' +searchString;
+
+        }
+    });
+    $('#search-category').keypress(function(e) {
+        if(e.which == 13) {
+            var searchString = $(this).val();
+            window.location = window.location.href + '&searchCategory=' +searchString;
+
+        }
+    });
+    $('#search-user').keypress(function(e) {
+        if(e.which == 13) {
+            var searchString = $(this).val();
+            window.location = window.location.href + '&searchUser=' +searchString;
+
+        }
+    });
+    $('#search-price').keypress(function(e) {
+        if(e.which == 13) {
+            var searchString = $(this).val();
+            window.location = window.location.href + '&searchPricer=' +searchString;
+
+        }
+    });
+
 });
+
+    
 </script>

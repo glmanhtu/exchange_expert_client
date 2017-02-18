@@ -2,7 +2,7 @@
   "name": "angular-template",
   "version": "1.0.0",
   "authors": [
-    "Manh Tu"
+    "Hoang Hai"
   ],
   "description": "Default template for angular project",
   "ignore": [
@@ -12,14 +12,16 @@
     "test",
     "tests"
   ],
-  "dependencies": {    
+  "dependencies": {
     "amcharts": "~3.15.2",
-    "angular": "~1.4.8",    
+    "angular": "~1.4.8",
     "bootstrap": "~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
-    "jquery": "~2.1.4",          
-    "angular-ui-router": "0.3.1"
-  }, 
+    "jquery": "~2.1.4",
+    "angular-ui-router": "0.3.1",
+    "lightslider": "^1.1.6",
+    "lodash": "^4.17.4"
+  },
   "overrides": {
     "amcharts": {
       "main": [
@@ -30,7 +32,13 @@
         "./dist/amcharts/pie.js",
         "./dist/amcharts/gantt.js"
       ]
-    },    
+    },
+    "lightslider": {
+      "main": [
+        "dist/css/lightslider.css",
+        "dist/js/lightslider.js"
+      ]
+    },
     "bootstrap": {
       "main": [
         "dist/css/bootstrap.css",

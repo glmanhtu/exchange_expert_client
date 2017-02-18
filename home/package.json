@@ -44,5 +44,7 @@
   "scripts": {
     "postinstall": "bower install"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
 }

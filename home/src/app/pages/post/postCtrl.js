@@ -9,7 +9,17 @@
         
         $scope.allGoods=[]; 
 
-        $scope.aGood = {};
+        $scope.aGood = {
+            images:['/images/abc.jpg','/images/def.jpg'],
+            thumbnail: 'string',
+            location: {
+                lat: 0,
+                lng: 0
+            },
+            category: {
+                slug: 'string'
+            }
+        };
 
         $scope.addGood = function(){
             createGoodService.createGood($scope.aGood).then(function (response){
@@ -20,7 +30,7 @@
             $location.path('/home');
         }
 
-        //loadAllGoods();
+        loadAllGoods();
 
         function loadAllGoods() {
             createGoodService.getGoods().then(function (response) {

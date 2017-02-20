@@ -11,6 +11,7 @@
               url: '/goods/:id',
               templateUrl: 'app/pages/goods/goods.html',
               title: 'Goods',
+                controller:'goodsCtrl',
               sidebarMeta: {
                 icon: 'ion-android-home',
                 order: 0,

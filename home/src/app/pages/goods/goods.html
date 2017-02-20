@@ -1,81 +1,65 @@
-<!-- <div ng-controller="goodsCtrl">
-	<div ng-repeat="item in allPosts">
-		<div class="col-md-8 col-md-offset-2">
-			<h3><span>{{ item.title }}</span></h3>
-			<p>{{ item.body }}</p>
-		</div>
-	</div>	
-	
-	<hr>
-
-		<div class="col-md-8 col-md-offset-2">
-			<h3><span style="color: tomato;"><strong>{{ idPosts.title }}</strong></span></h3>
-			<p>{{ idPosts.body }}</p>
-		</div>
-
-</div> -->
-
-<div class="col-md-12">
-	<div class="col-md-6">
+<div class="col-md-12" ng-controller="goodsCtrl">
+	<div class="col-md-6" ng-repeat="aImage in getDetail">
 	    <ul id="lightSlider">
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+	        <li data-thumb="{{aImage.thumb}}">
+	            <img src="{{aImage.image}}" />
 	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />
-	        </li>
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />-->
+	        <!--</li>-->
+	        <!--<li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">-->
+	            <!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />-->
+	        <!--</li>-->
 	    </ul>
 	</div>
 	<div class="col-md-6">
 
         <div class="caption">
             <div class="entry-meta">
-                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
+                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">{{getDetail.day}}</time></span>
                 <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
                 <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
                 <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;1293</span>
                 <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
             </div>
-            <h3>Docker Orchestration</h3>
-            <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-            <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-			
+            <h3>{{getDetail.title}}</h3>
+            <!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+            <!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+			<p>{{getDetail.shortDescription}}</p>
+
 			<div class="col-md-12">
 				<div class="col-md-4">
-					<h4>Price: <span><strong>$0.99</strong></span></h4>
+					<h4>Price: <span><strong>${{getDetail.price}}</strong></span></h4>
 					<ul>
-						<li><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Ho Chi Minh</span></li>
-						<li><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Binh Duong</span></li>
+						<li><span><i class="glyphicon glyphicon-map-marker"></i>{{getUser.address}}</span></li>
+						<li><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;{{getUser.address}}</span></li>
 					</ul>
 				</div>
 	            <div class="col-md-8">
@@ -98,11 +82,11 @@
 					<img src="assets/img/user1-128x128.jpg" class="avatar" alt="">
 				</div>
 				<div class="col-md-8">
-					<h2>Username</h2>
+					<h2>{{getUser.name}}</h2>
 					<h3>Contact</h3>
 					<ul>
-						<li>Mobile: (+84) 123 344 7789</li>
-						<li>Address: Ho Chi Minh City</li>
+						<li>{{getUser.phone}}</li>
+						<li>{{getUser.address}}</li>
 					</ul>
 				</div>
    			</div>
@@ -117,56 +101,55 @@
 </div>
 
 <div class="row col-md-12">
-	<h2>Docker Orchestration</h2>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
+	<h2>{{getDetail.title}}</h2>
+	<!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+	<!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+	<!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />-->
+	<!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+	<!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+	<!--<img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />-->
+	<!--<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>-->
+	<p>{{getDetail.longDescription}}</p>
 </div>
 
-<div class="row col-md-12">
+<div class="row col-md-12" ng-repeat="aComment in getComment">
     <div class="blog-comment">
 		<h4 class="text-success">Comments</h4>
         <hr/>
 		<ul class="comments">
 		<li class="clearfix">
-		  <img src="assets/img/user1-128x128.jpg" class="avatar" alt="">
+		  <img src="{{aComment.avatar}}" class="avatar" alt="">
 		  <div class="post-comments">
-		      <p class="meta">Jan 18, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+		      <p class="meta">{{aComment.day}} <a href="#">{{aComment.user}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
 		      <p>
-		          Hi Expert,
-		          Can you exchange for me?
+		          {{aComment.body}}
 		      </p>
 		  </div>
 		</li>
-		<li class="clearfix">
-		  <img src="assets/img/user3-128x128.jpg" class="avatar" alt="">
-		  <div class="post-comments">
-		      <p class="meta">Jan 19, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-		      <p>
-		          	Thank you for the feedback.
-		      </p>
-		  </div>
-		
-		  <ul class="comments">
-		      <li class="clearfix">
-		          <img src="assets/img/user7-128x128.jpg" class="avatar" alt="">
-		          <div class="post-comments">
-		              <p class="meta">Jan 20, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-		              <p>
-		                  Hello.
-		              </p>
-		          </div>
-		      </li>
-		  </ul>
-		</li>
+		<!--<li class="clearfix">-->
+		  <!--<img src="{{getComment.avatar}}" class="avatar" alt="">-->
+		  <!--<div class="post-comments">-->
+		      <!--<p class="meta">{{getComment.day}} <a href="#">{{getComment.user}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>-->
+		      <!--<p>-->
+				  <!--{{getComment.body}}-->
+		      <!--</p>-->
+		  <!--</div>-->
+
+		  <!--<ul class="comments">-->
+		      <!--<li class="clearfix">-->
+		          <!--<img src="{{getComment.avatar}}" class="avatar" alt="">-->
+		          <!--<div class="post-comments">-->
+		              <!--<p class="meta">{{getComment.day}} <a href="#">{{getComment.user}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>-->
+		              <!--<p>-->
+						  <!--{{getComment.body}}-->
+		              <!--</p>-->
+		          <!--</div>-->
+		      <!--</li>-->
+		  <!--</ul>-->
+		<!--</li>-->
 		</ul>
 	</div>
 </div>
-	
 
 <script type="text/javascript">
 	$('#lightSlider').lightSlider({

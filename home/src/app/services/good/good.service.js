@@ -1,27 +1,19 @@
-(function () {
+(function() {
     'use strict';
     angular
         .module('ExpertExchange')
         .service('goodService', goodService);
-    goodService.$inject = ['$http', 'DOMAIN_SERVICE'];
+    goodService.$inject = ['$http','DOMAIN_SERVICE'];
     /* @ngInject */
-    function goodService($http,DOMAIN_SERVICE) {
-        var services = {};
-        services.getGoodsInfo = getGoodsInfo;
-        services.getGoodsComment = getGoodsComment;
-        services.getGoodsUser = getGoodsUser;
-        return services;
-
-        function getGoodsInfo(id) {
-            return $http.get(DOMAIN_SERVICE + '/goods/'+id);
+    function goodService($http, DOMAIN_SERVICE) {
+        this.getData = function () {
+            // return $http.get(DOMAIN_SERVICE + '/goods');
+            return $http.get('/assets/db/goods/db.json');
         };
 
-        function getGoodsComment() {
-            return $http.get(DOMAIN_SERVICE + '/comments/');
-        }
+        this.getDataById = function (id) {
+            return $http.get(DOMAIN_SERVICE + '/goods/' + id);
+        };
 
-        function getGoodsUser(id) {
-            return $http.get(DOMAIN_SERVICE + '/users/'+id);
-        }
     }
 })();

@@ -15,7 +15,8 @@
         initController();
 
         function initController() {
-            getAllItems();
+            var key = $location.path('/search').search();
+            getAllItems(key);
 
             // initialize to page 1
             // 10 seconds delay
@@ -36,8 +37,8 @@
         }
 
         ////////////////
-        function getAllItems() {
-            searchService.getData().then(function (response) {
+        function getAllItems(key) {
+            searchService.getData(key).then(function (response) {
             vm.dummyItems = response.data;  
          }, function () {
              alert('Something wrong');

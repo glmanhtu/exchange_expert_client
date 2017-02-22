@@ -9,38 +9,39 @@
             <nav class="navbar">
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" ng-controller="searchbarCtrl">
-                    <form class="" >
+               
          
                         <div class="form-group col-md-8 col-sm-6 col-xs-6">
-                            <input id="searchInput" ng-model="searchString" class="form-control" type="text" placeholder="Search for...">
+                            <input id="searchInput" ng-model="searchString" search-bar="searchCall()" class="form-control" type="text" placeholder="Search for...">
                         </div>
 
                         <div class="form-group col-md-3 col-sm-4 col-xs-4">
                             <select class="form-control" id="search-location">
+                                <option>All</option>
                                 <option>Ho Chi Minh</option>
                                 <option>Ha Noi</option>
                                 <option>Dong Nai</option>
                                 <option>Ba Ria - Vung Tau</option>
                             </select>
                         </div>
-                    </form>
+            
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>
     </div>
 </div>
 
-
 <script type="text/javascript">
-$(document).ready(function(){
-    $('#searchInput').keypress(function(e) {
-        if(e.which == 13) {
-            var searchString = $('#searchInput').val();
-            window.location = '#/search?searchString=' + searchString;
-        }
-    });
+    $(document).ready(function(){
+        $('#searchInput').keypress(function(e) {
+            if(e.which == 13) {
+                var searchString = $('#searchInput').val();
+                window.location = '#/search?searchString=' + searchString;
+                location.reload();
+            }
+        });
 
-});
+    });
 
     
 </script>

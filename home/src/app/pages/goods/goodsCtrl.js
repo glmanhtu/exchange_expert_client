@@ -1,36 +1,47 @@
-(function() {
+(function () {
     'use strict';
     angular
-    .module('ExpertExchange.pages.goods')
-    .controller('goodsCtrl', goodsCtrl);
-    goodsCtrl.$inject = ['$scope','goodService'];
+        .module('ExpertExchange.pages.goods')
+        .controller('goodsCtrl', goodsCtrl);
+    goodsCtrl.$inject = ['$scope', 'goodService'];
     /* @ngInject */
     function goodsCtrl($scope, goodService) {
         var vm = this;
         vm.title = 'goodsCtrl';
-        $scope.allPosts={};
-        $scope.idPosts={};
+        $scope.getDetail={};
+        $scope.getUser={};
+        $scope.getComment={};
 
-        getAllData();
-        getDataId(1);
+        setController(1)
+        getComment()
         ////////////////
-        function getAllData() {
-            goodService.getData().then(function (response) {
-             $scope.allPosts = response.data;
-
-         }, function () {
-             alert('Something wrong');
-         });
+        function setController(id) {
+            getInfo(id);
+            getUser(id);
+        }
+        ////////////////
+        function getInfo(id) {
+            goodService.getGoodsInfo(id).then(function (response) {
+                $scope.getDetail = response.data;
+            }, function () {
+                alert('Can not get detail information');
+            });
         }
 
-        function getDataId(id) {
-            goodService.getDataById(id).then(function (response) {
-            $scope.idPosts = response.data;
-            console.log(response.data);
-            console.log($scope.idPosts);
-         }, function () {
-             alert('Something wrong');
-         });
+        function getUser(id) {
+            goodService.getGoodsUser(id).then(function (response) {
+                $scope.getUser = response.data;
+            }, function () {
+                alert('Can not get user information');
+            });
+        }
+
+        function getComment() {
+            goodService.getGoodsUser().then(function (response) {
+                $scope.getComment = response.data;
+            }, function () {
+                alert('Can not get comments');
+            });
         }
     }
 })();

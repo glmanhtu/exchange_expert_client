@@ -10,14 +10,15 @@
         vm.title = 'searchCtrl';
         vm.pager = {};
         vm.setPage = setPage;
-        vm.getAllItems = getAllItems;
+        vm.getSearchData = getSearchData;
+        vm.items = {}; 
 
         initController();
 
         function initController() {
             var key = $location.path('/search').search();
-            getAllItems(key);
 
+            getSearchData(key.searchString);
             // initialize to page 1
             // 10 seconds delay
             $timeout( function(){
@@ -34,14 +35,15 @@
             vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
             // get current page of items
             vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
+            console.log(vm.items);
         }
 
         ////////////////
-        function getAllItems(key) {
-            searchService.getData(key).then(function (response) {
+        function getSearchData(key) {
+            searchService.getGoods(key).then(function (response) {
             vm.dummyItems = response.data;  
          }, function () {
-             alert('Something wrong');
+            console.log('Something wrong');
          });
         }
     }

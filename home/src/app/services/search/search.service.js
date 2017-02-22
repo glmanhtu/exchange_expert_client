@@ -47,7 +47,7 @@
                 data: JSON.stringify({
                     pagination: {
                         currentPage: 0,
-                        itemsPerPage: 32
+                        itemsPerPage: 52
                     },
                     title: key,
                     order: {

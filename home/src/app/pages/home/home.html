@@ -15,9 +15,9 @@
                 <div class="col-md-9">
                     <div class="caption">
                         <div class="entry-meta">
-                            <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="">{{ item.timeCreated }}</time></span>
-                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.email }} </span></a></span>
-                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.slug }}</a></span>
+                            <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="post-time" itemprop="datePublished" datetime="">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.firstName }} {{ item.seller.lastName }} </span></a></span>
+                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.type }}</a></span>
                             <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
                             <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
                         </div>
@@ -61,5 +61,15 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        setTimeout(function(){ 
+
+        }, 2000);
+        
+    });
+</script>
 
 

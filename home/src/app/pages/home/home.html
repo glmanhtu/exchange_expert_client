@@ -2,40 +2,13 @@
 <div class="col-md-12" ng-controller="homeCtrl as vm">
     <div class="col-md-8">
 
-        <!-- <div ng-repeat="item in allPosts">
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="thumbnail">
-                        <a href="#/goods/{{ item.id }}" target="_blank">
-                            <img src="{{ item.images[0] }}" alt="item" style="width:100%">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="caption">
-                        <div class="entry-meta">
-                            <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="">{{ item.timeCreated }}</time></span>
-                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.email }} </span></a></span>
-                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.slug }}</a></span>
-                            <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
-                            <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
-                        </div>
-                        <h3>{{ item.title }}</h3>
-                        <p>{{ item.description }}</p>
-                    </div>
-                </div>
-            </div>
-
-        </div> -->
-
         <div ng-repeat="item in vm.items">
 
             <div class="row">
                 <div class="col-md-3">
                     <div class="thumbnail">
                         <a href="#/goods/{{ item.id }}" target="_blank">
-                            <img src="{{ item.images[0] }}" alt="item" style="width:100%">
+                            <img src="assets/img/default-placeholder.png" alt="item" style="width:100%">
                         </a>
                     </div>
                 </div>

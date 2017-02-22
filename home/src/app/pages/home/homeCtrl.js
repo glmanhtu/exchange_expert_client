@@ -30,9 +30,9 @@
                 vm.setPage(1);
             }, 1000 );
 
-            $timeout( function(){
-                searchService.getGoods('A');
-            }, 1000 );
+            // $timeout( function(){
+            //     searchService.getGoods('est');
+            // }, 1000 );
             
             
         }
@@ -49,11 +49,17 @@
 
         ////////////////
         function getAllItems() {
-            goodService.getData().then(function (response) {
-            vm.dummyItems = response.data;  
-         }, function () {
-             alert('Something wrong');
-         });
+            // goodService.getData().then(function (response) {
+            //     vm.dummyItems = response.data;  
+            // }, function () {
+            //     alert('Something wrong');
+            // });
+
+            searchService.getGoods('est').then(function (response) {
+                vm.dummyItems = response.data;
+            }, function () {
+                alert('Something wrong');
+            });
         }
 
         function getUser(email) {

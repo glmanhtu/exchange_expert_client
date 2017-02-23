@@ -8,10 +8,9 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('goods', {
-              url: '/goods/:id',
+              url: '/goods/:category_slug/:good_slug',
               templateUrl: 'app/pages/goods/goods.html',
               title: 'Goods',
-                controller:'goodsCtrl',
               sidebarMeta: {
                 icon: 'ion-android-home',
                 order: 0,

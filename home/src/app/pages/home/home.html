@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="thumbnail">
-                        <a href="#/goods/{{ item.id }}" target="_blank">
-                            <img src="assets/img/default-placeholder.png" alt="item" style="width:100%">
+                        <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                            <img src="{{ item.featuredImage }}" alt="item" style="width:100%">
                         </a>
                     </div>
                 </div>
@@ -21,7 +21,9 @@
                             <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
                             <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
                         </div>
-                        <h3>{{ item.title }}</h3>
+                        <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                            <h3>{{ item.title }}</h3>
+                        </a>
                         <p>{{ item.description }}</p>
                     </div>
                 </div>

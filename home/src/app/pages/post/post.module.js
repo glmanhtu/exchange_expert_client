@@ -6,7 +6,6 @@
 
     /** @ngInject */
     function routeConfig($stateProvider) {
-      console.log("aa");
         $stateProvider
             .state('post', {
               url: '/post',

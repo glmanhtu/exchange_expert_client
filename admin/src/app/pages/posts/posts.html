@@ -1,0 +1,90 @@
+<div class="horizontal-scroll">
+  <div class="form-group">
+    <label>Rows on page
+      <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+              ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
+      </select>
+    </label>
+
+    <label>Category
+      <select class="form-control selectpicker show-tick" name="" id="">
+        <option value="">Category</option>
+        <option value="">Book</option>
+        <option value="">Car</option>
+        <option value="">Computer</option>
+        <option value="">Electric</option>
+        <option value="">Fashion</option>
+      </select>
+    </label>
+
+    <label>Location
+      <select class="form-control selectpicker show-tick" name="" id="">
+        <option value="">Ha Noi</option>
+        <option value="">Hai Phong</option>
+        <option value="">Ho Chi Minh</option>
+        <option value="">Vung Tau</option>
+        <option value="">Binh Duong</option>
+        <option value="">Dong Nai</option>
+      </select>
+    </label>
+
+    <label>From
+      <select class="form-control selectpicker show-tick" name="" id="">
+        <option value="">01/01/2017</option>
+        <option value="">02/01/2017</option>
+        <option value="">03/01/2017</option>
+      </select>
+    </label>
+
+    <label>To
+      <select class="form-control selectpicker show-tick" name="" id="">
+        <option value="">01/01/2017</option>
+        <option value="">02/01/2017</option>
+        <option value="">03/01/2017</option>
+      </select>
+    </label>
+
+    <label>
+      <input class="form-control" id="" type="text" placeholder="Search for...">
+    </label>
+
+    <label>
+      <button class="btn btn-default">Search</button>
+    </label>
+
+  </div>
+  <table class="table" st-table="smartTableData">
+    <thead>
+    <tr class="sortable ">
+      <th class="table-id" st-sort="id" st-sort-default="true">#</th>
+      <th class="table-id" st-sort="id" st-sort-default="true">Id</th>
+      <th st-sort="title">Title</th>
+      <th st-sort="category">Category</th>
+      <th st-sort="location">Location</th>
+      <th st-sort="datePost">Post date</th>
+      <th st-sort="status">Status</th>
+    </tr>
+    
+    </thead>
+    <tbody>
+
+    <tr ng-repeat="item in postsData">
+      <td class="table-id">1200{{item.id}}</td>
+      <td class="table-id">{{item.id}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.category}}</td>
+      <td>{{item.location}}</td>
+      <td>{{item.datePost}}</td>
+      <td>{{item.status}}</td>
+    </tr>
+    
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="6" class="text-center">
+        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

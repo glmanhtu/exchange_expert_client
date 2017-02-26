@@ -6,17 +6,12 @@
 
     /** @ngInject */
     function routeConfig($stateProvider) {
-      console.log("aa");
-        $stateProvider
-            .state('home', {
-              url: '/home',
-              templateUrl: 'app/pages/home/home.html',
-              title: 'Homepage',
-              sidebarMeta: {
-                icon: 'ion-android-home',
-                order: 0,
-              },
-            });
-      }
+      $stateProvider
+          .state('home', {
+            url: '/home',
+            templateUrl: 'app/pages/home/home.html',
+            
+          });
+    }
 
 })();

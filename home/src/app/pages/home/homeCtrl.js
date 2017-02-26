@@ -33,7 +33,7 @@
             // $timeout( function(){
             //     searchService.getGoods('est');
             // }, 1000 );
-            
+
             
         }
 
@@ -42,6 +42,7 @@
                 return;
             }
             // get pager object from service
+
             vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
             // get current page of items
             vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);

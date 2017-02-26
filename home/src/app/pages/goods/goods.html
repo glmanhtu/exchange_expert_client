@@ -1,111 +1,48 @@
 <div ng-controller="goodsCtrl">
-	<div ng-repeat="item in allPosts">
-		<div class="col-md-8 col-md-offset-2">
-			<h3><span>{{ item.title }}</span></h3>
-			<p>{{ item.body }}</p>
-		</div>
-	</div>	
-	
-	<hr>
-
-		<div class="col-md-8 col-md-offset-2">
-			<h3><span style="color: tomato;"><strong>{{ idPosts.title }}</strong></span></h3>
-			<p>{{ idPosts.body }}</p>
-		</div>
-
-</div>
 
 <div class="col-md-12">
 	<div class="col-md-6">
-	    <ul id="lightSlider">
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
-	        </li>
-	        <li data-thumb="http://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">
-	            <img src="http://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />
-	        </li>
-	    </ul>
+		<div class="thumbnail">
+			<img src="{{ item.featuredImage }}" class="img-responsive" alt="" />
+		</div>
+
+		<ul class="col-md-3" style="padding: 2px 0 0 0;" ng-repeat="(key, value) in item.images | limitTo:4">
+		  <li class="thumbnail">
+		  	<img src="{{ value.url }}" class="img-responsive" />
+  		  </li>
+		</ul>
+		
+
+
 	</div>
 	<div class="col-md-6">
 
         <div class="caption">
             <div class="entry-meta">
-                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time" itemprop="datePublished" datetime="2017-01-26T03:19:09+00:00">January 26, 2017</time></span>
-                <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">expert</span></a></span>
-                <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">Computers &amp; Internet</a></span>
-                <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;1293</span>
-                <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+
+                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">{{ item.seller.firstName || "Anonymous" }} {{ item.seller.lastName }} </span></a></span>
+                <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.name }}</a></span>
+                <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
+                <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">&nbsp;</a></span>
             </div>
-            <h3>Docker Orchestration</h3>
-            <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-            <p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
 			
 			<div class="col-md-12">
-				<div class="col-md-4">
-					<h4>Price: <span><strong>$0.99</strong></span></h4>
-					<ul>
-						<li><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Ho Chi Minh</span></li>
-						<li><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Binh Duong</span></li>
-					</ul>
-				</div>
-	            <div class="col-md-8">
-	            	<div class="col-md-12 col-md-offset-4">
+				<dl class="dl-horizontal"> 
+					<dt>Price: </dt> 
+						<dd><span><i class="glyphicon glyphicon-euro"></i><strong>{{ item.price }}</strong></span></dd> 
+					<dt>Location: </dt> 
+						<dd><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;{{ item.location.lat }} - {{ item.location.lon }}</span></dd> 
+				</dl>
+
+	            	<div class="col-md-4 col-md-offset-2">
 	            		<button type="button" class="btn btn-primary"><span><strong>Exchange</strong></span></button>
-	            		<br><br>
 	            	</div>
-	            	<div class="col-md-4 col-md-offset-2">
-	            		<button type="button" class="btn btn-primary"><span><strong>Favorites</strong></span></button>
-	            	</div>
-	            	<div class="col-md-4 col-md-offset-2">
-	            		<button type="button" class="btn btn-primary"><span><strong>Report</strong></span></button>
-	            	</div>
-	            	
-	            </div>
+
 			</div>
 
-   			<div class="col-md-12">
-   				<div class="col-md-4">
-					<img src="assets/img/user1-128x128.jpg" class="avatar" alt="">
-				</div>
-				<div class="col-md-8">
-					<h2>Username</h2>
-					<h3>Contact</h3>
-					<ul>
-						<li>Mobile: (+84) 123 344 7789</li>
-						<li>Address: Ho Chi Minh City</li>
-					</ul>
-				</div>
-   			</div>
 			
         </div>
         
@@ -117,14 +54,19 @@
 </div>
 
 <div class="row col-md-12">
-	<h2>Docker Orchestration</h2>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<img src="http://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
-	<img src="http://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
-	<p>Docker orchestration is what you need when transitioning from deploying containers individually on a single host to deploying complex multi-container apps on many machines.</p>
+
+	<h3>{{ item.title }}</h3>
+    <p>{{ item.description }}</p>
+    <div class="row col-md-12">
+		<img class="col-md-8 col-md-offset-2 img-responsive" src="{{ item.featuredImage }}" />
+	</div>
+	<p>{{ item.description }}</p>
+	<p>{{ item.description }}</p>
+	<div class="row col-md-12">
+		<img class="col-md-8 col-md-offset-2 img-responsive" src="{{ item.images[2].url }}" />
+	</div>
+	<p>{{ item.description }}</p>
+
 </div>
 
 <div class="row col-md-12">
@@ -133,9 +75,11 @@
         <hr/>
 		<ul class="comments">
 		<li class="clearfix">
-		  <img src="assets/img/user1-128x128.jpg" class="avatar" alt="">
+
+		  <img src="{{ item.seller.avatar || 'assets/img/user1-128x128.jpg' }}" class="avatar" alt="">
 		  <div class="post-comments">
-		      <p class="meta">Jan 18, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+		      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">{{ item.seller.firstName || "Seller"}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		      <p>
 		          Hi Expert,
 		          Can you exchange for me?
@@ -145,7 +89,9 @@
 		<li class="clearfix">
 		  <img src="assets/img/user3-128x128.jpg" class="avatar" alt="">
 		  <div class="post-comments">
-		      <p class="meta">Jan 19, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
+		      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		      <p>
 		          	Thank you for the feedback.
 		      </p>
@@ -155,7 +101,9 @@
 		      <li class="clearfix">
 		          <img src="assets/img/user7-128x128.jpg" class="avatar" alt="">
 		          <div class="post-comments">
-		              <p class="meta">Jan 20, 2017 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
+		              <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		              <p>
 		                  Hello.
 		              </p>
@@ -166,14 +114,20 @@
 		</ul>
 	</div>
 </div>
-	
+
+</div>	
 
 <script type="text/javascript">
-	$('#lightSlider').lightSlider({
-	    gallery: true,
-	    item: 1,
-	    loop:true,
-	    slideMargin: 0,
-	    thumbItem: 9
-	});
+	setTimeout(function(){
+		$('#lightSlider').lightSlider({
+		    gallery: true,
+		    item: 1,
+		    loop:true,
+		    slideMargin: 0,
+		    thumbItem: 9
+		});
+	}, 1000);
+		
+
+
 </script>

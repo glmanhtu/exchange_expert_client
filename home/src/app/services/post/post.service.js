@@ -1,37 +1,59 @@
 (function() {
     'use strict';
     angular
-        .module('ExpertExchange.pages.post')
+        .module('ExpertExchange')
         .service('createGoodService', createGoodService);
-    createGoodService.$inject = ['$http','$q'];
-    /* @ngInject */
-    function createGoodService($http,$q) {
+        createGoodService.$inject = ['$http','DOMAIN_URL'];
+        /* @ngInject */
+        function createGoodService($http, DOMAIN_URL) {
 
-        var urlBase = 'http://192.168.33.10:8080/api/goods/create';
-        var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-            }
+            this.createNewGood = function (dataOfGood) {
+                console.log(dataOfGood);
+                var url = DOMAIN_URL + '/api/goods';
+                return $http({
+                    url: url,
+                    method: "POST",
+                    data: JSON.stringify(dataOfGood),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(
+                function (response) {
+                    console.log(response);
+                }, function (error) {
+                    console.log('Something wrong ' + error);
+                });
+            };
 
-        this.createGood = function (dataOfGood) {
-            console.log(dataOfGood);
-            var request = $http({
-                method: "post",
-                url: urlBase,
-                data: dataOfGood
-            });
+            this.uploadImage = function (file) {
+                var url = DOMAIN_URL + '/api/resource/upload';
+                var fd = new FormData();
+                fd.append('files', file);
 
-            return (request.then(function (response){
-                return( response.data );
-            },function ( error ) {
-                return( $q.reject( error.data.message ) );
-            }));
+                return $http.post(url, fd, {
+                    // transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).then(
+                function (response) {
+                    return response.data[0];
+                }, function (error) {
+                    console.log('Something wrong ' + error);
+                });
 
-        };
-
-        this.getGoods = function () {
-            return $http.get(urlBase);
-        };
+            // var url = DOMAIN_URL + '/api/resource/upload';
+            //     return $http({
+            //         url: url,
+            //         method: "POST",
+            //         data: formdata,
+            //         headers: {
+            //             'Content-Type': undefined
+            //         }
+            //     }).then(
+            //     function (response) {
+            //         console.log(response.data);
+            //     }, function (error) {
+            //         console.log('Something wrong ' + error);
+            //     });
+        }
     }
 })();

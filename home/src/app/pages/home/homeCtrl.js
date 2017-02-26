@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.home')
     .controller('homeCtrl', homeCtrl);
-    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService','PagerService'];
+    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService'];
     /* @ngInject */
-    function homeCtrl($http, $timeout, $scope, goodService, PagerService) {
+    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService) {
         var vm = this;
         vm.title = 'homeCtrl';
         vm.dummyItems = _.range(1, 15); // dummy array of items to be paged
@@ -22,16 +22,18 @@
         initController();
 
         function initController() {
-            getAllData();
-            // getDataId(1);
+            
+
             getAllItems();
-            // vm.dummyItems = $http.get('/assets/db/goods/db.json');
-            console.log(vm.dummyItems);
-            // initialize to page 1
-            //10 seconds delay
+            // initialize to page 1, 10 seconds delay
             $timeout( function(){
                 vm.setPage(1);
             }, 1000 );
+
+            // $timeout( function(){
+            //     searchService.getGoods('est');
+            // }, 1000 );
+            
             
         }
 
@@ -40,36 +42,28 @@
                 return;
             }
             // get pager object from service
-            // console.log(vm.dummyItems);
             vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
-
             // get current page of items
-            console.log(vm.dummyItems);
             vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
-            console.log(vm.items);
-        }
-
-        ////////////////
-        function getAllData() {
-            goodService.getData().then(function (response) {
-            $scope.allPosts = response.data;
-         }, function () {
-             alert('Something wrong');
-         });
-        }
-
-        function getDataId(id) {
-            goodService.getDataById(id).then(function (response) {
-            $scope.idPosts = response.data;
-         }, function () {
-             alert('Something wrong');
-         });
         }
 
         ////////////////
         function getAllItems() {
-            goodService.getData().then(function (response) {
-            console.log(response);
+            // goodService.getData().then(function (response) {
+            //     vm.dummyItems = response.data;  
+            // }, function () {
+            //     alert('Something wrong');
+            // });
+
+            searchService.getGoods('est').then(function (response) {
+                vm.dummyItems = response.data;
+            }, function () {
+                alert('Something wrong');
+            });
+        }
+
+        function getUser(email) {
+            goodService.getUser(email).then(function (response) {
             vm.dummyItems = response.data;  
          }, function () {
              alert('Something wrong');

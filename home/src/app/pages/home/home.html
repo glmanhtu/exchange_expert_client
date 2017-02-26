@@ -8,7 +8,7 @@
                 <div class="col-md-3">
                     <div class="thumbnail">
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                            <img src="{{ item.featuredImage }}" alt="item" style="width:100%">
+                            <img ng-src="{{ item.featuredImage || 'assets/img/default-placeholder.png' }}" alt="item" style="width:100%">
                         </a>
                     </div>
                 </div>

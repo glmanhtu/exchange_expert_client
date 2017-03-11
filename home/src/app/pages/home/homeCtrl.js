@@ -9,7 +9,6 @@
         var vm = this;
         vm.title = 'homeCtrl';
         vm.dummyItems = _.range(1, 15); // dummy array of items to be paged
-        // vm.dummyItems = {};
 
         vm.pager = {};
         vm.setPage = setPage;
@@ -22,18 +21,11 @@
         initController();
 
         function initController() {
-            
-
             getAllItems();
             // initialize to page 1, 10 seconds delay
             $timeout( function(){
                 vm.setPage(1);
             }, 1000 );
-
-            // $timeout( function(){
-            //     searchService.getGoods('est');
-            // }, 1000 );
-            
             
         }
 
@@ -47,15 +39,8 @@
             vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
         }
 
-        ////////////////
         function getAllItems() {
-            // goodService.getData().then(function (response) {
-            //     vm.dummyItems = response.data;  
-            // }, function () {
-            //     alert('Something wrong');
-            // });
-
-            searchService.getGoods('est').then(function (response) {
+            searchService.getGoods().then(function (response) {
                 vm.dummyItems = response.data;
             }, function () {
                 alert('Something wrong');

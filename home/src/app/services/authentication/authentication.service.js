@@ -2,67 +2,41 @@
     'use strict';
     angular
         .module('ExpertExchange')
-        .factory('AuthenticationService', AuthenticationService);
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService', 'Base64'];
+        .factory('authenticationService', authenticationService);
+    authenticationService.$inject = ['$http', 'DOMAIN_URL'];
     /* @ngInject */
-    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService, Base64) {
-        var service = {};
-
-        service.Login = Login;
-        service.SetCredentials = SetCredentials;
-        service.ClearCredentials = ClearCredentials;
-
-        return service;
-        //
-        function Login(username, password, callback) {
-
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            $timeout(function () {
-                var response;
-                UserService.GetByUsername(username)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response = { success: true };
-                        } else {
-                            response = { success: false, message: 'Username or password is incorrect' };
-                        }
-                        callback(response);
-                    });
-            }, 1000);
-
-            /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
-
+    function authenticationService($http, DOMAIN_URL) {
+        // var urlAPI = DOMAIN_URL + '/api/oauth/token';
+        var loginService = {
+            login : login
+        };
+        return loginService;
+        ////////////////
+        function login (userlogin) {
+            return $http({
+                url: DOMAIN_URL + '/api/oauth/token',
+                method: "POST",
+                data: $.param({
+                    grant_type: 'password',
+                    username: userlogin.username, 
+                    password: userlogin.password,
+                    client_id: 'default' 
+                }),
+                headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    'Authorization': 'Basic ZGVmYXVsdDo='
+                },
+            }).then(
+                function (response) {
+                    console.log('response');
+                    console.log(response);
+                    return response ;
+                }, function (error) {
+                    console.log('Something wrong in service login');
+                    console.log(error);
+                });
         }
 
-        function SetCredentials(username, password) {
-            var authdata = Base64.encode(username + ':' + password);
-
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    authdata: authdata
-                }
-            };
-
-            // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
-
-            // store user details in globals cookie that keeps user logged in for 1 week (or until they logout)
-            var cookieExp = new Date();
-            cookieExp.setDate(cookieExp.getDate() + 7);
-            $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
-        }
-
-        function ClearCredentials() {
-            $rootScope.globals = {};
-            $cookies.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic';
-        }
     }
 })();

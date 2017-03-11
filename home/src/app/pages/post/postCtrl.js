@@ -6,10 +6,10 @@
     createGoodCtrl.$inject = ['$scope', '$location', 'createGoodService'];
     /* @ngInject */
     function createGoodCtrl($scope, $location, createGoodService) {
-        $scope.categories = ["Book", "Computer", "Clothing"];
+        $scope.categories = ["Book", "Movie", "Toy", "Computer", "Clothing", "Handmade", "Sport"];
         $scope.aGood = {
             category: {description:'Category description'},
-            postBy: {id:'sophiabuchanan@mail.com'},
+            postBy: {id:'mathews@yahoo.com'},
             location:{lat:133,lon:233},
             featuredImage:'/avatar/abc.jpg'
             // images:[{
@@ -46,13 +46,16 @@
                     // call service to create a new post after upload the Image
                     createGoodService.createNewGood($scope.aGood).then(
                         function (response) {
-                            console.log('response ' + response);
+                            console.log('response create new good');
+                            console.log(response);
                         }, function (error) {
-                            console.log('Something wrong ' + error);
+                            console.log('Something wrong in controller create new good');
+                            console.log(error);
                         });
 
                 }, function (error) {
-                    console.log('Controller Something wrong ' + error);
+                    console.log('Controller Something wrong ');
+                    console.log(error);
                 });
 
 

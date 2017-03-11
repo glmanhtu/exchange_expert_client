@@ -1,33 +1,39 @@
-(function () {
+(function() {
     'use strict';
-
     angular
         .module('ExpertExchange.pages.login')
-        .controller('loginCtrl', loginCtrl);
+        .controller('loginController', loginController);
+    loginController.$inject = ['$scope', 'authenticationService'];
+    /* @ngInject */
+    function loginController($scope, authenticationService) {
 
-    loginCtrl.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-    function loginCtrl($location, AuthenticationService, FlashService) {
-        var vm = this;
+        //Scope Declaration
+        $scope.userName = "";
+     
+        $scope.userLoginEmail = "";
+        $scope.userLoginPassword = "";
+     
+        $scope.accessToken = "";
+        $scope.refreshToken = "";
 
-        vm.login = login;
+        //Function to Login. This will generate Token 
+        $scope.login = function () {
+            //This is the information to pass for token based authentication
+            var userLogin = {
+                username: $scope.userLoginEmail,
+                password: $scope.userLoginPassword
+            };
 
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
-
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
+            console.log(userLogin);
+     
+            authenticationService.login(userLogin).then(function (response) {
+                console.log('response ');
+                console.log(response);
+            }, function (error) {
+                console.log('Something wrong in controller ');
+                console.log(error);
             });
+     
         };
     }
-
 })();

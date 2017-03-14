@@ -3,12 +3,12 @@
 <div class="col-md-12">
 	<div class="col-md-6">
 		<div class="thumbnail">
-			<img src="{{ item.featuredImage }}" class="img-responsive" alt="" />
+			<img ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" class="img-responsive" alt="" />
 		</div>
 
 		<ul class="col-md-3" style="padding: 2px 0 0 0;" ng-repeat="(key, value) in item.images | limitTo:4">
 		  <li class="thumbnail">
-		  	<img src="{{ value.url }}" class="img-responsive" />
+		  	<img ng-src="http://125.253.123.26:8080/api{{ value.url }}" class="img-responsive" />
   		  </li>
 		</ul>
 		
@@ -58,12 +58,12 @@
 	<h3>{{ item.title }}</h3>
     <p>{{ item.description }}</p>
     <div class="row col-md-12">
-		<img class="col-md-8 col-md-offset-2 img-responsive" src="{{ item.featuredImage }}" />
+		<img class="col-md-8 col-md-offset-2 img-responsive" ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" />
 	</div>
 	<p>{{ item.description }}</p>
 	<p>{{ item.description }}</p>
 	<div class="row col-md-12">
-		<img class="col-md-8 col-md-offset-2 img-responsive" src="{{ item.images[2].url }}" />
+		<img class="col-md-8 col-md-offset-2 img-responsive" ng-src="http://125.253.123.26:8080/api{{ item.images[1].url }}" />
 	</div>
 	<p>{{ item.description }}</p>
 

@@ -3,12 +3,13 @@
     angular
         .module('ExpertExchange.pages.login')
         .controller('loginController', loginController);
-    loginController.$inject = ['$scope', 'authenticationService'];
+    loginController.$inject = ['$rootScope', '$scope', '$location', 'loginService'];
     /* @ngInject */
-    function loginController($scope, authenticationService) {
+    function loginController($rootScope, $scope, $location, loginService) {
 
         //Scope Declaration
-        $scope.userName = "";
+        $scope.responseData = "";
+        $rootScope.userName = "";
      
         $scope.userLoginEmail = "";
         $scope.userLoginPassword = "";
@@ -23,17 +24,22 @@
                 username: $scope.userLoginEmail,
                 password: $scope.userLoginPassword
             };
-
-            console.log(userLogin);
      
-            authenticationService.login(userLogin).then(function (response) {
-                console.log('response ');
-                console.log(response);
+            loginService.login(userLogin).then(function (response) {
+                $rootScope.userName = userLogin.username;
+                //Store the token information in the SessionStorage
+                //So that it can be accessed for other views
+                sessionStorage.setItem('userName', userLogin.username);
+                sessionStorage.setItem('accessToken', response.data.access_token);
+                sessionStorage.setItem('refreshToken', response.data.refresh_token);
+                // window.location.href = '/Employee/Index';
+                // redirect to home page
+                // console.log(sessionStorage.getItem('userName'));
+                $location.path('/home');
             }, function (error) {
                 console.log('Something wrong in controller ');
                 console.log(error);
             });
-     
         };
     }
 })();

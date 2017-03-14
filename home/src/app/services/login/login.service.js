@@ -2,17 +2,11 @@
     'use strict';
     angular
         .module('ExpertExchange')
-        .factory('authenticationService', authenticationService);
-    authenticationService.$inject = ['$http', 'DOMAIN_URL'];
+        .service('loginService', loginService);
+    loginService.$inject = ['$http', 'DOMAIN_URL'];
     /* @ngInject */
-    function authenticationService($http, DOMAIN_URL) {
-        // var urlAPI = DOMAIN_URL + '/api/oauth/token';
-        var loginService = {
-            login : login
-        };
-        return loginService;
-        ////////////////
-        function login (userlogin) {
+    function loginService($http, DOMAIN_URL) {
+        this.login = function (userlogin) {
             return $http({
                 url: DOMAIN_URL + '/api/oauth/token',
                 method: "POST",
@@ -29,14 +23,11 @@
                 },
             }).then(
                 function (response) {
-                    console.log('response');
-                    console.log(response);
                     return response ;
                 }, function (error) {
                     console.log('Something wrong in service login');
                     console.log(error);
                 });
         }
-
     }
 })();

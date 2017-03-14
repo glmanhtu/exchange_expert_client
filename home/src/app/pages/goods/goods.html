@@ -13,11 +13,13 @@
 		</ul>
 		
 
+
 	</div>
 	<div class="col-md-6">
 
         <div class="caption">
             <div class="entry-meta">
+
                 <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
                 <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name">{{ item.seller.firstName || "Anonymous" }} {{ item.seller.lastName }} </span></a></span>
                 <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;<a href="#" rel="category tag">{{ item.category.name }}</a></span>
@@ -40,6 +42,7 @@
 	            	</div>
 
 			</div>
+
 			
         </div>
         
@@ -51,6 +54,7 @@
 </div>
 
 <div class="row col-md-12">
+
 	<h3>{{ item.title }}</h3>
     <p>{{ item.description }}</p>
     <div class="row col-md-12">
@@ -62,6 +66,7 @@
 		<img class="col-md-8 col-md-offset-2 img-responsive" src="{{ item.images[2].url }}" />
 	</div>
 	<p>{{ item.description }}</p>
+
 </div>
 
 <div class="row col-md-12">
@@ -70,9 +75,11 @@
         <hr/>
 		<ul class="comments">
 		<li class="clearfix">
+
 		  <img src="{{ item.seller.avatar || 'assets/img/user1-128x128.jpg' }}" class="avatar" alt="">
 		  <div class="post-comments">
 		      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">{{ item.seller.firstName || "Seller"}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		      <p>
 		          Hi Expert,
 		          Can you exchange for me?
@@ -82,7 +89,9 @@
 		<li class="clearfix">
 		  <img src="assets/img/user3-128x128.jpg" class="avatar" alt="">
 		  <div class="post-comments">
+
 		      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		      <p>
 		          	Thank you for the feedback.
 		      </p>
@@ -92,7 +101,9 @@
 		      <li class="clearfix">
 		          <img src="assets/img/user7-128x128.jpg" class="avatar" alt="">
 		          <div class="post-comments">
+
 		              <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+
 		              <p>
 		                  Hello.
 		              </p>
@@ -103,6 +114,7 @@
 		</ul>
 	</div>
 </div>
+
 </div>	
 
 <script type="text/javascript">
@@ -116,5 +128,6 @@
 		});
 	}, 1000);
 		
+
 
 </script>

@@ -2,9 +2,9 @@
 	
 	<searchbar></searchbar>
 
-	<div class="dropdown topbar-accountInfo">
+	<div ng-controller="navigationCtrl" class="dropdown topbar-accountInfo">
 	  <button class="btn btn-primary dropdown-toggle topbar-settingsMenuButton" style="" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-	    User
+	    {{ userName }}
 	    <i class="glyphicon glyphicon-user"></i>
 	    <span class="caret"></span>
 	  </button>
@@ -13,7 +13,7 @@
 	    <li><a href="#/post">Post</a></li>
 	    <li><a href="#/profile">Profile</a></li>
 	    <li role="separator" class="divider"></li>
-	    <li><a href="#/login">Logout!</a></li>
+	    <li><a href="" ng-click="logout()">Logout!</a></li>
 	  </ul>
 	</div>
 	

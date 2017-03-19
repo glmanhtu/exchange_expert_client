@@ -43,7 +43,7 @@
             searchService.getGoods().then(function (response) {
                 vm.dummyItems = response.data;
             }, function () {
-                alert('Something wrong');
+                // alert('Something wrong');
             });
         }
 
@@ -51,7 +51,7 @@
             goodService.getUser(email).then(function (response) {
             vm.dummyItems = response.data;  
          }, function () {
-             alert('Something wrong');
+            // alert('Something wrong');
          });
         }
 

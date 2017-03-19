@@ -15,7 +15,7 @@
         ////////////////
 
         function getData(key) {
-            return $http.get('/assets/db/search/db.json');
+            return $http.get('/assets/db/goods/db.json');
         };
 
         function getUser(email) {

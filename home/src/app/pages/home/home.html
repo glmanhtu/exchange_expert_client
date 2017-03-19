@@ -22,9 +22,9 @@
                             <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
                         </div>
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                            <h3>{{ item.title }}</h3>
+                            <h3>{{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}</h3>
                         </a>
-                        <p>{{ item.description }}</p>
+                        <p>{{ item.description | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
                     </div>
                 </div>
             </div>

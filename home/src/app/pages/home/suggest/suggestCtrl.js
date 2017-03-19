@@ -5,8 +5,15 @@
         .controller('suggestCtrl', suggestCtrl);
 
     /** @ngInject */
-    function suggestCtrl($scope, $location) {
+    function suggestCtrl($scope, $location, searchService) {
+    	$scope.items = {};
 
+    	searchService.getData(null).then(function (response) {
+    		$scope.items = response.data;
+    		console.log(response);
+    	}, function (response){
+    		console.log(response);
+    	});
     }
 
 })();

@@ -4,6 +4,7 @@
         .module('ExpertExchange', [
             'ui.router',           
             'ExpertExchange.pages',                 
-            'ExpertExchange.theme',            
+            'ExpertExchange.theme',
+            'angular-input-stars'           
         ]);
 })();

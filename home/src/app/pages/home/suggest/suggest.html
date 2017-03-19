@@ -1,21 +1,23 @@
 <h3>Suggest Items</h3>
     	<ul class="list-group" ng-repeat="(key, item) in items | limitTo:5 ">
     		<li class="list-group-item" style="min-height: 100px;" >
-    			<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
 	    			<div class="col-md-12">
 	    				<!-- <img ng-src="{{ item.featureImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}" class="" style="" width="32"> -->
 	    				<div class="col-md-4">
 	    					<img ng-src="{{ item.images[0] || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}" class="" style="max-height: 80px;" width="64">
 	    				</div>
 	    				<div class="col-md-8">
+	    					<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
 	    					{{ item.title | limitTo: 20 }}{{item.title.length > 20 ? '...' : ''}}
+	    					</a>
 	    					<i class="badge">New</i><br>
+	    					<input-stars max="5" ng-model="item.seller.rating" class="list-inline"></input-stars>
 	                        <i class="fa fa-calendar"></i>&nbsp;{{ item.postDate | date:'yyyy-MM-dd'}} 
 	                        <i class="fa fa-user"></i>&nbsp;<a href="#" class="" rel="author">{{ item.seller.firstName || 'Anonymous' | limitTo: 5 }}{{item.title.length > 5 ? '...' : '' }} {{ item.seller.lastName }}</a> 
 	                        <i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.category.slug | limitTo: 8 }}{{item.title.length > 8 ? '...' : '' }}</a>
-
+		
 	    				</div>
     				</div>
-    			</a>
+
     		</li>
     	</ul>

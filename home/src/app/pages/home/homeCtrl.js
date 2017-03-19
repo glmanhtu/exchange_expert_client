@@ -42,6 +42,7 @@
         function getAllItems() {
             searchService.getGoods().then(function (response) {
                 vm.dummyItems = response.data;
+                console.log(response.data);
             }, function () {
                 // alert('Something wrong');
             });

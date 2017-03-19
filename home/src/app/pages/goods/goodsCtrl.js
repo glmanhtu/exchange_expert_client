@@ -16,7 +16,7 @@
         var category_slug = $stateParams.category_slug;
         var url = "/"+category_slug+"/"+good_slug;
 
-        vm.item = {}; 
+        vm.items = {}; 
 
         initController(url);
 
@@ -31,7 +31,7 @@
             goodService.getGood(url).then(function (response) {
                 $scope.item = response.data;
                 $scope.images = response.data.images;
-                console.log($scope.images);
+                console.log($scope.item);
              }, function () {
                 console.log('Something wrong when get good');
              });
@@ -39,8 +39,11 @@
 
         $scope.rating =  function() {
             console.log("rating");
-            console.log($scope.item.rating);
-
+            console.log($scope.item.seller.avgRating);
+            $scope.ratingClick = 1;
+            $timeout(function() {
+                $scope.ratingClick = 0;
+            },2000)
 
         }
 

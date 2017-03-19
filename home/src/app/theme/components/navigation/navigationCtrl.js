@@ -7,7 +7,7 @@
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location) {
         console.log(sessionStorage.getItem('userName'));
-        $rootScope.userName = sessionStorage.getItem('userName');
+        $scope.userName = sessionStorage.getItem('userName');
 
         $scope.logout = function () {
             sessionStorage.removeItem('userName');

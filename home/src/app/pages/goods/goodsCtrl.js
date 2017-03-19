@@ -36,5 +36,21 @@
                 console.log('Something wrong when get good');
              });
         }
+
+        $scope.rating =  function() {
+            console.log("rating");
+            console.log($scope.item.rating);
+
+
+        }
+
+        $scope.exchange =  function() {
+            alert("ExpertExchange");
+        }
+
+        $scope.sellerProfile = function() {
+            var email = $scope.item.seller.id;
+            console.log(email);
+        }
     }
 })();

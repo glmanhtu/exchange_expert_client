@@ -5,7 +5,8 @@
         	'ngCookies',
             'ui.router',           
             'ExpertExchange.pages',                 
-            'ExpertExchange.theme',            
+            'ExpertExchange.theme',
+            'angular-input-stars'          
         ])
         .run(['$cookieStore', '$http', function($cookieStore, $http) {
         	if($cookieStore.get('global') != null){

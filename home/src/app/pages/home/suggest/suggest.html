@@ -7,14 +7,13 @@
 	    					<img ng-src="{{ item.images[0] || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}" class="" style="max-height: 80px;" width="64">
 	    				</div>
 	    				<div class="col-md-8">
-	    					<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
-	    					{{ item.title | limitTo: 20 }}{{item.title.length > 20 ? '...' : ''}}
+	    					<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}" title="{{ item.title }}">
+	    					{{ item.title | limitTo: 12 }}{{item.title.length > 12 ? '...' : ''}}
 	    					</a>
 	    					<i class="badge">New</i><br>
 	    					<input-stars max="5" ng-model="item.seller.rating" class="list-inline"></input-stars>
-	                        <i class="fa fa-calendar"></i>&nbsp;{{ item.postDate | date:'yyyy-MM-dd'}} 
-	                        <i class="fa fa-user"></i>&nbsp;<a href="#" class="" rel="author">{{ item.seller.firstName || 'Anonymous' | limitTo: 5 }}{{item.title.length > 5 ? '...' : '' }} {{ item.seller.lastName }}</a> 
-	                        <i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.category.slug | limitTo: 8 }}{{item.title.length > 8 ? '...' : '' }}</a>
+	                        <i class="fa fa-calendar"></i>&nbsp;{{ item.postDate | date:'yyyy-MM-dd'}} <br>	
+	                        <i class="fa fa-user"></i>&nbsp;<a href="#" class="" rel="author">{{ item.seller.firstName || item.seller.email || 'Anonymous' }} {{ item.seller.lastName }}</a>
 		
 	    				</div>
     				</div>

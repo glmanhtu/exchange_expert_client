@@ -3,26 +3,19 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('navigationCtrl', navigationCtrl);
-
+        navigationCtrl.$inject = ['$rootScope', '$scope', '$location'];
     /** @ngInject */
-    function navigationCtrl($scope, $location) {
+    function navigationCtrl($rootScope, $scope, $location) {
+        console.log(sessionStorage.getItem('userName'));
+        $scope.userName = sessionStorage.getItem('userName');
 
-        $scope.showCreateTypes = false;
-
-        $scope.openedFolderStack = [
-            {
-                name: 'My Drive',
-                id: 'abcd'
-            },
-            {
-                name: 'Documents',
-                id: 'asdss'
-            }
-        ];
-
-        $scope.gotoFolder = function(folder) {
-            //Todo: implement action when user click to go back to folder
-        }
+        $scope.logout = function () {
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');
+            // console.log(sessionStorage.getItem('userName'));
+            $location.path('/login');
+        };
 
         $scope.copy = function() {
 

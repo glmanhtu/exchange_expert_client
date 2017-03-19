@@ -2,9 +2,14 @@
     'use strict';
     angular
         .module('ExpertExchange', [
+        	'ngCookies',
             'ui.router',           
             'ExpertExchange.pages',                 
-            'ExpertExchange.theme',
-            'angular-input-stars'           
-        ]);
+            'ExpertExchange.theme',            
+        ])
+        .run(['$cookieStore', '$http', function($cookieStore, $http) {
+        	if($cookieStore.get('global') != null){
+        		$http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookieStore.get('global').access_token;
+        	}
+        }]);
 })();

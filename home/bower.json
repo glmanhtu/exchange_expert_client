@@ -19,6 +19,7 @@
     "font-awesome": "fontawesome#~4.4.0",
     "jquery": "~2.1.4",
     "angular-ui-router": "0.3.1",
+    "angular-cookies": "~1.4.8",
     "lightslider": "^1.1.6",
     "lodash": "^4.17.4",
     "angular-input-stars-directive": "angular-input-stars#^1.6.3"

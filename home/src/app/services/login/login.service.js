@@ -3,9 +3,9 @@
     angular
         .module('ExpertExchange')
         .service('loginService', loginService);
-    loginService.$inject = ['$http', 'DOMAIN_URL'];
+    loginService.$inject = ['$cookieStore', '$http', 'DOMAIN_URL'];
     /* @ngInject */
-    function loginService($http, DOMAIN_URL) {
+    function loginService($cookieStore, $http, DOMAIN_URL) {
         this.login = function (userlogin) {
             return $http({
                 url: DOMAIN_URL + '/api/oauth/token',
@@ -23,6 +23,10 @@
                 },
             }).then(
                 function (response) {
+                    // console.log(response.data.access_token);
+                    $cookieStore.put('global', response.data);
+                    // console.log($cookieStore.get('global'));
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
                     return response ;
                 }, function (error) {
                     console.log('Something wrong in service login');

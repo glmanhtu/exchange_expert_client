@@ -10,6 +10,7 @@
         //Scope Declaration
         $scope.responseData = "";
         $rootScope.userName = "";
+
      
         $scope.userLoginEmail = "";
         $scope.userLoginPassword = "";
@@ -26,9 +27,9 @@
             };
      
             loginService.login(userLogin).then(function (response) {
-                $rootScope.userName = userLogin.username;
-                //Store the token information in the SessionStorage
-                //So that it can be accessed for other views
+                // $rootScope.userName = userLogin.username;
+                // Store the token information in the SessionStorage
+                // So that it can be accessed for other views
                 sessionStorage.setItem('userName', userLogin.username);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);

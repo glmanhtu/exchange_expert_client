@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.goods')
     .controller('goodsCtrl', goodsCtrl);
-    goodsCtrl.$inject = ['$scope','$timeout','$stateParams','goodService'];
+    goodsCtrl.$inject = ['$scope','$location','$window','$timeout','$stateParams','goodService'];
     /* @ngInject */
-    function goodsCtrl($scope,$timeout,$stateParams,goodService) {
+    function goodsCtrl($scope,$location,$window,$timeout,$stateParams,goodService) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -49,8 +49,9 @@
         }
 
         $scope.sellerProfile = function() {
-            var email = $scope.item.seller.id;
-            console.log(email);
+            // var email = $scope.item.seller.id || null;
+            // console.log(email);
+            $window.location.href = '/#/profile';
         }
     }
 })();

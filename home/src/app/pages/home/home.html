@@ -8,7 +8,7 @@
                 <div class="col-md-3">
                     <div class="thumbnail">
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                            <img ng-src="http://125.253.123.26:8080/api{{ item.featuredImage || 'assets/img/default-placeholder.png' }}" alt="item" style="width:100%">
+                            <img ng-src="{{ 'http://125.253.123.26:8080/api' + item.featuredImage || '/assets/img/default-placeholder.png' }}" alt="item" style="width:100%">
                         </a>
                     </div>
                 </div>
@@ -20,11 +20,12 @@
                             <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.type }}</a></span>
                             <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
                             <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+                            <input-stars max="5" ng-model="item.seller.avgRating" class="list-inline" on-star-click="rating()" style="color: #FF9800;"></input-stars>
                         </div>
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                            <h3>{{ item.title }}</h3>
+                            <h3>{{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}</h3>
                         </a>
-                        <p>{{ item.description }}</p>
+                        <p>{{ item.description | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
                     </div>
                 </div>
             </div>

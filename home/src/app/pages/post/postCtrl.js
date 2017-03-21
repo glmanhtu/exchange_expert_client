@@ -17,15 +17,28 @@
             //     url:'/images/abc.jpg',title:'book title',alt:'book title'
             // }]
         };
-        $scope.aGood.images = [];
+        // set default position marker
+        $scope.latlng = [44.841225,-0.580036];
 
-        $scope.latlng = [-25.363882,131.044922];
+        $scope.aGood.images = [];
+        $scope.listLocations = [];
+        
+        // event click on the map add to listLocations
         $scope.getpos = function(event){
+            var pos = {
+                lat: event.latLng.lat(),
+                lon: event.latLng.lng()
+            };
+
             $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
+            $scope.listLocations.push(pos);
+            console.log($scope.listLocations);
         };
 
         $scope.addGood = function(){
-            // console.log('controller call');
+            $scope.aGood.location = $scope.listLocations;
+
+            // console.log($scope.aGood);
             var file = $scope.uploadImage;
             // console.log('file is ' );
             // console.dir(file);

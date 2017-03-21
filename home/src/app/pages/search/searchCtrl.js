@@ -40,11 +40,11 @@
 
         ////////////////
         function getSearchData(key) {
-            searchService.getGoods(key).then(function (response) {
-            vm.dummyItems = response.data;  
-         }, function () {
-            console.log('Something wrong');
-         });
+             searchService.searchGoods(key).then(function (response) {
+                vm.dummyItems = response.data;  
+             }, function () {
+                console.log('Something wrong');
+             });
         }
     }
 })();

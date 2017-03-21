@@ -6,7 +6,7 @@
 
     <div class="col-md-8 " ng-controller="searchCtrl as vm">
         
-        <div ng-if="vm.items === null ">
+        <div ng-if="!vm.items">
             
             <div class="alert alert-danger" role="alert">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -16,14 +16,14 @@
 
         </div>
         
-        <div ng-if="vm.items !== null ">
+        <div ng-if="vm.items">
             <div ng-repeat="item in vm.items">
 
                 <div class="row">
                     <div class="col-md-3">
                         <div class="thumbnail">
                             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                                <img src="{{ item.featuredImage }}" alt="item" style="width:100%">
+                                <img ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" alt="item" style="width:100%">
                             </a>
                         </div>
                     </div>

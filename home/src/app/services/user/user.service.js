@@ -64,7 +64,7 @@
 
             console.log(rate);
 
-            var url = DOMAIN_URL + '?forEmailUser=' + email + '&star=' + rate;
+            var url = DOMAIN_URL + '/api/rating?forEmailUser=' + email + '&star=' + rate;
             var header = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

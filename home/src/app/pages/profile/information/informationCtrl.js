@@ -5,11 +5,19 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $timeout, $location, $stateParams, UserService) {
+    function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService) {
     	$scope.email = $stateParams.user_id;
     	$scope.user = sessionStorage.userName;
     	$scope.user_info = {};
-    	$scope.rating_feedback = 3;
+    	$scope.ratingFeedback = 3;
+    	$scope.listRate = [
+	        {rate : "1", name : "1"},
+	        {rate : "2", name : "2"},
+	        {rate : "3", name : "3"},
+	        {rate : "4", name : "4"},
+	        {rate : "5", name : "5"}
+	    ];
+
     	GetInfo($scope.email);
 
     	function GetInfo(email) {
@@ -21,43 +29,62 @@
     		});
     	}
 
-    	$scope.rating = function () {
-    		$scope.ratingClick = 1;
-    		$timeout(function () {
-    			$scope.ratingClick = 0;
-    		},5000);
-    		
-    		console.log("rating");
-    	}
-
     	$scope.feedback = function (element) {
-    		jQuery('#'+element).modal('show');
+    		$scope.accessToken = sessionStorage.accessToken;
+    		if ($scope.accessToken)
+    			jQuery('#'+element).modal('show');
+    		else
+    			$window.location.href = '/#/login';
+    	}
+
+    	$scope.editProfile = function (element) {
+    		$scope.accessToken = sessionStorage.accessToken;
+    		if ($scope.accessToken)
+    			jQuery('#'+element).modal('show');
+    		else
+    			$window.location.href = '/#/login';
+    	}
+
+    	$scope.uploadImage = function (element) {
+    		$scope.accessToken = sessionStorage.accessToken;
+    		if ($scope.accessToken)
+    			jQuery('#'+element).modal('show');
+    		else
+    			$window.location.href = '/#/login';
     	}
 
     	$scope.rating = function () {
-    		$scope.rating_feedback = $scope.rating_feedback;
+    		console.log("rating");
+    		$timeout(function() {
+    			console.log($scope.ratingFeedback);
+    		},1000);
+            
     	}
 
     	$scope.sendFeedback = function () {
     		$scope.accessToken = sessionStorage.accessToken;
-    		var msg = $scope.title_feedback + ": " + $scope.msg_feedback;
-    		// console.log($scope.accessToken);
-    		UserService.SendFeedback($scope.email,$scope.accessToken,msg).then(function (res) {
-    			// body...
-    			jQuery('#feedback').modal('hide');
-    		}, function (res) {
-    			// body...
-    			jQuery('#feedback').modal('hide');
-    		});
+    		if ($scope.accessToken) {
+	    		var msg = $scope.title_feedback + ": " + $scope.msg_feedback;
+	    		// console.log($scope.accessToken);
+	    		UserService.SendFeedback($scope.email,$scope.accessToken,msg).then(function (res) {
+	    			// body...
+	    			jQuery('#feedback').modal('hide');
+	    		}, function (res) {
+	    			// body...
+	    			jQuery('#feedback').modal('hide');
+	    		});
 
-    		console.log($scope.rating_feedback);
+	    		console.log($scope.ratingFeedback);
 
 
-    		UserService.RatingFeedback($scope.email,$scope.accessToken,$scope.rating_feedback).then(function (res) {
-    			// body...
-    		}, function (res) {
-    			// body...
-    		});
+	    		UserService.RatingFeedback($scope.email,$scope.accessToken,$scope.ratingFeedback).then(function (res) {
+	    			// body...
+	    		}, function (res) {
+	    			// body...
+	    		});
+	    	} else {
+	    		$window.location.href = '/#/login';
+	    	}
     	}
     }
 

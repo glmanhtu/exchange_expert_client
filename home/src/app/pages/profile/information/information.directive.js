@@ -8,8 +8,7 @@
   function information() {
     return {
       restrict: 'E',
-      templateUrl: 'app/pages/profile/information/information.html',
-      controller: 'informationCtrl'
+      templateUrl: 'app/pages/profile/information/information.html'
     };
   }
 

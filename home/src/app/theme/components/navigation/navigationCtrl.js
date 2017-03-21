@@ -6,7 +6,7 @@
         navigationCtrl.$inject = ['$rootScope', '$scope', '$location'];
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location) {
-        console.log(sessionStorage.getItem('userName'));
+        // console.log(sessionStorage.getItem('userName'));
         $scope.userName = sessionStorage.getItem('userName');
 
         $scope.logout = function () {
@@ -17,21 +17,7 @@
             $location.path('/login');
         };
 
-        $scope.copy = function() {
 
-        }
-
-        $scope.cut = function() {
-
-        }
-
-        $scope.openSetting = function() {
-
-        }
-
-        $scope.toggleCreateType = function() {
-            $scope.showCreateTypes = !$scope.showCreateTypes;
-        }
     }
 
 })();

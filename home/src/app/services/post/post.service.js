@@ -39,21 +39,6 @@
                 }, function (error) {
                     console.log('Something wrong ' + error);
                 });
-
-            // var url = DOMAIN_URL + '/api/resource/upload';
-            //     return $http({
-            //         url: url,
-            //         method: "POST",
-            //         data: formdata,
-            //         headers: {
-            //             'Content-Type': undefined
-            //         }
-            //     }).then(
-            //     function (response) {
-            //         console.log(response.data);
-            //     }, function (error) {
-            //         console.log('Something wrong ' + error);
-            //     });
         }
     }
 })();

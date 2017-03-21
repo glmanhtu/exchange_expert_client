@@ -10,7 +10,7 @@
 
     	searchService.getGoods().then(function (response) {
     		$scope.items = response.data;
-    		console.log(response);
+    		// console.log(response);
     	}, function (response){
     		console.log(response);
     	});

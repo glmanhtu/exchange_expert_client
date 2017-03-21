@@ -5,13 +5,18 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $timeout, $location, UserService) {
+    function informationCtrl($scope, $timeout, $location, $stateParams, UserService) {
+    	var email = $stateParams.user_id;
     	$scope.user_info = {};
-    	GetInfo(null);
+    	GetInfo(email);
 
     	function GetInfo(email) {
-    		var dataInfo = UserService.GetByEmail(email);
-    		console.log(dataInfo);
+    		UserService.GetByEmail(email).then(function (response) {
+    			$scope.user_info = response;
+    			console.log($scope.user_info);
+    		}, function (response) {
+    			console.log(response);
+    		});
     	}
 
     	$scope.rating = function () {

@@ -8,7 +8,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('profile', {
-              url: '/profile',
+              url: '/profile/:user_id',
               templateUrl: 'app/pages/profile/profile.html',
               title: 'Profile',
               sidebarMeta: {

@@ -20,9 +20,12 @@
         <div class="caption">
             <div class="entry-meta">
                 <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
-                <span class="r"><i class="fa fa-user"></i>&nbsp;
-                	<a href="" class="" ng-click="sellerProfile()">
-                		<span class="">{{ item.seller.firstName || item.seller.id || "Anonymous" }} {{ item.seller.lastName }} </span>
+                <span class=""><i class="fa fa-user"></i>&nbsp;
+                	<a href="#/profile/{{ item.seller.id }}" class="" ng-if="!!item.seller.id">
+                		{{ item.seller.firstName || item.seller.id || "Anonymous" }} {{ item.seller.lastName }}
+                	</a>
+                	<a href="" class="" ng-if="!item.seller.id" style="color: red;">
+						{{ item.seller.firstName || item.seller.id || "Anonymous" }} {{ item.seller.lastName }}
                 	</a>
                 </span>
                 <span class="entry-categories categories-links">

@@ -24,7 +24,7 @@
         }
 
         function GetByEmail(email) {
-            return $http.get(DOMAIN_URL + '/api/user?Email=' + email).then(handleSuccess, handleError('Error getting user by email'));
+            return $http.get(DOMAIN_URL + '/api/user?email=' + email).then(handleSuccess, handleError('Error getting user by email'));
         }
 
         function GetById(id) {

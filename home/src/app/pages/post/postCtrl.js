@@ -19,12 +19,10 @@
         };
         $scope.aGood.images = [];
 
-        // var formdata = new FormData();
-        //     $scope.getTheFiles = function ($files) {
-        //         angular.forEach($files, function (value, key) {
-        //             formdata.append(key, value);
-        //         });
-        //     };
+        $scope.latlng = [-25.363882,131.044922];
+        $scope.getpos = function(event){
+            $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
+        };
 
         $scope.addGood = function(){
             // console.log('controller call');

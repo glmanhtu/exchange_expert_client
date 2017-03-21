@@ -48,7 +48,19 @@
         }
 
         $scope.exchange =  function() {
-            alert("ExpertExchange");
+            // alert("ExpertExchange");
+            $scope.accessToken = sessionStorage.accessToken;
+            if ($scope.accessToken)
+                jQuery('#exchangeModal').modal('show');
+            else
+                $window.location.href = '/#/login';
+        }
+
+        $scope.exchangeApply = function() {
+            jQuery('#exchangeModal').modal('hide');
+            $timeout(function() {
+                $window.location.href = '/#/home';
+            },1000);
         }
 
         $scope.sellerProfile = function() {

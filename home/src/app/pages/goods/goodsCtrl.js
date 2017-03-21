@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.goods')
     .controller('goodsCtrl', goodsCtrl);
-    goodsCtrl.$inject = ['$scope','$timeout','$stateParams','goodService'];
+    goodsCtrl.$inject = ['$scope','$location','$window','$timeout','$stateParams','goodService'];
     /* @ngInject */
-    function goodsCtrl($scope,$timeout,$stateParams,goodService) {
+    function goodsCtrl($scope,$location,$window,$timeout,$stateParams,goodService) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -16,7 +16,7 @@
         var category_slug = $stateParams.category_slug;
         var url = "/"+category_slug+"/"+good_slug;
 
-        vm.item = {}; 
+        vm.items = {}; 
 
         initController(url);
 
@@ -31,10 +31,42 @@
             goodService.getGood(url).then(function (response) {
                 $scope.item = response.data;
                 $scope.images = response.data.images;
-                console.log($scope.images);
+                console.log($scope.item);
              }, function () {
                 console.log('Something wrong when get good');
              });
+        }
+
+        $scope.rating =  function() {
+            console.log("rating");
+            console.log($scope.item.seller.avgRating);
+            $scope.ratingClick = 1;
+            $timeout(function() {
+                $scope.ratingClick = 0;
+            },2000)
+
+        }
+
+        $scope.exchange =  function() {
+            // alert("ExpertExchange");
+            $scope.accessToken = sessionStorage.accessToken;
+            if ($scope.accessToken)
+                jQuery('#exchangeModal').modal('show');
+            else
+                $window.location.href = '/#/login';
+        }
+
+        $scope.exchangeApply = function() {
+            jQuery('#exchangeModal').modal('hide');
+            $timeout(function() {
+                $window.location.href = '/#/home';
+            },1000);
+        }
+
+        $scope.sellerProfile = function() {
+            // var email = $scope.item.seller.id || null;
+            // console.log(email);
+            $window.location.href = '/#/profile';
         }
     }
 })();

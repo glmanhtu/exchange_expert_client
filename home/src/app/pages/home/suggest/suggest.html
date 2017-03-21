@@ -1,7 +1,21 @@
-<ul class="list-group">
-            <li class="list-group-item">Computers & Technology <span class="badge">12</span></li>
-            <li class="list-group-item">Business & Management <span class="badge">5</span></li>
-            <li class="list-group-item">Computer Science <span class="badge">3</span></li>
-            <li class="list-group-item">Databases <span class="badge">2</span></li>
-            <li class="list-group-item">...</span></li>
-        </ul>
+<h3>Suggest Items</h3>
+    	<ul class="list-group" ng-repeat="(key, item) in items | limitTo:5 ">
+    		<li class="list-group-item" style="min-height: 100px;" >
+	    			<div class="col-md-12">
+	    				<div class="col-md-4">
+	    					<img ng-src="{{ 'http://125.253.123.26:8080/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}" class="" style="max-height: 80px;" width="64">
+	    				</div>
+	    				<div class="col-md-8">
+	    					<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}" title="{{ item.title }}">
+	    					{{ item.title | limitTo: 12 }}{{item.title.length > 12 ? '...' : ''}}
+	    					</a>
+	    					<i class="badge">New</i><br>
+	    					<input-stars max="5" ng-model="item.seller.avgRating" class="list-inline" style="color: #FBED06;"></input-stars>
+	                        <i class="fa fa-calendar"></i>&nbsp;{{ item.postDate | date:'yyyy-MM-dd'}} <br>	
+	                        <i class="fa fa-user"></i>&nbsp;<a href="#" class="" rel="author">{{ item.seller.firstName || item.seller.email || 'Anonymous' }} {{ item.seller.lastName }}</a>
+		
+	    				</div>
+    				</div>
+
+    		</li>
+    	</ul>

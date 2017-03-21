@@ -42,9 +42,11 @@
             <div class="form-group">
                 <label for="inputs-image">Location</label>
                 <ul>
-                  <li ng-repeat="loca in aGood.location" ng-class="{'bg-info': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+                  <li ng-repeat="loca in listLocations" ng-class="{'bg-info': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
                   {{loca.lat}},{{loca.lon}}
-                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
                   </li>
                 </ul>
                     <!-- <textarea class="form-control" rows="5" ng-model="listLocations"></textarea> -->

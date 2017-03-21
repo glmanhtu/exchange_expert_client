@@ -11,8 +11,10 @@
 	    	<input-stars max="5" ng-model="user_info.avgRating" class="list-inline" on-star-click="" style="color: #FF9800;"></input-stars>
 
 	    	<br>
-	    	<button class="btn btn-primary" ng-click="feedback('feedback')">Feedback</button>
-	    	<button type="button" class="btn btn-primary">Edit Profile</button>
+	    	<button class="btn btn-primary" ng-click="feedback('feedback')" ng-if="userName != email">Feedback</button>
+	    	<button type="button" class="btn btn-primary" ng-if="userName == email">Upload Image</button>
+	    	<button type="button" class="btn btn-primary" ng-if="userName == email">Edit Profile</button>
+	    	<br> <br>
 	    </div>
 	</div>
 	
@@ -69,22 +71,18 @@
         <h4 class="modal-title">Feedback</h4>
       </div>
       <div class="modal-body col-md-12">
-
-        <input type="hidden" value="" id="item-choosed" ng-model="itemChoosed">
-
-        <label for="email_feedback">Your email</label>
-        <input type="text" class="form-control" id="email_feedback">
 	
 		<label for="title_feedback">Title</label>
-        <input type="text" class="form-control" id="title_feedback">
+        <input type="text" class="form-control" id="title_feedback" ng-model="title_feedback">
 		
 		<label for="Rating">Rating</label>
-		<input-stars max="5" ng-model="rate" class="list-inline" on-star-click="" style="color: #FF9800;"></input-stars>
-
+		<input-stars max="5" ng-model="rating_feedback" class="list-inline" on-star-click="rating()" style="color: #FF9800;"></input-stars>
+		<input type="hidden" ng-bind="rating_feedback">
+		
         <label for="msg_feedback">Message</label>
-        <textarea rows="5" id="msg_feedback"></textarea>
+        <textarea rows="5" id="msg_feedback" ng-model="msg_feedback"></textarea>
 
-        <button class="btn btn-primary">Send</button>
+        <button class="btn btn-primary" ng-click="sendFeedback()">Send</button>
         
       </div>
       <div class="modal-footer">

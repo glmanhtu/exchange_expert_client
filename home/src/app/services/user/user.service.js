@@ -12,6 +12,8 @@
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByEmail = GetByEmail;
+        service.SendFeedback = SendFeedback;
+        service.RatingFeedback = RatingFeedback;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
@@ -33,6 +35,53 @@
 
         function GetByUsername(username) {
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+        }
+
+        function SendFeedback(email,token,msg) {
+            var url = DOMAIN_URL + '/api/feedback?user=' + email;
+            var header = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            };
+            var data = {
+                    "message": msg
+            };
+
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(handleSuccess, handleError('Error feedback'));
+        }
+
+        function RatingFeedback(email,token,rate) {
+
+            console.log(rate);
+
+            var url = DOMAIN_URL + '?forEmailUser=' + email + '&star=' + rate;
+            var header = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            };
+            var data = {};
+
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(handleSuccess, handleError('Error rating'));
         }
 
         function Create(user) {

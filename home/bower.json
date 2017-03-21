@@ -45,6 +45,7 @@
       "main": [
         "dist/css/bootstrap.css",
         "js/dropdown.js",
+        "js/modal.js",
         "./dist/fonts/**.*"
       ]
     },

@@ -5,12 +5,13 @@
         .module('ExpertExchange')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http','DOMAIN_URL'];
+    function UserService($http,DOMAIN_URL) {
         var service = {};
 
         service.GetAll = GetAll;
         service.GetById = GetById;
+        service.GetByEmail = GetByEmail;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
@@ -20,6 +21,10 @@
 
         function GetAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function GetByEmail(email) {
+            return $http.get(DOMAIN_URL + '/api/user?Email=' + email).then(handleSuccess, handleError('Error getting user by email'));
         }
 
         function GetById(id) {

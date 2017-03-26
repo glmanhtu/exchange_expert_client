@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('ExpertExchange')
-        .service('createGoodService', createGoodService);
-        createGoodService.$inject = ['$http','DOMAIN_URL'];
+        .service('postService', postService);
+        postService.$inject = ['$http','DOMAIN_URL'];
         /* @ngInject */
-        function createGoodService($http, DOMAIN_URL) {
+        function postService($http, DOMAIN_URL) {
 
-            this.createNewGood = function (dataOfGood) {
+            this.createNewPost = function (dataOfGood) {
                 console.log(dataOfGood);
                 var url = DOMAIN_URL + '/api/goods';
                 return $http({

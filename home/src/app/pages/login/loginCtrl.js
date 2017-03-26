@@ -2,10 +2,10 @@
     'use strict';
     angular
     .module('ExpertExchange.pages.login')
-    .controller('loginController', loginController);
-    loginController.$inject = ['$rootScope', '$scope', '$location', 'loginService', 'UserService'];
+    .controller('loginCtrl', loginCtrl);
+    loginCtrl.$inject = ['$rootScope', '$scope', '$location', 'loginService', 'UserService'];
     /* @ngInject */
-    function loginController($rootScope, $scope, $location, loginService, UserService) {
+    function loginCtrl($rootScope, $scope, $location, loginService, UserService) {
 
         //Scope Declaration
         $scope.responseData = "";
@@ -47,5 +47,9 @@
                 console.log(error);
             });
         };
+
+        $scope.loginFacebook = function(){
+            loginService.loginFacebook
+        }
     }
 })();

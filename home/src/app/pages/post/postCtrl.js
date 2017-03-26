@@ -2,10 +2,10 @@
     'use strict';
     angular
     .module('ExpertExchange.pages.post')
-    .controller('createGoodCtrl', createGoodCtrl);
-    createGoodCtrl.$inject = ['$scope', '$location', 'createGoodService'];
+    .controller('postCtrl', postCtrl);
+    postCtrl.$inject = ['$scope', '$location', 'postService'];
     /* @ngInject */
-    function createGoodCtrl($scope, $location, createGoodService) {
+    function postCtrl($scope, $location, postService) {
         if(sessionStorage.userName == null){
             $location.path('/login');
         }else{
@@ -58,7 +58,7 @@
 
 
 
-            createGoodService.uploadImage($scope.uploadImage).then(
+            postService.uploadImage($scope.uploadImage).then(
                 function (response) {
                     var responseImage = {
                         url: '/'+response,
@@ -70,7 +70,7 @@
                     $scope.aGood.featuredImage = response;
                     console.log($scope.aGood.featuredImage);
                     // call service to create a new post after upload the Image
-                    createGoodService.createNewGood($scope.aGood).then(
+                    postService.createNewPost($scope.aGood).then(
                         function (response) {
                             console.log('Create new good successful');
                             // console.log(response);
@@ -90,7 +90,7 @@
             //     var data = new FormData();
             //     data.append("files", document.getElementById('myfile').files[i]);
 
-            //     createGoodService.uploadImage(data).then(
+            //     postService.uploadImage(data).then(
             //         function (response) {
             //             $scope.aGood.images.push(response);
             //         }, function (error) {
@@ -100,7 +100,7 @@
             // }
 
             // // call service to create a new post after upload the Image
-            // createGoodService.createNewGood($scope.aGood).then(
+            // postService.createNewPost($scope.aGood).then(
             //     function (response) {
             //         console.log('response create new good');
             //         console.log(response);

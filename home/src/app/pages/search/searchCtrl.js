@@ -18,7 +18,7 @@
         function initController() {
             var key = $location.path('/search').search();
 
-            getSearchData(key.searchString);
+            getSearchData(key.searchString,key.location);
             // initialize to page 1
             // 10 seconds delay
             $timeout( function(){
@@ -39,8 +39,8 @@
         }
 
         ////////////////
-        function getSearchData(key) {
-             searchService.searchGoods(key).then(function (response) {
+        function getSearchData(key,location) {
+             searchService.searchGoods(key,location).then(function (response) {
                 vm.dummyItems = response.data;  
              }, function () {
                 console.log('Something wrong');

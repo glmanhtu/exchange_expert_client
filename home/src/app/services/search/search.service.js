@@ -53,7 +53,7 @@
 
         }
 
-        function searchGoods(key) {
+        function searchGoods(key,location) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,

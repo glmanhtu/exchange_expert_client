@@ -7,35 +7,35 @@
 
     <div class="col-md-10 col-sm-8 col-xs-12">
         <div class="search-bar">
-            <nav class="navbar" ng-controller="searchbarCtrl">
-                        <div class="form-group col-md-8 col-sm-8 col-xs-8">
-                            <input id="searchInput" ng-model="searchString" search-bar="searchCall()" class="form-control" type="text" placeholder="Search for...">
-                        </div>
+            <nav class="navbar">
+                <form ng-submit="searchCall()">
+                    <div class="form-group col-md-8 col-sm-8 col-xs-8">
+                        <input id="searchInput" ng-model="searchString" class="form-control" type="text" placeholder="Search for...">
+                    </div>
 
-                        <div class="form-group col-md-4 col-sm-4 col-xs-4">
-
-                            <select class="form-control" id="search-location">
-                                <option>All</option>
-                                <option>Ho Chi Minh</option>
-                                <option>Ha Noi</option>
-                                <option>Dong Nai</option>
-                                <option>Ba Ria - Vung Tau</option>
-                            </select>
-                        </div>
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                        <select class="form-control" id="search-location" ng-model="selectedLocation">
+                            <option ng-repeat="x in locationList" value="{{x.value}}">{{x.name}}</option>
+                        </select>
+                    </div>
+                </form>
+                    
             </nav>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#searchInput').keypress(function(e) {
-            if(e.which == 13) {
-                var searchString = $('#searchInput').val();
-                window.location = '#/search?searchString=' + searchString;
-                location.reload();
-            }
-        });
+    // $(document).ready(function(){
+    //     $('#searchInput').keypress(function(e) {
+    //         if(e.which == 13) {
+    //             var searchString = $('#searchInput').val();
+    //             var selectedLocation = $('#search-locatio').val();
+    //             console.log(selectedLocation);
+    //             window.location = '#/search?searchString=' + searchString;
+    //             location.reload();
+    //         }
+    //     });
 
-    });
+    // });
 </script>

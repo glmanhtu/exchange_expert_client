@@ -14,6 +14,31 @@
         vm.items = {}; 
         $scope.DOMAIN_URL = DOMAIN_URL;
         initController();
+        $scope.listLocations = [];
+
+        $scope.latlng = [44.841225,-0.580036];
+        // event click on the map add to listLocations
+        $scope.getpos = function(event){
+            var pos = {
+                lat: event.latLng.lat(),
+                lon: event.latLng.lng()
+            };
+
+            $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
+            $scope.listLocations.push(pos);
+            console.log($scope.listLocations);
+        };
+
+        $scope.searchByLocation = function(key = 'tee',location = '') {
+             searchService.searchGoods(key,location).then(function (response) {
+                vm.dummyItems = response.data;  
+             }, function () {
+                console.log('Something wrong');
+             });
+             $timeout( function(){
+                vm.setPage(1);
+             }, 1000 );
+        }
 
         function initController() {
             var key = $location.path('/search').search();

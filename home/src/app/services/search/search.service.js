@@ -66,5 +66,33 @@
 
         }
 
+        function searchGoodsByLocation(lat,lng,distance) {
+            var url = DOMAIN_URL + '/api/search/good';
+            var location =  {
+                              "pagination": {
+                                "currentPage": 0,
+                                "itemsPerPage": 10
+                              },
+                              "location": {
+                                    "lat": 40,
+                                    "lng": 1
+                                },
+                                "distance": 10,
+                              "order": {
+                                "by": "location",
+                                "isASC": false
+                              }
+                            };
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(location),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+        }
+
     }
 })();

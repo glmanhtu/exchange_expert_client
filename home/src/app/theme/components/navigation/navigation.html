@@ -4,21 +4,19 @@
 		<searchbar></searchbar>
 	</div>
 	<div ng-controller="navigationCtrl" class="col-md-4 col-sm-3 col-xs-2">
-
 		<div class="dropdown topbar-accountInfo pull-right" ng-if="userName">
 		  <button class="btn btn-primary dropdown-toggle topbar-settingsMenuButton" style="" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		    {{ userName }}
+		    {{ userProfile.firstName }}
 		    <i class="glyphicon glyphicon-user"></i>
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 		    <li><a href="#/post">Post</a></li>
-		    <li><a href="#/profile/{{ userName }}">Profile</a></li>
+		    <li><a href="#/profile/{{ userProfile.id }}">Profile</a></li>
 		    <li role="separator" class="divider"></li>
 		    <li><a href="" ng-click="logout()">Logout!</a></li>
 		  </ul>
 		</div>
-
 		<div class="dropdown topbar-accountInfo pull-right" ng-if="!userName">
 		  <a href="/#/login" class="btn btn-primary topbar-settingsMenuButton" style="" type="button">
 		    &nbsp;&nbsp;Login&nbsp;&nbsp;

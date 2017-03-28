@@ -1,11 +1,11 @@
-<div class="content-vertical-center">
+<div class="content-vertical-center col-md-12 col-sm-12 col-xs-12">
 	
-	<searchbar></searchbar>
-	<div>
-		
-	</div ng-controller="navigationCtrl">
+	<div class="col-md-8 col-sm-9 col-xs-10">
+		<searchbar></searchbar>
+	</div>
+	<div ng-controller="navigationCtrl" class="col-md-4 col-sm-3 col-xs-2">
 
-		<div class="dropdown topbar-accountInfo" ng-if="userName">
+		<div class="dropdown topbar-accountInfo pull-right" ng-if="userName">
 		  <button class="btn btn-primary dropdown-toggle topbar-settingsMenuButton" style="" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		    {{ userName }}
 		    <i class="glyphicon glyphicon-user"></i>
@@ -19,7 +19,7 @@
 		  </ul>
 		</div>
 
-		<div class="dropdown topbar-accountInfo" ng-if="!userName">
+		<div class="dropdown topbar-accountInfo pull-right" ng-if="!userName">
 		  <a href="/#/login" class="btn btn-primary topbar-settingsMenuButton" style="" type="button">
 		    &nbsp;&nbsp;Login&nbsp;&nbsp;
 		  </a>

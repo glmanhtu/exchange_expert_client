@@ -3,16 +3,16 @@
     angular
         .module('ExpertExchange.pages.search')
         .controller('searchCtrl', searchCtrl);
-    searchCtrl.$inject = ['$scope', '$timeout', '$location','searchService', 'PagerService'];
+    searchCtrl.$inject = ['$scope', '$timeout', '$location','searchService', 'PagerService', 'DOMAIN_URL'];
     /* @ngInject */
-    function searchCtrl($scope, $timeout, $location, searchService, PagerService) {
+    function searchCtrl($scope, $timeout, $location, searchService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'searchCtrl';
         vm.pager = {};
         vm.setPage = setPage;
         vm.getSearchData = getSearchData;
         vm.items = {}; 
-
+        $scope.DOMAIN_URL = DOMAIN_URL;
         initController();
 
         function initController() {

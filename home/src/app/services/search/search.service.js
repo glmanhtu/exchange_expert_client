@@ -10,7 +10,8 @@
             getData: getData,
             getGoods: getGoods,
             getUser: getUser,
-            searchGoods: searchGoods
+            searchGoods: searchGoods,
+            searchGoodsByLocation: searchGoodsByLocation
         };
         return service;
         ////////////////
@@ -74,12 +75,12 @@
                                 "itemsPerPage": 10
                               },
                               "location": {
-                                    "lat": 40,
-                                    "lng": 1
+                                    "lat": lat,
+                                    "lng": lng
                                 },
-                                "distance": 10,
+                                "distance": distance,
                               "order": {
-                                "by": "location",
+                                "by": "postDate",
                                 "isASC": false
                               }
                             };
@@ -88,7 +89,8 @@
                 method: "POST",
                 data: JSON.stringify(location),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic Y2xpZW50YXBwOjEyMzQ1Ng=='
                 }
             });
 

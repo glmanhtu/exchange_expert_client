@@ -26,14 +26,12 @@
 		else
 			$scope.searchString = key.searchString;
 
-		console.log($rootScope);
-
 		$scope.searchCall = function() {
 			console.log("SearachCall");
 			$rootScope.searchString = $scope.searchString;
 			$rootScope.selectedLocation = $scope.selectedLocation;
-            $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
-            location.reload();
+            // $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
+            // location.reload();
 		}
 
     }

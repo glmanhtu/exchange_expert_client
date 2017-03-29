@@ -3,6 +3,8 @@
     angular
         .module('ExpertExchange', [
         	'ngCookies',
+            'ngMap',
+            'textAngular',
             'ui.router',           
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',

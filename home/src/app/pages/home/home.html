@@ -16,10 +16,10 @@
                     <div class="caption">
                         <div class="entry-meta">
                             <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="post-time" itemprop="datePublished" datetime="">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
-                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.firstName }} {{ item.seller.lastName }} </span></a></span>
-                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.type }}</a></span>
-                            <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
-                            <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+                            <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="/#/profile/{{ item.seller.id }}" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.firstName || item.seller.id }} {{ item.seller.lastName }} </span></a></span>
+                            <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.category.name }}</a></span>
+                            <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
+                            <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#"></a></span>
                             <input-stars max="5" ng-model="item.seller.avgRating" class="list-inline" on-star-click="rating()" style="color: #FF9800;"></input-stars>
                         </div>
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">

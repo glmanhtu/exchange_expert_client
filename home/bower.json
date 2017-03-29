@@ -22,7 +22,9 @@
     "angular-cookies": "~1.4.8",
     "lightslider": "^1.1.6",
     "lodash": "^4.17.4",
-    "angular-input-stars-directive": "angular-input-stars#^1.6.3"
+    "angular-input-stars-directive": "angular-input-stars#^1.6.3",
+    "ngmap": "^1.18.4",
+    "textAngular": "^1.5.16"
   },
   "overrides": {
     "amcharts": {
@@ -45,6 +47,7 @@
       "main": [
         "dist/css/bootstrap.css",
         "js/dropdown.js",
+        "js/modal.js",
         "./dist/fonts/**.*"
       ]
     },

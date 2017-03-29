@@ -1,20 +1,19 @@
 (function() {
     'use strict';
     angular
-        .module('ExpertExchange.pages.login')
-        .controller('loginController', loginController);
-    loginController.$inject = ['$rootScope', '$scope', '$location', 'loginService'];
+    .module('ExpertExchange.pages.login')
+    .controller('loginController', loginController);
+    loginController.$inject = ['$rootScope', '$scope', '$location', 'loginService', 'UserService'];
     /* @ngInject */
-    function loginController($rootScope, $scope, $location, loginService) {
+    function loginController($rootScope, $scope, $location, loginService, UserService) {
 
         //Scope Declaration
         $scope.responseData = "";
-        $rootScope.userName = "";
+        $rootScope.userEmail = '';
 
-     
         $scope.userLoginEmail = "";
         $scope.userLoginPassword = "";
-     
+
         $scope.accessToken = "";
         $scope.refreshToken = "";
 
@@ -25,17 +24,23 @@
                 username: $scope.userLoginEmail,
                 password: $scope.userLoginPassword
             };
-     
+
             loginService.login(userLogin).then(function (response) {
-                // $rootScope.userName = userLogin.username;
+                // $rootScope.userEmail = userLogin.username;
+                // console.log($rootScope.userEmail);
                 // Store the token information in the SessionStorage
                 // So that it can be accessed for other views
                 sessionStorage.setItem('userName', userLogin.username);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                // window.location.href = '/Employee/Index';
-                // redirect to home page
-                // console.log(sessionStorage.getItem('userName'));
+                
+                UserService.GetByEmail(userLogin.username).then(function (response) {
+                    $rootScope.userProfile = response;
+                    // console.log($rootScope.userProfile.firstName);
+                }, function (response) {
+                    console.log(response);
+                });
+
                 $location.path('/home');
             }, function (error) {
                 console.log('Something wrong in controller ');

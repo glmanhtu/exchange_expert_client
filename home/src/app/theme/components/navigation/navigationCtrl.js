@@ -7,14 +7,13 @@
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location) {
         // console.log(sessionStorage.getItem('userName'));
-        // $rootScope.userEmail = sessionStorage.getItem('userName');
-        // console.log($rootScope.userEmail);
+        $rootScope.userEmail = sessionStorage.getItem('userName');
+        console.log($rootScope.userEmail);
 
         $scope.logout = function () {
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');
-            // console.log(sessionStorage.getItem('userName'));
             $location.path('/login');
         };
 

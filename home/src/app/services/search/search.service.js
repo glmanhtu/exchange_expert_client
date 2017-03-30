@@ -87,10 +87,9 @@
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify(location),
+                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"location":{"lat":lat,"lng":lng},"distance": distance,"order":{"by":"postDate","isASC":false}}),
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic Y2xpZW50YXBwOjEyMzQ1Ng=='
+                    'Content-Type': 'application/json'
                 }
             });
 

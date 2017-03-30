@@ -14,7 +14,7 @@
 		    {name : "Da Nang", value : "danang"}
 		];
 
-		var key = $location.path('/search').search(); key.searchString,key.location
+		var key = $location.search();
 
 		if (key.location == null)
 			$scope.selectedLocation = "all";
@@ -27,11 +27,13 @@
 			$scope.searchString = key.searchString;
 
 		$scope.searchCall = function() {
-			console.log("SearachCall");
+			// console.log("SearchCall");
 			$rootScope.searchString = $scope.searchString;
 			$rootScope.selectedLocation = $scope.selectedLocation;
-            // $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
-            // location.reload();
+			if ($scope.searchString != null) {
+	            $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
+	            location.reload();
+	        }
 		}
 
     }

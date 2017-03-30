@@ -8,6 +8,8 @@
     function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService) {
     	$scope.email = $stateParams.user_id;
     	$scope.user = sessionStorage.userName;
+    	console.log($scope.email);
+    	console.log($scope.user);
     	$scope.user_info = {};
     	$scope.ratingFeedback = 3;
     	$scope.listRate = [

@@ -9,7 +9,6 @@
 
         //Scope Declaration
         $scope.responseData = "";
-        $rootScope.userEmail = '';
 
         $scope.userLoginEmail = "";
         $scope.userLoginPassword = "";
@@ -36,6 +35,7 @@
                 
                 UserService.GetByEmail(userLogin.username).then(function (response) {
                     $rootScope.userProfile = response;
+                    sessionStorage.setItem('userFirstName', response.firstName);
                     // console.log($rootScope.userProfile.firstName);
                 }, function (response) {
                     console.log(response);

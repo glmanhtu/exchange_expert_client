@@ -6,11 +6,16 @@
         navigationCtrl.$inject = ['$rootScope', '$scope', '$location'];
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location) {
-        // console.log(sessionStorage.getItem('userName'));
-        // $rootScope.userEmail = sessionStorage.getItem('userName');
-        // console.log($rootScope.userEmail);
+
+        if(sessionStorage.getItem('userFirstName') != null){
+            $rootScope.userProfile = {
+                firstName: sessionStorage.getItem('userFirstName'),
+                id: sessionStorage.getItem('userName')
+            };
+        }
 
         $scope.logout = function () {
+            sessionStorage.removeItem('userFirstName');
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');

@@ -41,7 +41,7 @@
             $rootScope.searchString = '';
             $rootScope.selectedLocation = 'all';
 
-            getSearchByLocationData(pos,1000);
+            getSearchByLocationData(pos,100000);
 
             $timeout( function(){
                vm.setPage(1);

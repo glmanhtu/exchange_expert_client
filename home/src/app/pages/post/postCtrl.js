@@ -21,9 +21,7 @@
             // set default position marker
             $scope.latlng = [44.841225,-0.580036];
 
-            $scope.aGood.images = [];
             $scope.listLocations = [];
-            $scope.aGood.featuredImage = '';
         }
 
 
@@ -39,40 +37,27 @@
             // console.log($scope.listLocations);
         };
 
-        // GET THE FILE INFORMATION.
-        $scope.getFileDetails = function (e) {
-
-            $scope.files = [];
-            $scope.$apply(function () {
-
-                // STORE THE FILE OBJECT IN AN ARRAY.
-                for (var i = 0; i < e.files.length; i++) {
-                    $scope.files.push(e.files[i])
-                }
-
-            });
-        };
 
         $scope.addGood = function(){
             $scope.aGood.location = $scope.listLocations;
 
+            var ins = document.getElementById('myfile').files.length;
+            var data = new FormData();
 
+            for (var i = 0; i < ins; i++) {
+                data.append("files", document.getElementById('myfile').files[i]);
+            }
 
-            postService.uploadImage($scope.uploadImage).then(
+            postService.uploadImage(data).then(
                 function (response) {
-                    var responseImage = {
-                        url: '/'+response,
-                        title: 'Image title',
-                        alt: 'Image alt'
-                    };
-                    $scope.aGood.images.push(responseImage);
+                    $scope.aGood.images = response;
+                    $scope.aGood.featuredImage = response[0];
 
-                    $scope.aGood.featuredImage = response;
-                    console.log($scope.aGood.featuredImage);
-                    // call service to create a new post after upload the Image
+                    console.log($scope.aGood);
+                    //call service to create a new post after upload the Image
                     postService.createNewPost($scope.aGood).then(
                         function (response) {
-                            console.log('Create new good successful');
+                            $location.path('/home');
                             // console.log(response);
                         }, function (error) {
                             console.log('Something wrong in controller create new good');
@@ -109,7 +94,7 @@
             //         console.log(error);
             //     });
 
-            $location.path('/home');
+            
         }
     }
 })();

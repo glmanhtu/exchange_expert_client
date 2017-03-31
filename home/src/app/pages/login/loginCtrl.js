@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.login')
     .controller('loginCtrl', loginCtrl);
-    loginCtrl.$inject = ['$rootScope', '$scope', '$location', 'loginService', 'UserService'];
+    loginCtrl.$inject = ['$rootScope', '$scope', '$location', '$window', '$interval', 'loginService', 'UserService'];
     /* @ngInject */
-    function loginCtrl($rootScope, $scope, $location, loginService, UserService) {
+    function loginCtrl($rootScope, $scope, $location, $window, $interval, loginService, UserService) {
 
         //Scope Declaration
         $scope.responseData = "";
@@ -49,7 +49,28 @@
         };
 
         $scope.loginFacebook = function(){
-            loginService.loginFacebook
+            var url = 'http://125.253.123.26:8080/api/login/facebook';
+            var urlAuth = 'http://125.253.123.26:8080/api/oauth/authorize?response_type=code&client_id=default&redirect_uri=http://localhost:9999/token';
+            var windowChild = $window.open(url);
+            var intervalID=0;
+            // console.log('cuc');
+            // checkWindow();
+
+            function checkWindow(){
+                // console.log('cuc');
+                if(windowChild.closed && windowChild){
+                    console.log('cuc');
+                    $interval.cancel(intervalID);
+                    $window.location.href = urlAuth;
+                }
+
+            };
+            
+            intervalID = $interval(checkWindow, 500);
+
+            // loginService.loginFacebook
         }
+
+
     }
 })();

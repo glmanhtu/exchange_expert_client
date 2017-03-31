@@ -8,7 +8,6 @@
         function postService($http, DOMAIN_URL) {
 
             this.createNewPost = function (dataOfGood) {
-                console.log(dataOfGood);
                 var url = DOMAIN_URL + '/api/goods';
                 return $http({
                     url: url,
@@ -27,15 +26,15 @@
 
             this.uploadImage = function (file) {
                 var url = DOMAIN_URL + '/api/resource/upload';
-                var fd = new FormData();
-                fd.append('files', file);
+                // var fd = new FormData();
+                // fd.append('files', file);
 
-                return $http.post(url, fd, {
+                return $http.post(url, file, {
                     // transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 }).then(
                 function (response) {
-                    return response.data[0];
+                    return response.data;
                 }, function (error) {
                     console.log('Something wrong ' + error);
                 });

@@ -24,39 +24,34 @@
     });
    }
 
-   function getGood(url) {
-    getPostsService.getGoodsDetail(url).then(function (response) {
-      $scope.currentItem=response.data;
-      // console.log($scope.currentItem);
-    }, function () {
-      console.log('Something wrong when get good');
-    });
-  }
-
-  $scope.open = function (page, size, item) {
+   $scope.open = function (page, size, item) {
     $scope.currentItem = item;
     var good_slug = $scope.currentItem.slug;
     var category_slug = $scope.currentItem.category.slug;
     var url = "/"+category_slug+"/"+good_slug;
+
     getPostsService.getGoodsDetail(url).then(function (response) {
       $scope.currentItem=response.data;
       $uibModal.open({
-      animation: true,
-      scope: $scope,
-      templateUrl: page,
-      size: size,
-      resolve: {
-        items: function () {
-          console.log($scope.currentItem.images[0].url);
+        animation: true,
+        scope: $scope,
+        templateUrl: page,
+        size: size,
+        resolve: {
+          items: function () {
+            $scope.currentItem.featuredImage = DOMAIN_URL+'/api' + response.data.featuredImage;
+            
+            for (var i = 0; i < $scope.currentItem.images.length; i++) { 
+              $scope.currentItem.images[i].url = DOMAIN_URL+'/api' + response.data.images[i].url;
+            }
+
+            // console.log($scope.currentItem);
+          }
         }
-      }
-    });
+      });
     }, function () {
       console.log('Something wrong when get good');
     });
-
-    // console.log($scope.currentItem.category.slug);
-    // console.log($scope.currentItem.slug);
   } 
 }
 })();

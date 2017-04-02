@@ -9,9 +9,9 @@
 			</div>
 
 			<ul class="col-md-3" style="padding: 2px 0 0 0;" ng-repeat="value in currentItem.images | limitTo:4">
-			  <li class="thumbnail">
-			  	<img ng-src="{{ value.url }}" class="img-responsive" />
-	  		  </li>
+				<li class="thumbnail">
+					<img ng-src="{{ value.url }}" class="img-responsive" />
+				</li>
 			</ul>
 		</div>
 		<div class="col-md-8">
@@ -69,3 +69,15 @@
 		<!-- <button type="button" class="btn btn-primary" ng-click="$dismiss()">Close</button> -->
 	</div>
 </div>
+
+<script type="text/javascript">
+	setTimeout(function(){
+		$('#lightSlider').lightSlider({
+			gallery: true,
+			item: 1,
+			loop:true,
+			slideMargin: 0,
+			thumbItem: 9
+		});
+	}, 1000);
+</script>

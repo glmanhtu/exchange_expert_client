@@ -3,15 +3,16 @@
     angular
     .module('ExpertExchange.pages.goods')
     .controller('goodsCtrl', goodsCtrl);
-    goodsCtrl.$inject = ['$scope','$location','$window','$timeout','$stateParams','goodService'];
+    goodsCtrl.$inject = ['$scope','$location','$window','$timeout','$stateParams','goodService','DOMAIN_URL'];
     /* @ngInject */
-    function goodsCtrl($scope,$location,$window,$timeout,$stateParams,goodService) {
+    function goodsCtrl($scope,$location,$window,$timeout,$stateParams,goodService,DOMAIN_URL) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
         $scope.item = {};
         $scope.images = {};
         $scope.path = 0;
+        $scope.DOMAIN_URL = DOMAIN_URL;
         var good_slug = $stateParams.good_slug;
         var category_slug = $stateParams.category_slug;
         var url = "/"+category_slug+"/"+good_slug;

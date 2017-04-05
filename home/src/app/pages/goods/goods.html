@@ -3,7 +3,7 @@
 	<div class="col-md-12">
 		<div class="col-md-6">
 			<div class="thumbnail">
-				<img ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" class="img-responsive" alt="" />
+				<img ng-src="{{DOMAIN_URL}}/api{{ item.featuredImage }}" class="img-responsive" alt="" />
 			</div>
 
 			<ul class="col-md-3" style="padding: 2px 0 0 0;" ng-repeat="(key, value) in item.images | limitTo:4">

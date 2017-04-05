@@ -45,7 +45,7 @@
               $scope.currentItem.images[i].url = DOMAIN_URL+'/api' + response.data.images[i].url;
             }
 
-            // console.log($scope.currentItem);
+            console.log($scope.currentItem);
           }
         }
       });

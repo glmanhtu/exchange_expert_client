@@ -67,7 +67,43 @@ ul {
 @media only screen and (min-width: 360px) {
     /*[class*="col-"] {
         width: 100%;
-    }*/   
+    }*/
+    .topbar-accountInfo {
+        top: 10px; 
+        right: 50px; 
+        display: -webkit-box;
+    }
+
+    .topbar-settingsMenuButton {
+        background: linear-gradient(to top right, #fc636b, #ff6d92 35%, #ffb900 100%); 
+        border-radius: 16px;
+    }
+
+    .page-top.scrolled {
+        background-color: $background-color-banner;
+    }
+    .page-top {
+        background-color: $background-color-banner;
+        position: fixed;
+        z-index: 904;
+        /* box-shadow: 2px 0 3px rgba(0,0,0,.5); */
+        height: 50px;
+        width: 100%;
+        min-width: 320px;
+        padding: 0;
+    }
+
+    .search-bar {
+         padding-top: 5px; 
+
+    }
+
+    .al-main {
+        /* margin-left: 180px; */
+        padding: 110px 0 34px;
+
+    }
+
 }
 
 @media only screen and (min-width: 600px) {
@@ -164,7 +200,7 @@ ul {
         height: 50px;
         width: 100%;
         min-width: 320px;
-        padding: 0 32px 0 40px;
+        /* padding: 0 32px 0 40px; */
     }
 
     .search-bar {
@@ -174,7 +210,7 @@ ul {
 
     .al-main {
         /* margin-left: 180px; */
-        padding: 62px 0 34px;
+        /* padding: 62px 0 34px; */
     }
 }
 

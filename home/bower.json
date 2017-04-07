@@ -48,6 +48,7 @@
         "dist/css/bootstrap.css",
         "js/dropdown.js",
         "js/modal.js",
+        "js/collapse.js",
         "./dist/fonts/**.*"
       ]
     },

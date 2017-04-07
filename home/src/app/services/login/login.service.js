@@ -33,5 +33,30 @@
                     console.log(error);
                 });
         }
+
+        this.loginFacebook = function(){
+            return $http({
+                url: '192.168./api/oauth/token',
+                method: "GET",
+                data: $.param({
+                    grant_type: 'password',
+                    username: userlogin.username, 
+                    password: userlogin.password,
+                    client_id: 'default' 
+                }),
+                headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    'Authorization': 'Basic ZGVmYXVsdDo='
+                },
+            }).then(
+                function (response) {
+                    return response ;
+                }, function (error) {
+                    console.log('Something wrong in service login');
+                    console.log(error);
+                });
+        }
     }
+
 })();

@@ -1,0 +1,38 @@
+<div class="modal-header bg-info">
+	<h5 class="modal-title"><font color="#FFFFFF">{{currentItem.title}}</font></h5>
+</div>
+<div class="modal-body">
+	<div class="col-md-4">
+		<div class="col-md-12">
+			<img ng-src="{{currentItem.featuredImage}}" class="img-responsive" alt="" />
+		</div>
+
+		<div class="col-md-12" ng-repeat="value in currentItem.images">
+			<img ng-src="{{ value.url }}" class="img-responsive" />
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><font color="#FFFFFF">Goods Informations</font></div>
+				<div class="panel-body">
+					<span>Price: {{currentItem.price}} USD</span><br>
+					<time>Post date: {{currentItem.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time><br>
+					<span>Category: {{currentItem.category.name}}</span><br>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><font color="#FFFFFF">Descriptions</font></div>
+				<div class="panel-body"><p align="justify">{{currentItem.description}}</p></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-success" ng-click="approve(1)">Approve</button>
+	<button type="button" class="btn btn-danger" ng-click="approve(2)">Ban</button>
+	<button type="button" class="btn" ng-click="$dismiss()">Close</button>
+</div>

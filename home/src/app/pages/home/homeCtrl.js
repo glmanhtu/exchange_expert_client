@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.home')
     .controller('homeCtrl', homeCtrl);
-    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService'];
+    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService','DOMAIN_URL'];
     /* @ngInject */
-    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService) {
+    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'homeCtrl';
         vm.dummyItems = _.range(1, 15); // dummy array of items to be paged
@@ -13,7 +13,7 @@
         vm.pager = {};
         vm.setPage = setPage;
         vm.getAllItems = getAllItems;
-
+        $scope.DOMAIN_URL = DOMAIN_URL;
         $scope.allPosts={};
         $scope.idPosts={};
         $scope.currentPosts = {};
@@ -42,7 +42,7 @@
         function getAllItems() {
             searchService.getGoods().then(function (response) {
                 vm.dummyItems = response.data;
-                console.log(response.data);
+                // console.log(response.data);
             }, function () {
                 // alert('Something wrong');
             });

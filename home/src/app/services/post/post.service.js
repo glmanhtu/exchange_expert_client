@@ -2,13 +2,12 @@
     'use strict';
     angular
         .module('ExpertExchange')
-        .service('createGoodService', createGoodService);
-        createGoodService.$inject = ['$http','DOMAIN_URL'];
+        .service('postService', postService);
+        postService.$inject = ['$http','DOMAIN_URL'];
         /* @ngInject */
-        function createGoodService($http, DOMAIN_URL) {
+        function postService($http, DOMAIN_URL) {
 
-            this.createNewGood = function (dataOfGood) {
-                console.log(dataOfGood);
+            this.createNewPost = function (dataOfGood) {
                 var url = DOMAIN_URL + '/api/goods';
                 return $http({
                     url: url,
@@ -27,33 +26,18 @@
 
             this.uploadImage = function (file) {
                 var url = DOMAIN_URL + '/api/resource/upload';
-                var fd = new FormData();
-                fd.append('files', file);
+                // var fd = new FormData();
+                // fd.append('files', file);
 
-                return $http.post(url, fd, {
+                return $http.post(url, file, {
                     // transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 }).then(
                 function (response) {
-                    return response.data[0];
+                    return response.data;
                 }, function (error) {
                     console.log('Something wrong ' + error);
                 });
-
-            // var url = DOMAIN_URL + '/api/resource/upload';
-            //     return $http({
-            //         url: url,
-            //         method: "POST",
-            //         data: formdata,
-            //         headers: {
-            //             'Content-Type': undefined
-            //         }
-            //     }).then(
-            //     function (response) {
-            //         console.log(response.data);
-            //     }, function (error) {
-            //         console.log('Something wrong ' + error);
-            //     });
         }
     }
 })();

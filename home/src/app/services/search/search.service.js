@@ -10,7 +10,8 @@
             getData: getData,
             getGoods: getGoods,
             getUser: getUser,
-            searchGoods: searchGoods
+            searchGoods: searchGoods,
+            searchGoodsByLocation: searchGoodsByLocation
         };
         return service;
         ////////////////
@@ -53,12 +54,40 @@
 
         }
 
-        function searchGoods(key) {
+        function searchGoods(key,location) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
                 method: "POST",
                 data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"title":key,"order":{"by":"title","isASC":false}}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+        }
+
+        function searchGoodsByLocation(lat,lng,distance) {
+            var url = DOMAIN_URL + '/api/search/good';
+            var location =  {
+                              "pagination": {
+                                "currentPage": 0,
+                                "itemsPerPage": 10
+                              },
+                              "location": {
+                                    "lat": lat,
+                                    "lng": lng
+                                },
+                                "distance": distance,
+                              "order": {
+                                "by": "postDate",
+                                "isASC": false
+                              }
+                            };
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"location":{"lat":lat,"lng":lng},"distance": distance,"order":{"by":"postDate","isASC":false}}),
                 headers: {
                     'Content-Type': 'application/json'
                 }

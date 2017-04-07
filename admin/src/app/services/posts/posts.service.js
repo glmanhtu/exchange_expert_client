@@ -8,7 +8,8 @@
     function getPostsService($http, $timeout, DOMAIN_URL) {
         var service = {
             searchGoods: searchGoods,
-            getGoodsDetail: getGoodsDetail
+            getGoodsDetail: getGoodsDetail,
+            getApprove: getApprove,
         };
         return service;
         ////////////////
@@ -26,6 +27,18 @@
 
         function getGoodsDetail(url) {
             return $http.get(DOMAIN_URL + "/api/goods" + url);
+        }
+
+        function getApprove(goodId, status){
+            var url = DOMAIN_URL + '/api/admin/good/status';
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify({"goodId":goodId,"status":status}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     }
 })();

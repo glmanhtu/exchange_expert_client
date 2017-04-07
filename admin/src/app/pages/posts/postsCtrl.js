@@ -8,6 +8,7 @@
   function postsCtrl($scope, $timeout, $location, getPostsService, $uibModal, DOMAIN_URL) {
     $scope.items;
     $scope.currentItem;
+    $scope.goodId;
     initController();
 
     function initController() {
@@ -32,6 +33,7 @@
 
     getPostsService.getGoodsDetail(url).then(function (response) {
       $scope.currentItem=response.data;
+      $scope.goodId=response.data.id;
       $uibModal.open({
         animation: true,
         scope: $scope,
@@ -52,6 +54,14 @@
     }, function () {
       console.log('Something wrong when get good');
     });
-  } 
+  }
+
+  $scope.approve=function(status){
+    getPostsService.getApprove($scope.goodId, status).then(function (response) {
+      console.log(response);
+    }, function () {
+      console.log('Something wrong when approve');
+    });
+  }
 }
 })();

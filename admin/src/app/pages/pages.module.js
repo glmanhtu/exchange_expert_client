@@ -14,7 +14,7 @@
     'BlurAdmin.pages.category',
     'BlurAdmin.pages.location',
     'BlurAdmin.pages.member',
-    'BlurAdmin.pages.user',
+    'BlurAdmin.pages.login',
   ])
       .config(routeConfig);
 

@@ -1,61 +1,38 @@
-<div class="modal-content">
-	<div class="modal-header bg-info">
-		<h4 class="modal-title"><font color="#FFFFFF">{{currentItem.title}}</font></h4>
+<div class="modal-header bg-info">
+	<h5 class="modal-title"><font color="#FFFFFF">{{currentItem.title}}</font></h5>
+</div>
+<div class="modal-body">
+	<div class="col-md-4">
+		<div class="col-md-12">
+			<img ng-src="{{currentItem.featuredImage}}" class="img-responsive" alt="" />
+		</div>
+
+		<div class="col-md-12" ng-repeat="value in currentItem.images">
+			<img ng-src="{{ value.url }}" class="img-responsive" />
+		</div>
 	</div>
-	<div class="modal-body">
-		<div class="col-md-4"><img ng-src="{{currentItem.featuredImage}}" style="width:100%"></div>
-		<div class="col-md-8">
-			<div class="row">
-				<div class="panel panel-info">
-					<div class="panel-heading"><font color="#FFFFFF">User Informations</font></div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-4">
-								<img ng-src="{{currentItem.seller.avatar}}" style="width:100%">
-							</div>
-							<div class="col-md-8">
-								<div class="row">
-									<span>First name: {{currentItem.seller.firstName}}</span><br>
-									<span>Last name: {{currentItem.seller.lastName}}</span><br>
-									<span>Gender: {{currentItem.seller.gender}}</span><br>
-									<span>Mail: {{currentItem.seller.id}}</span><br>
-									<span>Rating: {{currentItem.seller.avgRating}}</span><br>
-									<span>Birthday: {{currentItem.seller.birthday | date:'yyyy-MM-dd HH:mm:ss'}}</span><br>
-									<span>Created day: {{currentItem.seller.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</span><br>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="panel panel-info">
-					<div class="panel-heading"><font color="#FFFFFF">Goods Informations</font></div>
-					<div class="panel-body">
-						<span>Price: {{currentItem.price}} USD</span><br>
-						<time>Post date: {{currentItem.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time><br>
-						<span>Category: {{currentItem.category.name}}</span><br>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="panel panel-info" >
-					<div class="panel-heading"><font color="#FFFFFF">Locations</font></div>
-					<div class="panel-body" ng-repeat="locations in currentItem.location"><span>{{locations.lat}} - {{locations.lon}}</span></div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="panel panel-info">
-					<div class="panel-heading"><font color="#FFFFFF">Descriptions</font></div>
-					<div class="panel-body"><p align="justify">{{currentItem.description}}</p></div>
+	<div class="col-md-8">
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><font color="#FFFFFF">Goods Informations</font></div>
+				<div class="panel-body">
+					<span>Price: {{currentItem.price}} USD</span><br>
+					<time>Post date: {{currentItem.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time><br>
+					<span>Category: {{currentItem.category.name}}</span><br>
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><font color="#FFFFFF">Descriptions</font></div>
+				<div class="panel-body"><p align="justify">{{currentItem.description}}</p></div>
+			</div>
+		</div>
 	</div>
-	<div class="modal-footer">
-		<!-- <button type="button" class="btn btn-primary" ng-click="$dismiss()">Close</button> -->
-	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-success" ng-click="approve(1)">Approve</button>
+	<button type="button" class="btn btn-danger" ng-click="approve(2)">Ban</button>
+	<button type="button" class="btn" ng-click="$dismiss()">Close</button>
 </div>

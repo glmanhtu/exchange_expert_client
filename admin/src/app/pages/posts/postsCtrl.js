@@ -16,8 +16,8 @@
       getSearchData(key.searchString);
     }
 
-    function getSearchData() {
-     getPostsService.searchGoods().then(function (response) {
+    function getSearchData(statusFilter) {
+     getPostsService.searchGoods(statusFilter).then(function (response) {
        $scope.items = response.data;
        // console.log(response);
      }, function () {

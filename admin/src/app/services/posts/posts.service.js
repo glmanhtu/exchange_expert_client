@@ -13,12 +13,12 @@
         };
         return service;
         ////////////////
-        function searchGoods() {
+        function searchGoods(statusFilter) {
             var url = DOMAIN_URL + '/api/admin/search/good';
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"order":{"by":"title","isASC":false},"status":0}),
+                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"order":{"by":"title","isASC":false},"status":statusFilter}),
                 headers: {
                     'Content-Type': 'application/json'
                 }

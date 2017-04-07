@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  angular.module('ExpertExchange.pages.login', [])
+  angular.module('ExpertExchange.pages.login', [
+    ])
     .config(routeConfig);
 
     /** @ngInject */

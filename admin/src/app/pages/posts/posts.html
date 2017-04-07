@@ -1,60 +1,37 @@
 <div class="widgets" class="horizontal-scroll">
   <div class="row">
-    <div class="col-md-4"><label>
-      <input class="form-control" id="" ng-model="test" type="text" placeholder="Search for...">
-    </label>
-  </div>
-  <div class="col-md-2 col-md-offset-6">
-    <label>
-      ///
-      <div class="form-group">
-        <ui-select ng-model="selectpickerVm.selectedItem.selected"
-        class="btn-group bootstrap-select form-control"
-        ng-disabled="false"
-        append-to-body="true"
-        search-enabled="false">
-        <ui-select-match placeholder="Standard Select">
-          <span> {{$select.selected.label}}</span>
-        </ui-select-match>
-        <ui-select-choices repeat="standardItem in selectpickerVm.standardSelectItems | filter: $select.search">
-          <span ng-bind-html="standardItem.label"></span>
-        </ui-select-choices>
-      </ui-select>
+    <div class="col-md-4">
+      <label>
+        <input class="form-control" id="" ng-model="test" type="text" placeholder="Search for...">
+      </label>
     </div>
-    ///
-    <button type="button" class="btn btn-default">Approve</button>
-    <button type="button" class="btn btn-default">Ban</button>
-  </label>
-</div>
-</div>
-<table class="table" st-table="smartTableData">
-  <thead>
-    <tr class="sortable">
-      <th st-sort="checkbox"></th>
-      <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
-      <th st-sort="title">Title</th>
-      <th st-sort="price">Price</th>
-      <th st-sort="postDate">Post Date</th>
-      <th st-sort="action"></th>
-    </tr>
-  </thead>
+  </div>
+  <table class="table" st-table="smartTableData">
+    <thead>
+      <tr class="sortable">
+        <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
+        <th st-sort="title">Title</th>
+        <th st-sort="price">Price (USD)</th>
+        <th st-sort="postDate">Post Date</th>
+        <th st-sort="action"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr ng-repeat="(key,item) in items | filter:test">
-      <td><input type="checkbox"></td>
-      <td class="table-Index">{{key+1}}</td>
-      <td>{{item.title}}</td>
-      <td>{{item.price}} USD</td>
-      <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-      <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','md', item)">View</button></td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="7" class="text-center">
-        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+    <tbody>
+      <tr ng-repeat="(key,item) in items | filter:test">
+        <td class="table-Index">{{key+1}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','md', item)">View</button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7" class="text-center">
+          <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 </div>

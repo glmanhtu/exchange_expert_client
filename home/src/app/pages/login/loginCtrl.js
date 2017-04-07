@@ -2,14 +2,13 @@
     'use strict';
     angular
     .module('ExpertExchange.pages.login')
-    .controller('loginController', loginController);
-    loginController.$inject = ['$rootScope', '$scope', '$location', 'loginService', 'UserService'];
+    .controller('loginCtrl', loginCtrl);
+    loginCtrl.$inject = ['$rootScope', '$scope', '$location', '$window', '$interval', 'loginService', 'UserService'];
     /* @ngInject */
-    function loginController($rootScope, $scope, $location, loginService, UserService) {
+    function loginCtrl($rootScope, $scope, $location, $window, $interval, loginService, UserService) {
 
         //Scope Declaration
         $scope.responseData = "";
-        $rootScope.userEmail = '';
 
         $scope.userLoginEmail = "";
         $scope.userLoginPassword = "";
@@ -36,6 +35,7 @@
                 
                 UserService.GetByEmail(userLogin.username).then(function (response) {
                     $rootScope.userProfile = response;
+                    sessionStorage.setItem('userFirstName', response.firstName);
                     // console.log($rootScope.userProfile.firstName);
                 }, function (response) {
                     console.log(response);
@@ -47,5 +47,30 @@
                 console.log(error);
             });
         };
+
+        $scope.loginFacebook = function(){
+            var url = 'http://125.253.123.26:8080/api/login/facebook';
+            var urlAuth = 'http://125.253.123.26:8080/api/oauth/authorize?response_type=code&client_id=default&redirect_uri=http://localhost:9999/token';
+            var windowChild = $window.open(url);
+            var intervalID=0;
+            // console.log('cuc');
+            // checkWindow();
+
+            function checkWindow(){
+                // console.log('cuc');
+                if(windowChild.closed && windowChild){
+                    console.log('cuc');
+                    $interval.cancel(intervalID);
+                    $window.location.href = urlAuth;
+                }
+
+            };
+            
+            intervalID = $interval(checkWindow, 500);
+
+            // loginService.loginFacebook
+        }
+
+
     }
 })();

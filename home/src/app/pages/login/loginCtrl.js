@@ -32,6 +32,8 @@
                 sessionStorage.setItem('userName', userLogin.username);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);
+                var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
+                sessionStorage.setItem('expiresIn', expiresIn);
                 
                 UserService.GetByEmail(userLogin.username).then(function (response) {
                     $rootScope.userProfile = response;
@@ -51,7 +53,7 @@
         $scope.loginFacebook = function(){
             
 
-            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://login.exchange-expert.cf?type=1&display=popup&response_type=token';
+            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://login.exchange-expert.cf?display=popup&response_type=token';
             var windowChild = $window.open(url);
             
         }

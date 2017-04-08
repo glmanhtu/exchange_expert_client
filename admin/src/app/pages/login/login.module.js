@@ -9,12 +9,13 @@
         $stateProvider
             .state('login', {
               url: '/login',
-              templateUrl: 'app/pages/login/login.html',
-              title: 'login',
-              sidebarMeta: {
-                icon: 'ion-android-home',
-                order: 0,
-              },
+              views: {
+                'globalView': {
+                    templateUrl: 'app/pages/login/login.html',
+                    title: 'login',
+                    controller: 'loginCtrl'
+                }
+              }            
             });
       }
 

@@ -3,9 +3,9 @@
     angular
     .module('BlurAdmin.pages.login')
     .controller('loginCtrl', loginCtrl);
-    loginCtrl.$inject = ['$rootScope', '$scope', '$location', '$window', '$interval', 'loginService', 'UserService'];
+    loginCtrl.$inject = ['$rootScope', '$scope', '$location', '$window', '$interval', 'loginService', 'UserService', '$cookieStore', 'toastr'];
     /* @ngInject */
-    function loginCtrl($rootScope, $scope, $location, $window, $interval, loginService, UserService) {
+    function loginCtrl($rootScope, $scope, $location, $window, $interval, loginService, UserService, $cookieStore, toastr) {
 
         //Scope Declaration
         $scope.responseData = "";
@@ -24,27 +24,22 @@
                 password: $scope.userLoginPassword
             };
 
-            loginService.login(userLogin).then(function (response) {
-                // $rootScope.userEmail = userLogin.username;
-                // console.log($rootScope.userEmail);
-                // Store the token information in the SessionStorage
-                // So that it can be accessed for other views
-                sessionStorage.setItem('userName', userLogin.username);
-                sessionStorage.setItem('accessToken', response.data.access_token);
-                sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                
-                UserService.GetByEmail(userLogin.username).then(function (response) {
-                    $rootScope.userProfile = response;
-                    sessionStorage.setItem('userFirstName', response.firstName);
-                    // console.log($rootScope.userProfile.firstName);
-                    console.log(sessionStorage);
-                }, function (response) {
-                    console.log(response);
-                });
-
-                $location.path('/home');
+            loginService.login(userLogin).then(function (response) {   
+                if ('access_token' in response.data) {
+                    response.data.expires_in = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
+                    $cookieStore.put('auth', response.data);    
+                    $rootScope.auth = response.data;
+                    UserService.GetByEmail(userLogin.username).then(function (response) {
+                        $rootScope.userProfile = response;
+                        $location.path('/home');
+                    }, function (response) {
+                        console.log(response);
+                    });                                        
+                } else {
+                    toastr.error('User name or password incorrect');
+                }                
             }, function (error) {
-                console.log('Something wrong in controller ');
+                toastr.error('User name or password incorrect');
                 console.log(error);
             });
         };

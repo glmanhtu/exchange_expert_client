@@ -53,7 +53,7 @@
         $scope.loginFacebook = function(){
             
 
-            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://localhost:3000?display=popup&response_type=token';
+            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://exchange-expert.cf?display=popup&response_type=token';
             $window.location = url;
             
         }
@@ -61,7 +61,7 @@
         $scope.loginGoogle = function(){
             
 
-            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://localhost:3000?display=popup&response_type=token';
+            var url = 'https://accounts.google.com/o/oauth2/auth?client_id=472454960459-tmd9n592ddch2lt6mtrs34r1h4gfat5p.apps.googleusercontent.com&redirect_uri=http://exchange-expert.cf&scope=profile email openid&response_type=token';
             $window.location = url;
             
         }

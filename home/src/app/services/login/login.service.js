@@ -47,6 +47,23 @@
                     console.log(error);
                 });
         }
+
+        this.loginGoogle = function(access_token){
+            return $http({
+                url: DOMAIN_URL + '/api/login/google?accessToken=' + access_token,
+                method: "GET",
+                headers: {
+                    'Authorization': undefined
+                },
+            }).then(
+                function (response) {        
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+                    return response;
+                }, function (error) {
+                    console.log('Something wrong in service login');
+                    console.log(error);
+                });
+        }
     }
 
 })();

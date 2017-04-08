@@ -23,11 +23,37 @@
             params[key] = value;
             accesstoken=params;
         }
-        // console.log(accesstoken.access_token);
+        console.log(accesstoken.access_token);
+        console.log(accesstoken.session_state);
 
-        loginService.loginFacebook(accesstoken.access_token).then(function (response) {
-            // sessionStorage.setItem('userName', userLogin.username);
-            sessionStorage.setItem('accessToken', response.data.access_token);
+        if(accesstoken.session_state==null){
+
+            loginService.loginFacebook(accesstoken.access_token).then(function (response) {
+
+            setSesssion(response, UserService, $rootScope);
+
+            $location.path('/home');
+
+            }, function (error) {
+                console.log('Something wrong in controller ');
+                console.log(error);
+            });
+        }else{
+            loginService.loginGoogle(accesstoken.access_token).then(function (response) {
+                
+            setSesssion(response, UserService, $rootScope);
+
+            $location.path('/home');
+
+            }, function (error) {
+                console.log('Something wrong in controller ');
+                console.log(error);
+            });
+        }
+    }
+
+    function setSesssion(response, UserService, $rootScope){
+        sessionStorage.setItem('accessToken', response.data.access_token);
             sessionStorage.setItem('refreshToken', response.data.refresh_token);
             var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
             sessionStorage.setItem('expiresIn', expiresIn);
@@ -40,12 +66,5 @@
             }, function (error) {
                 console.log(error);
             });
-
-            $location.path('/home');
-
-        }, function (error) {
-            console.log('Something wrong in controller ');
-            console.log(error);
-        });
     }
 })();

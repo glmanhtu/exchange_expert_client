@@ -12,6 +12,7 @@
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByEmail = GetByEmail;
+        service.GetCurrentUser = GetCurrentUser;
         service.SendFeedback = SendFeedback;
         service.RatingFeedback = RatingFeedback;
         service.GetByUsername = GetByUsername;
@@ -31,6 +32,10 @@
 
         function GetById(id) {
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        }
+
+        function GetCurrentUser() {
+            return $http.get(DOMAIN_URL + '/api/user/current').then(handleSuccess, handleError('Error getting current user'))
         }
 
         function GetByUsername(username) {

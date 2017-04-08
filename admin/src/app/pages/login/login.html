@@ -1,56 +1,30 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2" ng-controller="loginCtrl">
-            
-            <!-- <div class="form-body">
-                <div class="tab-content" ng-controller="loginCtrl">
-                    <div id="sectionA" class="tab-pane fade in active">
-                        <div class="innter-form">
-                            <form class="sa-innate-form" method="post" role="form" ng-submit="login()" >
-                                <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                                    <label>Email Address</label>
-                                    <input type="text" name="username" ng-model="userLoginEmail">
-                                </div>
-                                <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                                    <label>Password</label>
-                                    <input type="password" name="password" ng-model="userLoginPassword">
-                                </div>
-                                <button type="submit">Sign In</button>
-                                <a href="">Forgot Password?</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            
+        <div class="col-md-8 col-md-offset-2" ng-controller="loginCtrl">    
             <form class="form-horizontal top-buffer talbe" method="post" role="form" ng-submit="login()">
                 <div class="panel panel-success">
                     <div class="panel-heading">Login into Expert Exchange</div>
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" placeholder="Email" name="username" ng-model="userLoginEmail">
-                        </div>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" placeholder="Email" name="username" ng-model="userLoginEmail">
+                          </div>
                       </div>
-
                       <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                        <div class="col-sm-10">
-                          <input type="password" class="form-control" placeholder="Password" name="password" ng-model="userLoginPassword">
+                          <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                          <div class="col-sm-10">
+                            <input type="password" class="form-control" placeholder="Password" name="password" ng-model="userLoginPassword">
                         </div>
-                      </div>
-
-                      <div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-success">Sign in</button>
+                            <button type="submit" class="btn btn-success">Sign in</button>
                         </div>
-                      </div>
                     </div>
                 </div>
-              
-            </form>         
-        </div>
+            </div>
+        </form>         
     </div>
+</div>
 </div>

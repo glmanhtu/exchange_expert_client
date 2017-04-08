@@ -6,12 +6,12 @@
       </label>
     </div>
 
-    <div class="col-md-3 col-md-offset-5">
+    <div class="col-md-2 col-md-offset-6">
       <label>
-        <select class="form-control">
-          <option value="0">Waiting</option>
-          <option value="1">Approved</option>
-          <option value="2">Banned</option>
+        <select class="form-control select-approve" 
+        ng-model="select" 
+        ng-change="getSearchData(select.id)" 
+        ng-options="select as select.label for select in selects track by select.id">
         </select>
       </label>
     </div>

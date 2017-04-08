@@ -8,7 +8,6 @@
   angular.module('BlurAdmin.pages', [
     'ui.router',
 
-    'BlurAdmin.pages.dashboard',
     'BlurAdmin.pages.profile',
     'BlurAdmin.pages.posts',
     'BlurAdmin.pages.category',
@@ -20,7 +19,7 @@
 
   /** @ngInject */
   function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
-    $urlRouterProvider.otherwise('/dashboard'); 
+    $urlRouterProvider.otherwise('/posts'); 
   }
 
 })();

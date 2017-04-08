@@ -5,6 +5,16 @@
         <input class="form-control" id="" ng-model="test" type="text" placeholder="Search for...">
       </label>
     </div>
+
+    <div class="col-md-2 col-md-offset-6">
+      <label>
+        <select class="form-control select-approve" 
+        ng-model="select" 
+        ng-change="getSearchData(select.id)" 
+        ng-options="select as select.label for select in selects track by select.id">
+        </select>
+      </label>
+    </div>
   </div>
   <table class="table" st-table="smartTableData">
     <thead>

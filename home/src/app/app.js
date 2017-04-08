@@ -5,7 +5,9 @@
         	'ngCookies',
             'ngMap',
             'textAngular',
-            'ui.router',           
+            'ui.router',
+            'ui.bootstrap',
+            'ui.carousel',
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',
             'angular-input-stars'          

@@ -2,17 +2,15 @@
 
 	<div class="col-md-12">
 		<div class="col-md-6">
-			<div class="thumbnail">
-				<img ng-src="{{DOMAIN_URL}}/api{{ item.featuredImage }}" class="img-responsive" alt="" />
-			</div>
 
-			<ul class="col-md-3" style="padding: 2px 0 0 0;" ng-repeat="(key, value) in item.images | limitTo:4">
-			  <li class="thumbnail">
-			  	<img ng-src="http://125.253.123.26:8080/api{{ value.url }}" class="img-responsive" />
-	  		  </li>
-			</ul>
-			
-
+		    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+		      <div uib-slide ng-repeat="(key, value) in item.images | limitTo:4" index="key">
+		        <img ng-src="{{DOMAIN_URL}}/api{{ value.url }}" class="img-responsive">
+		        <div class="carousel-caption">
+		          
+		        </div>
+		      </div>
+		    </div>
 
 		</div>
 		<div class="col-md-6">
@@ -45,12 +43,20 @@
 						<dt>Price: </dt> 
 							<dd><span><i class="glyphicon glyphicon-euro"></i><strong>{{ item.price }}</strong></span></dd> 
 						<dt>Location: </dt> 
-							<dd><span><i class="glyphicon glyphicon-map-marker"></i>&nbsp;{{ item.location.lat }} - {{ item.location.lon }}</span></dd> 
+							<dd>
+							<div class="form-group" map-lazy-load="https://maps.google.com/maps/api/js">
+					            <ng-map center="{{ item.location[0].lat }},{{ item.location[0].lon }}" zoom="10" on-click="getpos($event)">
+					                <marker position="{{ item.location[0].lat }},{{ item.location[0].lon }}" title="{{ item.title }}" animation="Animation.BOUNCE" centered="true"></marker>
+					            </ng-map>
+					        </div>
+
+							</dd>
+
 					</dl>
 
-		            	<div class="col-md-4 col-md-offset-2">
+		            	<!-- <div class="col-md-4 col-md-offset-2">
 		            		<button type="button" class="btn btn-primary" ng-click="exchange()"><span><strong>Exchange</strong></span></button>
-		            	</div>
+		            	</div> -->
 
 				</div>
 
@@ -172,6 +178,8 @@
 		});
 	}, 1000);
 		
+	$(document).ready(function(){
+ 
 
-
+	});
 </script>

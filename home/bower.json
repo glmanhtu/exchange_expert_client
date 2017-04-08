@@ -24,7 +24,9 @@
     "lodash": "^4.17.4",
     "angular-input-stars-directive": "angular-input-stars#^1.6.3",
     "ngmap": "^1.18.4",
-    "textAngular": "^1.5.16"
+    "textAngular": "^1.5.16",
+    "angular-bootstrap": "^2.5.0",
+    "angular-ui-carousel": "^0.1.7"
   },
   "overrides": {
     "amcharts": {
@@ -49,6 +51,7 @@
         "js/dropdown.js",
         "js/modal.js",
         "js/collapse.js",
+        "js/carousel.js",
         "./dist/fonts/**.*"
       ]
     },

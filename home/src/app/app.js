@@ -20,16 +20,16 @@
 
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
                 // redirect to login page if not logged in and trying to access a restricted page
-                var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;          
+                var restrictedPage = $.inArray($location.path(), ['/login', '/register', '/access_token=:accessToken']) === -1;          
                 var loggedIn = sessionStorage.accessToken;
-                if (restrictedPage && !loggedIn) {
-                    $location.path('/login');
-                }            
-                var expired = parseInt(accessToken.expiresIn) - Math.round((new Date()).getTime() / 1000);
-                if (expired < 1) {
-                  toastr.error('Access token was expired');
-                  $location.path('/login');
-                }
+                // if (restrictedPage && !loggedIn) {
+                //     $location.path('/login');
+                // }
+                // var expired = parseInt(accessToken.expiresIn) - Math.round((new Date()).getTime() / 1000);
+                // if (expired < 1) {
+                //   toastr.error('Access token was expired');
+                //   $location.path('/login');
+                // }
             });
         }
 })();

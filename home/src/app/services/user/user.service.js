@@ -9,6 +9,7 @@
     function UserService($http,DOMAIN_URL) {
         var service = {};
 
+        service.GetCurrentUser = GetCurrentUser;
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByEmail = GetByEmail;
@@ -20,6 +21,22 @@
         service.Delete = Delete;
 
         return service;
+
+        function GetCurrentUser(access_token) {
+            return $http({
+                url: DOMAIN_URL + '/api/user/current',
+                method: "GET",
+                headers: { 
+                    'Authorization': 'Bearer ' + access_token
+                }
+            }).then(
+                function (response) {
+                    return response.data;
+                }, function (error) {
+                    console.log('Something wrong in service user');
+                    console.log(error);
+                });
+        }
 
         function GetAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));

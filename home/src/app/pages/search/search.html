@@ -1,10 +1,12 @@
-<div class="container">
-
+<div class="container" ng-controller="searchCtrl as vm">
+    
     <div class="col-md-12 form-group">
         <h2><span class="label label-primary from-control">Search Results:</span></h2>
     </div>
 
-    <div class="col-md-8 " ng-controller="searchCtrl as vm">
+    <div class="col-md-8 ">
+
+        
         
         <div ng-if="!vm.items">
             
@@ -23,7 +25,7 @@
                     <div class="col-md-3">
                         <div class="thumbnail">
                             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                                <img ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" alt="item" style="width:100%">
+                                <img ng-src="{{DOMAIN_URL}}/api{{ item.featuredImage }}" alt="item" style="width:100%">
                             </a>
                         </div>
                     </div>
@@ -70,8 +72,14 @@
 
             </div>
         </div>
-    
-
+    </div>
+    <div class="col-md-4">
+        <div class="form-group" map-lazy-load="https://maps.google.com/maps/api/js">
+            <ng-map center="current-location" zoom="16" on-click="getpos($event)">
+                <marker position="current-location" title="" on-dragend="getpos($event)" animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
+            </ng-map>
+        </div>
+        <button ng-click="searchByLocation()" class="btn btn-primary pull-right">Search Location</button>
     </div>
 </div>
 

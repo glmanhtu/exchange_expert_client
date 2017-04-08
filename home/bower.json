@@ -18,6 +18,7 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
     "jquery": "~2.1.4",
+    "angular-toastr": "~2.1.1",
     "angular-ui-router": "0.3.1",
     "angular-cookies": "~1.4.8",
     "lightslider": "^1.1.6",

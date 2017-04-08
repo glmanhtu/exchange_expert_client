@@ -22,10 +22,7 @@
                     'Authorization': 'Basic ZGVmYXVsdDo='
                 },
             }).then(
-                function (response) {
-                    // console.log(response.data.access_token);
-                    $cookieStore.put('global', response.data);
-                    // console.log($cookieStore.get('global'));
+                function (response) {                
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
                     return response ;
                 }, function (error) {

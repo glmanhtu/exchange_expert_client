@@ -32,6 +32,8 @@
                 sessionStorage.setItem('userName', userLogin.username);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);
+                var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
+                sessionStorage.setItem('expiresIn', expiresIn);
                 
                 UserService.GetByEmail(userLogin.username).then(function (response) {
                     $rootScope.userProfile = response;

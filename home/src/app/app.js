@@ -14,22 +14,26 @@
         .run(run);
 
         function run($rootScope, $location, $cookieStore, $http, toastr) {        
-            if ('accessToken' in sessionStorage != null) {
-              $http.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.accessToken;
-            }
-
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
-                // redirect to login page if not logged in and trying to access a restricted page
-                var restrictedPage = $.inArray($location.path(), ['/login', '/register', '/access_token=:accessToken']) === -1;          
-                var loggedIn = sessionStorage.accessToken;
-                // if (restrictedPage && !loggedIn) {
-                //     $location.path('/login');
-                // }
-                // var expired = parseInt(accessToken.expiresIn) - Math.round((new Date()).getTime() / 1000);
-                // if (expired < 1) {
-                //   toastr.error('Access token was expired');
-                //   $location.path('/login');
-                // }
+                // redirect to login page if not logged in and trying to access a restricted page                
+                var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;          
+                var loggedIn = sessionStorage.accessToken != null;            
+                if (!restrictedPage && !loggedIn) {
+                    $location.path('/login');
+                } else if (!loggedIn) {            
+                    delete sessionStorage.accessToken;
+                    $http.defaults.headers.common['Authorization'] = undefined;                    
+                } else {
+                    var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
+                    if (expired < 1) {
+                        delete sessionStorage.accessToken;
+                        $http.defaults.headers.common['Authorization'] = undefined;
+                        toastr.error('Your access token was expired');
+                        $location.path('/login');
+                    }
+                }                
             });
         }
+
+
 })();

@@ -53,7 +53,7 @@
         $scope.loginFacebook = function(){
             
 
-            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://exchange-expert.cf?display=popup&response_type=token';
+            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://exchange-expert.cf?response_type=token';
             $window.location = url;
             
         }

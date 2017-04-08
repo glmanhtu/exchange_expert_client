@@ -3,23 +3,20 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('navigationCtrl', navigationCtrl);
-        navigationCtrl.$inject = ['$rootScope', '$scope', '$location'];
+        navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService'];
     /** @ngInject */
-    function navigationCtrl($rootScope, $scope, $location) {
+    function navigationCtrl($rootScope, $scope, $location, $http, loginService) {
 
-        if(sessionStorage.getItem('userFirstName') != null){
+        if ((sessionStorage.userFirstName) != null){
             $rootScope.userProfile = {
-                firstName: sessionStorage.getItem('userFirstName'),
-                id: sessionStorage.getItem('userName')
+                firstName: sessionStorage.userFirstName,
+                id: sessionStorage.userName
             };
         }
 
         $scope.logout = function () {
-            sessionStorage.removeItem('userFirstName');
-            sessionStorage.removeItem('userName');
-            sessionStorage.removeItem('accessToken');
-            sessionStorage.removeItem('refreshToken');
-            // console.log(sessionStorage.getItem('userName'));
+            loginService.logout();
+            delete $rootScope.userProfile;
             $location.path('/login');
         };
 

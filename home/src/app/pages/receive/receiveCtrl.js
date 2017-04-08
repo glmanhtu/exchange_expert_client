@@ -58,11 +58,10 @@
             var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
             sessionStorage.setItem('expiresIn', expiresIn);
 
-            UserService.GetCurrentUser(response.data.access_token).then(function (response) {
+            UserService.GetCurrentUser().then(function (response) {
                 console.log(response);
                 $rootScope.userProfile = response;
-                sessionStorage.setItem('userFirstName', response.firstName);
-                // console.log($rootScope.userProfile.firstName);
+                sessionStorage.setItem('userFirstName', response.firstName);            
             }, function (error) {
                 console.log(error);
             });

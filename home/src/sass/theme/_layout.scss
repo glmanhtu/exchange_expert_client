@@ -45,6 +45,7 @@ a {
             transition: .07s ease-in-out;
     text-decoration: none;
     color: #4a545a;
+    cursor: pointer;
     &:hover {
         color: #4A545A;
         text-decoration: none;
@@ -169,6 +170,14 @@ ul {
     }
 }
 
+.pagination {
+    .active {
+        a {
+            background-color: $default-button-color;
+        }
+    }
+}
+
 
 .footer {
     margin-top:15px;
@@ -220,9 +229,8 @@ ul {
 
     }
 
-    .al-main {
-        /* margin-left: 180px; */
-        padding: 110px 0 34px;
+    .al-main {        
+        padding: 50px 0 34px;
 
     }
 

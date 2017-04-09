@@ -1,15 +1,15 @@
 
-<div class="col-md-9" ng-controller="homeCtrl as vm">
+<div class="col-md-9 col-xs-12" ng-controller="homeCtrl as vm">
 
     <div ng-repeat="item in vm.items">
 
         <div class="row">
             <article class="post row">
-                <a class="post-featured-image col-md-4" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
                     <img src="{{ DOMAIN_URL + '/api' + item.featuredImage || '/assets/img/default-placeholder.png' }}"/>
                 </a>
                 
-                <header class="entry-header col-md-8">
+                <header class="entry-header col-md-8 col-xs-12">
                     <h3 class="entry-title">
                         <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
                             {{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}
@@ -46,16 +46,10 @@
         <ul ng-if="vm.pager.pages.length" class="pagination">
             <li ng-class="{hidden:vm.pager.currentPage === 1}">
                 <a ng-click="vm.setPage(1)">First</a>
-            </li>
-            <li ng-class="{hidden:vm.pager.currentPage === 1}">
-                <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
-            </li>
+            </li>            
             <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
                 <a href="#" ng-click="vm.setPage(page)">{{page}}</a>
-            </li>                
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
-            </li>
+            </li>                            
             <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
                 <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
             </li>
@@ -66,9 +60,8 @@
 
 </div>
 
-<div class="col-md-3" >
+<div class="col-md-3 suggest-container" >
     <suggest></suggest>
-
 </div>
 
 

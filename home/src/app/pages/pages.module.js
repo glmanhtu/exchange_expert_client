@@ -14,8 +14,8 @@
 
     /** @ngInject */
     function routeConfig($urlRouterProvider) {
-        // $urlRouterProvider
-        // .otherwise('/home');
+        $urlRouterProvider
+        .otherwise('/home');
     }
 
 })();

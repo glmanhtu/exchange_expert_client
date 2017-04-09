@@ -23,13 +23,10 @@
 
         return service;
 
-        function GetCurrentUser(access_token) {
+        function GetCurrentUser() {
             return $http({
                 url: DOMAIN_URL + '/api/user/current',
-                method: "GET",
-                headers: { 
-                    'Authorization': 'Bearer ' + access_token
-                }
+                method: "GET"                
             }).then(
                 function (response) {
                     return response.data;
@@ -59,12 +56,11 @@
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function SendFeedback(email,token,msg) {
+        function SendFeedback(email, msg) {
             var url = DOMAIN_URL + '/api/feedback?user=' + email;
             var header = {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Accept': 'application/json'                
             };
             var data = {
                     "message": msg
@@ -76,21 +72,19 @@
                 data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'                    
                 }
             }).then(handleSuccess, handleError('Error feedback'));
         }
 
-        function RatingFeedback(email,token,rate) {
+        function RatingFeedback(email, rate) {
 
             console.log(rate);
 
             var url = DOMAIN_URL + '/api/rating?forEmailUser=' + email + '&star=' + rate;
             var header = {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Accept': 'application/json'                
             };
             var data = {};
 
@@ -100,8 +94,7 @@
                 data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'                    
                 }
             }).then(handleSuccess, handleError('Error rating'));
         }

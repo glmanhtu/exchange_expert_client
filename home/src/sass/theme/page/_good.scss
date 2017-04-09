@@ -1,0 +1,144 @@
+.slider-wrapper {
+    position: relative;        
+}
+
+.item-container {
+	background: #fff;
+	.item-description {
+		display: block;
+	    padding: 5%;
+	    word-wrap: break-word;
+	}
+}
+
+.purchase-box {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 0 #D9E1E7;
+
+    .download-price {
+	    text-align: center;
+	    width: 100%;
+	    display: inline-block;
+	    vertical-align: top;
+	}
+
+    .download-aside {
+	    padding: 12% 10%;
+	    border-bottom: solid 2px #EEF2F5;
+	}
+
+	.purchase-price {
+	    letter-spacing: -1px;
+	    font-size: 42px;
+	    line-height: 1;
+	    margin-bottom: 12%;
+
+	    .edd_price {
+		    display: inline-block;
+		}
+	}
+
+	.edd_download_purchase_form {
+	    position: relative;
+	}
+
+	.edd_purchase_submit_wrapper, .download-wrapper .edd_purchase_submit_wrapper {
+	    width: 100%;
+	}
+
+	.edd_purchase_submit_wrapper {
+	    position: relative;
+	    z-index: 10;
+	    border-radius: 3px;
+	    display: inline-block;
+	}
+
+	.edd-add-to-cart {
+	    font-size: 16px;
+	    padding: 16px 20px;
+	    border-radius: 3px;
+	    width: 100%;
+	    line-height: 1.4;
+        background: #37bf91;
+	}
+
+	.download-details {
+	    display: inline-block;
+	    width: 100%;
+	    text-align: left;
+	    font-size: 14px;
+	    color: #7B8996;
+	}
+
+	.download-features + .post-meta {
+	    border-top: solid 2px #EEF2F5;
+	    padding-top: 8%;
+	}
+
+	#secondary .post-meta {
+	    text-align: left;
+	}
+
+	.download-features:not(:empty) + .post-meta {
+	    margin-top: 8%;
+	}
+
+	.post-meta {
+	    font-size: 13px;
+	    display: inline-block;
+	    width: 100%;
+	    margin-top: 2%;
+	    color: #9ba6ad;
+
+	    i {
+		    width: 18px;
+		    color: #84919E;
+		}
+
+	    span {
+		    margin-bottom: 8px;
+		}
+
+		a {
+		    font-weight: normal;
+		    padding: 0;
+		    margin: 0;
+		    background: none;
+		    color: #7B8996;
+	        display: inline-block;
+		}
+	}
+
+	.meta-cat, .meta-tag {
+	    margin: 0;
+	    width: 100%;
+	    font-size: 14px;
+	    display: inline-block;
+	}
+
+	.checkout-share {
+	    padding: 8% 0;
+	    .share-title {
+		    display: inline-block;
+		    width: 100%;
+		    font-weight: bold;
+		    font-size: 15px;
+		    margin-bottom: 10px;
+		}
+		li {
+		    list-style-type: none;
+		    display: inline-block;
+		    font-size: 24px;
+		    line-height: 1;
+		}
+		a {
+		    padding: 3px 5px;
+		    color: #748590;
+		    display: inline-block;
+		}
+	}
+}

@@ -6,10 +6,11 @@
             'ngMap',
             'textAngular',
             'toastr',
-            'ui.router',           
+            'ui.router',
+            'relativeDate',
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',
-            'angular-input-stars'          
+            'angular-input-stars'        
         ])
         .run(run);
 

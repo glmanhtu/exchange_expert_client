@@ -3,8 +3,121 @@ body {
 	padding: 0;
 }
 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    font-family: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    font-style: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    border: 0;
+    outline: 0;
+}
+
+html {
+    font-size: 62.5%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+*:focus {
+    outline: none;
+}
+* { 
+    box-sizing:border-box; 
+}
+
+html, body, button, input, select, textarea {
+    font-family: Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {    
+    font-weight: 400;
+    line-height: 1.2;
+    clear: both;
+    margin: 0 0 3% 0;
+    color: #4a545a;
+}
+
+a {
+    -webkit-transition: .07s ease-in-out;
+            transition: .07s ease-in-out;
+    text-decoration: none;
+    color: #4a545a;
+    &:hover {
+        color: #4A545A;
+        text-decoration: none;
+    }
+    &:active, &:focus {
+        text-decoration: none;
+    }
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+}
+
+input:not([type="submit"]), textarea, select {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 15px;
+    height: 2.5em;
+    -webkit-transition: .07s ease-in-out;
+    transition: .07s ease-in-out;
+    color: #4a545a;
+    border: solid 1px transparent;
+    border-radius: 3px;
+    background: #eef2f5;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background: #eef2f5;
+    color: #4c5357;
+    -webkit-font-smoothing: antialiased;
+}
+
+.main {    
+    position: relative;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5%;
+    overflow: hidden;
+}
+
 .clearfix {
     clear:both;
+}
+
+.page-top {
+    background-color: #282E34;
+    position: relative;
+    height: $nav-height;
+
+    z-index: 904;    
+    width: 100%;       
+    padding: 0;     
+
+    .site-header-bg-wrap {
+        background-image: url(/assets/img/books.jpg);    
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        opacity: 0.1;
+        width: 100%;    
+        height: $nav-height;
+    }
 }
 
 .al-main {
@@ -13,16 +126,24 @@ body {
   margin-bottom: -40px;
 }
 
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-small {
+    max-width: 48px;
+}
+
 
 .al-content {
 	position: relative;
 
 }
 
-.navigation {
-	height: $nav-height;
-	background-color: $default;
-	
+navigation {
+	position: absolute;
+    z-index: 1;
+    width: 100%;
 }
 
 ul {
@@ -81,17 +202,7 @@ ul {
 
     .page-top.scrolled {
         background-color: $background-color-banner;
-    }
-    .page-top {
-        background-color: $background-color-banner;
-        position: fixed;
-        z-index: 904;
-        /* box-shadow: 2px 0 3px rgba(0,0,0,.5); */
-        height: 50px;
-        width: 100%;
-        min-width: 320px;
-        padding: 0;
-    }
+    }    
 
     .search-bar {
          padding-top: 5px; 
@@ -134,17 +245,7 @@ ul {
 
     .page-top.scrolled {
         background-color: $background-color-banner;
-    }
-    .page-top {
-        background-color: $background-color-banner;
-        position: fixed;
-        z-index: 904;
-        /* box-shadow: 2px 0 3px rgba(0,0,0,.5); */
-        height: 50px;
-        width: 100%;
-        min-width: 320px;
-        padding: 0 32px 0 40px;
-    }
+    }    
 
     .search-bar {
          padding-top: 5px; 
@@ -191,16 +292,6 @@ ul {
 
     .page-top.scrolled {
         background-color: $background-color-banner;
-    }
-    .page-top {
-        background-color: $background-color-banner;
-        position: fixed;
-        z-index: 904;
-        /* box-shadow: 2px 0 3px rgba(0,0,0,.5); */
-        height: 50px;
-        width: 100%;
-        min-width: 320px;
-        /* padding: 0 32px 0 40px; */
     }
 
     .search-bar {

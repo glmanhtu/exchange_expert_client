@@ -19,7 +19,7 @@
                 var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;          
                 var loggedIn = sessionStorage.accessToken != null;            
                 if (!restrictedPage && !loggedIn) {
-                    $location.path('/login');
+                    toastr.error('You have to login to access this resource');
                 } else if (!loggedIn) {            
                     delete sessionStorage.accessToken;
                     $http.defaults.headers.common['Authorization'] = undefined;                    
@@ -28,8 +28,7 @@
                     if (expired < 1) {
                         delete sessionStorage.accessToken;
                         $http.defaults.headers.common['Authorization'] = undefined;
-                        toastr.error('Your access token was expired');
-                        $location.path('/login');
+                        toastr.error('Your access token was expired, please login again');                        
                     }
                 }                
             });

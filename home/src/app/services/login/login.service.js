@@ -67,7 +67,7 @@
 
         this.logout = function() {
             console.log("called logout");
-            sessionStorage.removeItem('userFirstName');
+            sessionStorage.removeItem('userProfile');
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');   

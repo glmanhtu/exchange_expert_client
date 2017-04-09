@@ -1,3 +1,41 @@
+@media only screen and (max-width: 600px) {
+	.post {
+	    width: 100%;
+	    margin-right: 0 !important;
+	    margin-left: 0 !important;
+	    margin-bottom: 8% !important;
+	    height: auto !important;
+	    > a {
+	    	> img {
+	    		margin-top: 3% !important;
+	    		top: 0 !important;
+	    		transform: none !important;
+	    		max-height: 200px !important;
+	    	}
+	    }
+
+	    .entry-header {
+		    padding: 5% 6% !important;
+		}
+
+		.entry-title {
+		    font-size: 20px;
+		    line-height: 1.3;
+		    position: relative;
+		    margin-bottom: 4%;
+		}
+		.entry-excerpt {
+			margin-bottom: 20px;			
+		}
+		.download-meta {
+			padding: 2% 5% !important;
+		}
+	}
+	.suggest-container {
+		display: none;
+	}
+}
+
 .post {
 	font-size: 15px;
     display: inline-block;

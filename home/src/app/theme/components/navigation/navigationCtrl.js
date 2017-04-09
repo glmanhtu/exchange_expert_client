@@ -9,11 +9,13 @@
 
         $scope.loginParams = {};
         $scope.registerParams = {};
-        $scope.avatar = "";
+        $scope.avatar = "assets/img/no-photo.png";
 
         if ((sessionStorage.userProfile) != null){            
             $rootScope.userProfile = JSON.parse(sessionStorage.userProfile);
-            $scope.avatar = $rootScope.userProfile.avatar;
+            if ($rootScope.userProfile.avatar != null) {
+                $scope.avatar = $rootScope.userProfile.avatar;
+            }            
             console.log($rootScope.userProfile);
         }
 
@@ -26,22 +28,26 @@
         $scope.login = function () {          
             loginService.login($scope.loginParams).then(function (response) {
 
-                // Store the token information in the SessionStorage
-                // So that it can be accessed for other views                
-                sessionStorage.setItem('accessToken', response.data.access_token);
-                sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
-                sessionStorage.setItem('expiresIn', expiresIn);
-                
-                UserService.GetCurrentUser().then(function (response) {
-                    $rootScope.userProfile = response;
-                    $scope.avatar = response.avatar;
-                    sessionStorage.setItem('userProfile', JSON.stringify(response));    
-                    toastr.success("Welcome back, " + response.firstName + " " + response.lastName);
-                }, function (response) {
-                    toastr.error('An error occurreed when get your information');
-                    console.log(response);
-                });                
+                if (response != null) {
+                    // Store the token information in the SessionStorage
+                    // So that it can be accessed for other views                
+                    sessionStorage.setItem('accessToken', response.data.access_token);
+                    sessionStorage.setItem('refreshToken', response.data.refresh_token);
+                    var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
+                    sessionStorage.setItem('expiresIn', expiresIn);
+                    
+                    UserService.GetCurrentUser().then(function (response) {
+                        $rootScope.userProfile = response;
+                        $scope.avatar = response.avatar;
+                        sessionStorage.setItem('userProfile', JSON.stringify(response));    
+                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);
+                    }, function (response) {
+                        toastr.error('An error occurreed when get your information');
+                        console.log(response);
+                    });      
+                } else {
+                    toastr.error('Username or password incorrect');    
+                }
             }, function (error) {
                 toastr.error('Username or password incorrect');
                 console.log(error);
@@ -70,7 +76,7 @@
         };
 
         $scope.loginFacebook = function(){        
-            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://exchange-expert.cf?response_type=token';
+            var url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=551029818251398&redirect_uri=http://exchange-expert.cf?display=popup&response_type=token';
             window.location = url;
         }
 

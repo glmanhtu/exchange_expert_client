@@ -41,15 +41,13 @@
 
     </div>          
 
-    <hr>
-
-    <div class="col-md-12">
+    <div class="row">
 
         <ul ng-if="vm.pager.pages.length" class="pagination">
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
+            <li ng-class="{hidden:vm.pager.currentPage === 1}">
                 <a ng-click="vm.setPage(1)">First</a>
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === 1}">
+            <li ng-class="{hidden:vm.pager.currentPage === 1}">
                 <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
             </li>
             <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
@@ -58,7 +56,7 @@
             <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
                 <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
             </li>
-            <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+            <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
                 <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
             </li>
         </ul>
@@ -72,15 +70,5 @@
     <suggest></suggest>
 
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        setTimeout(function(){ 
-
-        }, 2000);
-        
-    });
-</script>
 
 

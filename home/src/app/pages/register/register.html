@@ -39,35 +39,47 @@
 
         <div id="sectionB" class="tab-pane fade in active">
 			<div class="innter-form">
-
-                    <label>First Name</label>
-                    <input type="text" name="firstName" id="firstName" ng-model="firstname" required="" class="form-control">
-                    <div class="hidden" id="isValFirstName">
-                        <span class="label label-danger">First Name field is required</span>
+                <div ng-show="error" class="alert alert-danger">{{error}}</div>
+                <form class="form-horizontal" ng-submit="register()" role="form">
+                    <label for="firstName" class="control-label">First Name</label>
+                    <div class="">
+                      <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="firstName" required />
+                      <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
                     </div>
 
-                    <label>Last Name</label>
-                    <input type="text" name="lastName" id="lastName" ng-model="lastname" required="" class="form-control">
-                    <div class="hidden" id="isValLastName">
-                        <span class="label label-danger">Last Name field is required</span>
+                    <label for="lastName" class="control-label">Last Name</label>
+                    <div class="">
+                      <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="lastName" required />
+                      <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
                     </div>
 
-                    <label>Email Address</label>
-                    <input type="text" name="email" id="email" ng-model="email" required="" class="form-control">
-                    <div class="hidden" id="isValEmail">
-                        <span class="label label-danger">Email field is required</span>
+                    <label for="emailRegister" class="control-label">Email</label>
+                    <div class="">
+                      <input type="email" class="form-control" id="emailRegister" placeholder="Email" ng-model="emailRegister" ng-pattern="emailFormat" required />
+                      <span ng-show="form.emailRegister.$dirty && form.emailRegister.$error.required" class="help-block">Email is required</span>
+                      <span ng-show="form.emailRegister.$dirty && form.emailRegister.$valid" class="help-block">This email format is invalid!</span>
+                      <span ng-show="form.emailRegister.$dirty && form.emailRegister.$error.pattern" class="help-block">Not valid email!</span>
                     </div>
 
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" ng-model="password" required="" class="form-control">
-                    <br>
-                    <div class="hidden" id="isValPassword">
-                        <span class="label label-danger">Password field is required</span>
+                    <label for="password" class="control-label">Password</label>
+                    <div class="">
+                      <input type="password" class="form-control" id="password" placeholder="Password" ng-model="password" required />
+                      <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                    </div>
+                    
+                    <div class="">
+                        <br>
+                        <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary form-control btn-auth pull-right">Sign up</button>
+                        <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <br><br>
+                        <p><i>By clicking Join now, you agree to our User Agreement, Privacy Policy, and Cookie Policy.</i></p>
                     </div>
 
-                    <button type="button" ng-click="submitUser()" class="btn btn-primary form-control">Join now</button>
+                </form>    
 
-                    <p><i>By clicking Join now, you agree to our User Agreement, Privacy Policy, and Cookie Policy.</i></p>
+                    <!-- <button type="button" ng-click="submitUser()" class="btn btn-primary form-control">Join now</button> -->
+
+                    
      
             </div>
             <!-- <div class="social-login">

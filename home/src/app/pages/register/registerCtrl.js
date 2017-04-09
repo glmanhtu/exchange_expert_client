@@ -9,10 +9,13 @@
         var vm = this;
         vm.title = 'registerCtrl';
 
-        $scope.firstname = '';
+        $scope.firstName = '';
         $scope.lastname = '';
         $scope.password = '';
-        $scope.email = '';
+        $scope.emailRegister = '';
+        $scope.error = '';
+        $scope.text = 'me@example.com';
+        $scope.emailFormat = '/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/';
 
         $scope.submitUser = (function(event) {
         	var isVal = true;
@@ -68,9 +71,24 @@
 	            }, 1000 );
 	        	
 	        }
-        	
         });
 
+        $scope.register = function () {
+            $scope.dataLoading = true;
+            var userData = {"firstName": $scope.firstName, "lastName": $scope.lastName, "id": $scope.emailRegister, "password": $scope.password }
 
+            registerService.registerUser(userData).then(function(response) {
+                console.log("Success");
+                console.log(response);
+                $location.path('/login');
+
+            }, function(response) {
+                console.log(userData);
+                $scope.dataLoading = false;
+                console.log("Error");
+                console.log(response);
+                $scope.error = response.data.error + ": " + response.data.error_description;
+            });
+        };
     }
 })();

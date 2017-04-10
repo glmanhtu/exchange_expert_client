@@ -6,30 +6,33 @@
             'ngMap',
             'textAngular',
             'toastr',
-            'ui.router',           
+            'ui.router',
+            'relativeDate',
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',
-            'angular-input-stars'          
+            'angular-input-stars'        
         ])
         .run(run);
 
-        function run($rootScope, $location, $cookieStore, $http, toastr) {        
-            if ('accessToken' in sessionStorage != null) {
-              $http.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.accessToken;
-            }
-
+        function run($rootScope, $location, $cookieStore, $http, toastr, loginService) {        
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
-                // redirect to login page if not logged in and trying to access a restricted page
-                var restrictedPage = $.inArray($location.path(), ['/login', '/register', '/access_token=:accessToken']) === -1;          
-                var loggedIn = sessionStorage.accessToken;
-                // if (restrictedPage && !loggedIn) {
-                //     $location.path('/login');
-                // }
-                // var expired = parseInt(accessToken.expiresIn) - Math.round((new Date()).getTime() / 1000);
-                // if (expired < 1) {
-                //   toastr.error('Access token was expired');
-                //   $location.path('/login');
-                // }
+                // redirect to login page if not logged in and trying to access a restricted page                
+                var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;          
+                var loggedIn = sessionStorage.accessToken != null;            
+                if (!restrictedPage && !loggedIn) {
+                    loginService.logout();
+                    toastr.error('You have to login to access this resource');
+                } else if (!loggedIn) {            
+                    loginService.logout();                    
+                } else {
+                    var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
+                    if (expired < 1) {
+                        loginService.logout();
+                        toastr.error('Your access token was expired, please login again');                        
+                    }
+                }                
             });
         }
+
+
 })();

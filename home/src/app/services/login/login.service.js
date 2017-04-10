@@ -64,6 +64,15 @@
                     console.log(error);
                 });
         }
+
+        this.logout = function() {
+            console.log("called logout");
+            sessionStorage.removeItem('userProfile');
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');   
+            $http.defaults.headers.common['Authorization'] = undefined;         
+        }
     }
 
 })();

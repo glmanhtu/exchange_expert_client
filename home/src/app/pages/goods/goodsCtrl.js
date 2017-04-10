@@ -3,9 +3,11 @@
     angular
     .module('ExpertExchange.pages.goods')
     .controller('goodsCtrl', goodsCtrl);
-    goodsCtrl.$inject = ['$scope','$location','$window','$timeout','$stateParams','goodService','DOMAIN_URL'];
+
+    goodsCtrl.$inject = ['$scope','$stateParams','goodService','DOMAIN_URL', 'googleMapService'];
+
     /* @ngInject */
-    function goodsCtrl($scope,$location,$window,$timeout,$stateParams,goodService,DOMAIN_URL) {
+    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMapService) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -69,27 +71,24 @@
         $scope.item = {};
         $scope.images = {};
         $scope.path = 0;
+        $scope.address = '';
         $scope.DOMAIN_URL = DOMAIN_URL;
         var good_slug = $stateParams.good_slug;
         var category_slug = $stateParams.category_slug;
         var url = "/"+category_slug+"/"+good_slug;
 
         vm.items = {}; 
-
-        initController(url);
-
-        function initController(url) {
-            $timeout( function(){
-                vm.getGood(url);
-            }, 1000 );        
-        }
-
-        ////////////////
+        vm.getGood(url);
+        
         function getGood(url) {
             goodService.getGood(url).then(function (response) {
                 $scope.item = response.data;
                 $scope.images = response.data.images;
-                console.log($scope.item);
+                googleMapService.getAddress(response.data.location[0].lat, response.data.location[0].lng).then(function(response) {
+                    $scope.address = response.data.results[0].formatted_address;
+                }, function(error) {
+                    console.log(error);
+                })
              }, function () {
                 console.log('Something wrong when get good');
              });
@@ -103,28 +102,6 @@
                 $scope.ratingClick = 0;
             },2000)
 
-        }
-
-        $scope.exchange =  function() {
-            // alert("ExpertExchange");
-            $scope.accessToken = sessionStorage.accessToken;
-            if ($scope.accessToken)
-                jQuery('#exchangeModal').modal('show');
-            else
-                $window.location.href = '/#/login';
-        }
-
-        $scope.exchangeApply = function() {
-            jQuery('#exchangeModal').modal('hide');
-            $timeout(function() {
-                $window.location.href = '/#/home';
-            },1000);
-        }
-
-        $scope.sellerProfile = function() {
-            // var email = $scope.item.seller.id || null;
-            // console.log(email);
-            $window.location.href = '/#/profile';
         }
     }
 })();

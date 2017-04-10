@@ -9,13 +9,10 @@
         var vm = this;
         vm.title = 'registerCtrl';
 
-        $scope.firstName = '';
+        $scope.firstname = '';
         $scope.lastname = '';
         $scope.password = '';
-        $scope.emailRegister = '';
-        $scope.error = '';
-        $scope.text = 'me@example.com';
-        $scope.emailFormat = '/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/';
+        $scope.email = '';
 
         $scope.submitUser = (function(event) {
         	var isVal = true;

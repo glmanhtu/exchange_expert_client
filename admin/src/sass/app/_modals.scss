@@ -3,6 +3,9 @@
   border-radius: 5px;
   border: none;
   color: $dropdown-text;
+  max-height: 500px;
+  margin-top: 5%;
+  overflow: scroll;
 }
 
 .modal-header {
@@ -34,7 +37,9 @@ $modal-input-border: #e7e7e7;
 
 .modal {
   text-align: center;
+  overflow: hidden !important;
   .modal-dialog {
+
     display: inline-block;
     text-align: left;
     margin: 0 auto;
@@ -47,6 +52,7 @@ $modal-input-border: #e7e7e7;
     .modal-body p, .modal-body div, .modal-body span{
       color: $dropdown-text;
     }
+
   }
   .modal-header {
     border: none;

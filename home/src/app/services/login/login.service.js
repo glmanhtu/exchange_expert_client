@@ -22,40 +22,56 @@
                     'Authorization': 'Basic ZGVmYXVsdDo='
                 },
             }).then(
-                function (response) {
-                    // console.log(response.data.access_token);
-                    $cookieStore.put('global', response.data);
-                    // console.log($cookieStore.get('global'));
+                function (response) {                
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
-                    return response ;
+                    return response;
                 }, function (error) {
                     console.log('Something wrong in service login');
                     console.log(error);
                 });
         }
 
-        this.loginFacebook = function(){
+        this.loginFacebook = function(access_token){
             return $http({
-                url: '192.168./api/oauth/token',
+                url: DOMAIN_URL + '/api/login/facebook?accessToken=' + access_token,
                 method: "GET",
-                data: $.param({
-                    grant_type: 'password',
-                    username: userlogin.username, 
-                    password: userlogin.password,
-                    client_id: 'default' 
-                }),
-                headers: { 
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json',
-                    'Authorization': 'Basic ZGVmYXVsdDo='
+                headers: {
+                    'Authorization': undefined
                 },
             }).then(
-                function (response) {
-                    return response ;
+                function (response) {        
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+                    return response;
                 }, function (error) {
                     console.log('Something wrong in service login');
                     console.log(error);
                 });
+        }
+
+        this.loginGoogle = function(access_token){
+            return $http({
+                url: DOMAIN_URL + '/api/login/google?accessToken=' + access_token,
+                method: "GET",
+                headers: {
+                    'Authorization': undefined
+                },
+            }).then(
+                function (response) {        
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+                    return response;
+                }, function (error) {
+                    console.log('Something wrong in service login');
+                    console.log(error);
+                });
+        }
+
+        this.logout = function() {
+            console.log("called logout");
+            sessionStorage.removeItem('userProfile');
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');   
+            $http.defaults.headers.common['Authorization'] = undefined;         
         }
     }
 

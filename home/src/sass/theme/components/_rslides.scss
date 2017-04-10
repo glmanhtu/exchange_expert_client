@@ -1,0 +1,52 @@
+.rslides {
+	background: #fff;
+	li {
+		height: 600px;
+		img {
+			max-height: 90%;
+			max-width: 90%;
+			width: auto;
+			margin: auto;
+			float: none !important;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+}
+
+.rslides_nav.prev {
+    right: 80px;
+}
+
+.rslides_nav {
+    position: absolute;
+    z-index: 20;
+    background: $default-button-color;
+    right: 40px;
+    bottom: 20px;
+    font-size: 0;
+    font-size: 0;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    color: #fff;
+    line-height: 2;
+    border-radius: 2px;
+    animation: smoothFade .2s;
+    -moz-animation: smoothFade .2s;
+    -webkit-animation: smoothFade .2s;
+    -o-animation: smoothFade .2s;
+}
+
+.rslides_nav.prev:after {
+    content: "\f104";
+    font-family: "FontAwesome";
+    font-size: 18px;
+}
+
+.rslides_nav.next:after {
+    content: "\f105";
+    font-family: "FontAwesome";
+    font-size: 18px;
+}

@@ -1,94 +1,82 @@
 <div ng-controller="goodsCtrl">
 
-	<div class="col-md-12">
-		<div class="col-md-6">
-
-		    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-		      <div uib-slide ng-repeat="(key, value) in item.images | limitTo:4" index="key">
-		        <img ng-src="{{DOMAIN_URL}}/api{{ value.url }}" class="img-responsive">
-		        <div class="carousel-caption">
-		          
-		        </div>
-		      </div>
-		    </div>
-
+	<div class="row">
+		<div class="col-md-9 item-container col-xs-12">
+			<div class="slider-wrapper">
+				<div rslides="item.images"></div>
+			</div>		
+			<div class="item-description">
+				<p>{{ item.description }}</p>
+			</div>	
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3 item-purchase col-xs-12">
+			<div id="purchase-box" class="purchase-box">
+							
+				<div class="download-price download-aside">																	
+					<div class="purchase-price">
+						<span class="edd_price">${{ item.price }}</span>
+					</div>
+					<form class="edd_download_purchase_form" method="post">			
+	
+						<div class="edd_purchase_submit_wrapper">
+							<a href="#" class="edd-add-to-cart button blue edd-submit edd-has-js">
+								<span class="edd-add-to-cart-label">Contact seller</span> 
+								<span class="edd-loading" aria-label="Loading"></span>
+							</a>			
+						</div>		
+					</form><!--end #edd_purchase_50-->
 
-	        <div class="caption">
-	            <div class="entry-meta">
-	                <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="entry-time">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
-	                <span class=""><i class="fa fa-user"></i>&nbsp;
-	                	<a href="#/profile/{{ item.seller.id }}" class="" ng-if="!!item.seller.id">
-	                		{{ item.seller.firstName || item.seller.id || "Anonymous" }} {{ item.seller.lastName }}
-	                	</a>
-	                	<a href="" class="" ng-if="!item.seller.id" style="color: red;">
-							{{ item.seller.firstName || item.seller.id || "Anonymous" }} {{ item.seller.lastName }}
-	                	</a>
-	                </span>
-	                <span class="entry-categories categories-links">
-	                	<i class="fa fa-folder-open"></i>&nbsp;&nbsp;
-	                	<a href="#" rel="category tag">{{ item.category.name }}</a>
-	                </span>
-	                <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;</span>
-	                <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">&nbsp;</a></span>
+				</div><!-- .download-price -->
 
-	                <input-stars max="5" ng-model="item.seller.avgRating" class="list-inline" on-star-click="rating()" style="color: #FF9800;"></input-stars>
-	            </div>
-	            <h3>{{ item.title }}</h3>
-	            <p>{{ item.description }}</p>
-				
-				<div class="col-md-12">
-					<dl class="dl-horizontal"> 
-						<dt>Price: </dt> 
-							<dd><span><i class="glyphicon glyphicon-euro"></i><strong>{{ item.price }}</strong></span></dd> 
-						<dt>Location: </dt> 
-							<dd>
-							<div class="form-group" map-lazy-load="https://maps.google.com/maps/api/js">
-					            <ng-map center="{{ item.location[0].lat }},{{ item.location[0].lon }}" zoom="10" on-click="getpos($event)">
-					                <marker position="{{ item.location[0].lat }},{{ item.location[0].lon }}" title="{{ item.title }}" animation="Animation.BOUNCE" centered="true"></marker>
-					            </ng-map>
-					        </div>
+				<div class="download-details download-aside">					
+					<div class="post-meta">
+						<!-- Get the download categories -->
+						<span class="meta-cat">
+							<i class="fa fa-folder"></i>
+							<a href="#" rel="tag">Category: {{ item.category.name }}</a>
+						</span>
+						<span class="meta-tag">
+							<i class="fa fa-clock-o"></i>
+							<a href="#" rel="tag">Since: {{ item.postDate | relativeDate}}</a>
+						</span>			
+						<span class="meta-tag">
+							<i class="fa fa-user"></i>
+							<a href="#/profile/{{ item.seller.id }}" rel="tag">Seller: {{ item.seller.firstName }}</a>
+						</span>
+						<span class="meta-tag">
+							<i class="glyphicon glyphicon-map-marker"></i>
+							<a href="#" rel="tag">{{address}}</a>
+						</span>	
+					</div><!-- .post-meta -->
+				</div>	
+			<div class="download-aside checkout-share">
+				<ul>
+					<li class="share-title">Share this:</li>
 
-							</dd>
+					<li class="share-twitter">
+						<a title="Share on Twitter" href="#">
+							<i class="fa fa-twitter-square"></i>
+						</a>
+					</li>
 
-					</dl>
-
-		            	<!-- <div class="col-md-4 col-md-offset-2">
-		            		<button type="button" class="btn btn-primary" ng-click="exchange()"><span><strong>Exchange</strong></span></button>
-		            	</div> -->
-
-				</div>
-
-				
-	        </div>
-	        
+					<li class="share-facebook">
+						<a title="Share on Facebook" href="#">
+							<i class="fa fa-facebook-square"></i>
+						</a>
+					</li>
+					<li class="share-google">				
+						<a href="#">
+							<i class="fa fa-google-plus-square"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-
-	<div class="clearfix">
-		<hr>
-	</div>
-
-	<div class="row col-md-12">
-
-		<h3>{{ item.title }}</h3>
-	    <p>{{ item.description }}</p>
-	    <div class="row col-md-12">
-			<img class="col-md-8 col-md-offset-2 img-responsive" ng-src="http://125.253.123.26:8080/api{{ item.featuredImage }}" />
-		</div>
-		<p>{{ item.description }}</p>
-		<p>{{ item.description }}</p>
-		<div class="row col-md-12">
-			<img class="col-md-8 col-md-offset-2 img-responsive" ng-src="http://125.253.123.26:8080/api{{ item.images[1].url }}" />
-		</div>
-		<p>{{ item.description }}</p>
 
 	</div>
 
 	<div class="row col-md-12">
-	    <div class="blog-comment">
-			<h4 class="text-success">Comments</h4>
+	    <div class="blog-comment">			
 	        <hr/>
 			<ul class="comments">
 			<li class="clearfix">
@@ -131,6 +119,7 @@
 			</ul>
 		</div>
 	</div>
+<<<<<<< HEAD
 
 	<!-- Modal -->
 	<div id="exchangeModal" class="modal animated fadeIn" role="dialog">
@@ -183,3 +172,6 @@
 
 	});
 </script>
+=======
+</div>	
+>>>>>>> origin/development

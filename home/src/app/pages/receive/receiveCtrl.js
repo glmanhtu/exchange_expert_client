@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.receive')
         .controller('receiveCtrl', receiveCtrl);
 
-    receiveCtrl.$inject = ['$rootScope', '$stateParams', '$location', 'loginService', 'UserService'];
+    receiveCtrl.$inject = ['$rootScope', '$stateParams', '$location', 'loginService', 'UserService', '$window'];
 
     /* @ngInject */
-    function receiveCtrl($rootScope, $stateParams, $location, loginService, UserService) {
+    function receiveCtrl($rootScope, $stateParams, $location, loginService, UserService, $window) {
 
         var hash = $location.path().substr(1);
 
@@ -21,29 +21,29 @@
             var key    = param[0];
             var value  = param[1];
             params[key] = value;
-            accesstoken=params;
+            accesstoken = params;
         }
         console.log(accesstoken.access_token);
         console.log(accesstoken.session_state);
 
-        if(accesstoken.session_state==null){
+        if (accesstoken.session_state == null) {
 
             loginService.loginFacebook(accesstoken.access_token).then(function (response) {
 
-            setSesssion(response, UserService, $rootScope);
+                setSesssion(response, UserService, $rootScope);
 
-            $location.path('/home');
+                $window.location = "/";
 
             }, function (error) {
                 console.log('Something wrong in controller ');
                 console.log(error);
             });
-        }else{
+        } else {
             loginService.loginGoogle(accesstoken.access_token).then(function (response) {
                 
-            setSesssion(response, UserService, $rootScope);
+                setSesssion(response, UserService, $rootScope);
 
-            $location.path('/home');
+                $location.path('/home');
 
             }, function (error) {
                 console.log('Something wrong in controller ');

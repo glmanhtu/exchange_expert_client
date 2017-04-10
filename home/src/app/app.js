@@ -14,21 +14,20 @@
         ])
         .run(run);
 
-        function run($rootScope, $location, $cookieStore, $http, toastr) {        
+        function run($rootScope, $location, $cookieStore, $http, toastr, loginService) {        
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
                 // redirect to login page if not logged in and trying to access a restricted page                
                 var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;          
                 var loggedIn = sessionStorage.accessToken != null;            
                 if (!restrictedPage && !loggedIn) {
+                    loginService.logout();
                     toastr.error('You have to login to access this resource');
                 } else if (!loggedIn) {            
-                    delete sessionStorage.accessToken;
-                    $http.defaults.headers.common['Authorization'] = undefined;                    
+                    loginService.logout();                    
                 } else {
                     var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
                     if (expired < 1) {
-                        delete sessionStorage.accessToken;
-                        $http.defaults.headers.common['Authorization'] = undefined;
+                        loginService.logout();
                         toastr.error('Your access token was expired, please login again');                        
                     }
                 }                

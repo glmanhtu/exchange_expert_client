@@ -3,21 +3,21 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchbarCtrl', searchbarCtrl);
-    searchbarCtrl.$inject = ['$scope', '$location', '$window', '$rootScope'];
+    searchbarCtrl.$inject = ['$scope', '$location', '$window', '$rootScope', 'toastr'];
     /** @ngInject */
-    function searchbarCtrl($scope, $location, $window, $rootScope) {
+    function searchbarCtrl($scope, $location, $window, $rootScope, toastr) {
 
     	$scope.locationList = [
-    		{name : "All", value : "all"},
-		    {name : "Ho Chi Minh", value : "hochiminh"},
-		    {name : "Ha Noi", value : "hanoi"},
-		    {name : "Da Nang", value : "danang"}
+    		{name : "Anywhere", value : "anywhere"},
+    		{name : "My location", value : "current"},
+		    {name : "Custom", value : "custom"}		    
 		];
 
 		var key = $location.search();
+		$scope.expectedLocation = "";
 
 		if (key.location == null)
-			$scope.selectedLocation = "all";
+			$scope.selectedLocation = $scope.locationList[0];
 		else
 			$scope.selectedLocation = key.location;
 
@@ -34,6 +34,28 @@
 	            $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
 	            location.reload();
 	        }
+		}
+
+		$scope.changeSearchLocation = function(searchType) {
+			console.log(searchType);
+			if (searchType == "anywhere") {
+				$scope.expectedLocation = "";
+			} else if (searchType == "current") {
+				getCurrentLocation()
+			} else {
+				toastr.warning('Not implemented yet');
+			}
+		}
+
+		function getCurrentLocation() {
+			if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(function(location) {
+		        	$scope.expectedLocation = {lat: location.coords.latitude, lng: location.coords.longitude};
+		        	console.log($scope.expectedLocation);
+		        });
+		    } else {
+		        toastr.error('This browser not support to get your location');
+		    }
 		}
 
     }

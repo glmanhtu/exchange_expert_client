@@ -76,6 +76,22 @@ input:not([type="submit"]), textarea, select {
     box-sizing: border-box;
 }
 
+input[type="submit"], .button {
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-block;
+    padding: .5em 1em;
+    height: auto;
+    -webkit-transition: .2s ease-in-out;
+    transition: .2s ease-in-out;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    background: #37BF91;
+    line-height: 1.4;
+    -webkit-appearance: none;
+}
+
 body {
     font-size: 18px;
     line-height: 1.6;

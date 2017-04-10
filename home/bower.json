@@ -25,9 +25,16 @@
     "lodash": "^4.17.4",
     "angular-input-stars-directive": "angular-input-stars#^1.6.3",
     "ngmap": "^1.18.4",
-    "textAngular": "^1.5.16"
+    "textAngular": "^1.5.16",
+    "jquery.responsive-slides": "^1.54.1",
+    "angular-relative-date": "^2.1.0"
   },
   "overrides": {
+    "angular-relative-date": {
+      "main": [
+        "./dist/angular-relative-date.min.js"
+      ]
+    },
     "amcharts": {
       "main": [
         "./dist/amcharts/amcharts.js",
@@ -36,6 +43,12 @@
         "./dist/amcharts/funnel.js",
         "./dist/amcharts/pie.js",
         "./dist/amcharts/gantt.js"
+      ]
+    },
+    "bxslider-4": {
+      "main": [
+        "./dist/jquery.bxslider.min.js",
+        "./dist/jquery.bxslider.min.css"
       ]
     },
     "lightslider": {

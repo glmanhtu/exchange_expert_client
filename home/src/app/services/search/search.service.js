@@ -61,7 +61,8 @@
                 method: "POST",
                 data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"title":key,"order":{"by":"title","isASC":false}}),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic Y2xpZW50YXBwOjEyMzQ1Ng=='
                 }
             });
 

@@ -1,21 +1,18 @@
-<h3>Suggest Items</h3>
-    	<ul class="list-group" ng-repeat="(key, item) in items | limitTo:5 ">
-    		<li class="list-group-item" style="min-height: 100px;" >
-	    			<div class="col-md-12">
-	    				<div class="col-md-4">
-	    					<img ng-src="{{ 'http://125.253.123.26:8080/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}" class="" style="max-height: 80px;" width="64">
-	    				</div>
-	    				<div class="col-md-8">
-	    					<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}" title="{{ item.title }}">
-	    					{{ item.title | limitTo: 12 }}{{item.title.length > 12 ? '...' : ''}}
-	    					</a>
-	    					<i class="badge">New</i><br>
-	    					<input-stars max="5" ng-model="item.seller.avgRating" class="list-inline" style="color: #FBED06;"></input-stars>
-	                        <i class="fa fa-calendar"></i>&nbsp;{{ item.postDate | date:'yyyy-MM-dd'}} <br>	
-	                        <i class="fa fa-user"></i>&nbsp;<a href="#" class="" rel="author">{{ item.seller.firstName || item.seller.email || 'Anonymous' }} {{ item.seller.lastName }}</a>
-		
-	    				</div>
-    				</div>
+<div class="suggest">
+	<div class="featured row">
+		You may also likes
+	</div>
+	<ul ng-repeat="(key, item) in items | limitTo:5 ">
+		<li class="featured-item row">			
+			<div class="col-md-4 featured-img">
+				<img ng-src="{{ 'http://125.253.123.26:8080/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}">
+			</div>
+			<div class="col-md-8 featured-title">
+				<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}" title="{{ item.title }}">
+					{{ item.title | limitTo: 60 }}{{item.title.length > 60 ? '...' : ''}}
+				</a>					
+			</div>			
+		</li>
+	</ul>
 
-    		</li>
-    	</ul>
+</div>

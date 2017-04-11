@@ -9,6 +9,7 @@
     function UserService($http,DOMAIN_URL) {
         var service = {};
 
+        service.GetCurrentUser = GetCurrentUser;
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByEmail = GetByEmail;
@@ -21,6 +22,19 @@
         service.Delete = Delete;
 
         return service;
+
+        function GetCurrentUser() {
+            return $http({
+                url: DOMAIN_URL + '/api/user/current',
+                method: "GET"                
+            }).then(
+                function (response) {
+                    return response.data;
+                }, function (error) {
+                    console.log('Something wrong in service user');
+                    console.log(error);
+                });
+        }
 
         function GetAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
@@ -42,12 +56,11 @@
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function SendFeedback(email,token,msg) {
+        function SendFeedback(email, msg) {
             var url = DOMAIN_URL + '/api/feedback?user=' + email;
             var header = {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Accept': 'application/json'                
             };
             var data = {
                     "message": msg
@@ -59,21 +72,19 @@
                 data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'                    
                 }
             }).then(handleSuccess, handleError('Error feedback'));
         }
 
-        function RatingFeedback(email,token,rate) {
+        function RatingFeedback(email, rate) {
 
             console.log(rate);
 
             var url = DOMAIN_URL + '/api/rating?forEmailUser=' + email + '&star=' + rate;
             var header = {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Accept': 'application/json'                
             };
             var data = {};
 
@@ -83,8 +94,7 @@
                 data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'                    
                 }
             }).then(handleSuccess, handleError('Error rating'));
         }

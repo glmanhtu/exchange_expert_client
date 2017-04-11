@@ -5,14 +5,34 @@
         	'ngCookies',
             'ngMap',
             'textAngular',
-            'ui.router',           
+            'toastr',
+            'ui.router',
+            'relativeDate',
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',
-            'angular-input-stars'          
+            'angular-input-stars'        
         ])
-        .run(['$cookieStore', '$http', function($cookieStore, $http) {
-        	if($cookieStore.get('global') != null){
-        		$http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookieStore.get('global').access_token;
-        	}
-        }]);
+        .run(run);
+
+        function run($rootScope, $location, $cookieStore, $http, toastr, loginService) {        
+            $rootScope.$on('$locationChangeStart', function (event, next, current) {
+                // redirect to login page if not logged in and trying to access a restricted page                
+                var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;          
+                var loggedIn = sessionStorage.accessToken != null;            
+                if (!restrictedPage && !loggedIn) {
+                    loginService.logout();
+                    toastr.error('You have to login to access this resource');
+                } else if (!loggedIn) {            
+                    loginService.logout();                    
+                } else {
+                    var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
+                    if (expired < 1) {
+                        loginService.logout();
+                        toastr.error('Your access token was expired, please login again');                        
+                    }
+                }                
+            });
+        }
+
+
 })();

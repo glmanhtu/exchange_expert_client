@@ -1,29 +1,94 @@
-<div class="content-vertical-center col-md-12 col-sm-12 col-xs-12">
-	
-	<div class="col-md-8 col-sm-9 col-xs-10">
-		<searchbar></searchbar>
-	</div>
-	<div ng-controller="navigationCtrl" class="col-md-4 col-sm-3 col-xs-2">
-		<div class="dropdown topbar-accountInfo pull-right" ng-if="userProfile">
-			<button class="btn btn-primary dropdown-toggle topbar-settingsMenuButton" style="" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<!-- {{ userProfile.firstName }} -->
-				<a uib-dropdown-toggle class="profile-toggle-link">
-				<img ng-src="{{avatar}}" height="20" width="20">
-				</a>
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a href="#/post">Post</a></li>
-				<li><a href="#/profile/{{ userProfile.id }}">Profile</a></li>
-				<li role="separator" class="divider"></li>
-				<li><a href="" ng-click="logout()">Logout!</a></li>
-			</ul>
-		</div>
-		<div class="dropdown topbar-accountInfo pull-right" ng-if="!userProfile">
-			<a href="/#/login" class="btn btn-primary topbar-settingsMenuButton" style="" type="button">
-				&nbsp;&nbsp;Login&nbsp;&nbsp;
-			</a>
-		</div>
+<div class="nav-inside">	
+	<nav role="navigation" class="site-navigation main-navigation desktop-nav">				
 
+		<div id="menu" class="menu-header-container">
+			<ul id="menu-header" class="menu">
+				<li class="menu-item menu-item-has-children header-search" ng-if="!userProfile">					
+					<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="login-dropdown">Login</a>
+					<div class="dropdown-menu" aria-labelledby="login-dropdown">
+					    
+				    	<form ng-submit="login()" method="post" role="form">
+						  	<div class="group">
+						    	<input type="text" ng-model="loginParams.username" ng-class="{used: loginParams.username}" /><span class="highlight"></span><span class="bar"></span>
+						    	<label>Email</label>
+						  	</div>
+						  	<div class="group">
+						    	<input type="password" ng-model="loginParams.password" ng-class="{used: loginParams.password}"/><span class="highlight"></span><span class="bar"></span>
+						    	<label>Password</label>
+						  	</div>
+						  	<button type="submit" class="button buttonBlue">Login
+						    	<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+						  	</button> 
+						  	<div>
+						  		<p>Or login with: </p>
+						  	</div>
+						  	<div class="external-login">
+						  		<a href="#" ng-click="loginFacebook()" class="pull-left">Facebook</a>
+						  		<a href="#" ng-click="loginGoogle()" class="pull-right">Google</a>
+						  	</div>				  	
+
+						</form>
+					</div>
+				</li>
+
+				<li class="menu-item menu-item-has-children header-search" ng-if="!userProfile">					
+					<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="register-dropdown">Register</a>
+					<div class="dropdown-menu" aria-labelledby="register-dropdown">
+					    
+				    	<form ng-submit="register()" method="post" role="form">
+				    		<div class="group">
+						    	<input type="text" ng-model="registerParams.firstName" ng-class="{used: registerParams.firstName}"><span class="highlight"></span><span class="bar"></span>
+						    	<label>First Name</label>
+						  	</div>
+						  	<div class="group">
+						    	<input type="text" ng-model="registerParams.lastName" ng-class="{used: registerParams.lastName}"><span class="highlight"></span><span class="bar"></span>
+						    	<label>Last Name</label>
+						  	</div>
+						  	<div class="group">
+						    	<input type="text" ng-model="registerParams.id" ng-class="{used: registerParams.id}"><span class="highlight"></span><span class="bar"></span>
+						    	<label>Email</label>
+						  	</div>
+						  	<div class="group">
+						    	<input type="password" ng-model="registerParams.password" ng-class="{used: registerParams.password}"><span class="highlight"></span><span class="bar"></span>
+						    	<label>Password</label>
+						  	</div>
+						  	<button type="submit" class="button buttonBlue">Register
+						    	<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+						  	</button> 
+						</form>
+					</div>
+				</li>
+
+				<li class="menu-item menu-item-has-children header-search" ng-if="userProfile">					
+					<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="profile-dropdown">
+						<img ng-src="{{avatar}}" class="img-circle img-small">
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="profile-dropdown">
+					    <li><a href="#/post">Post</a></li>
+					    <li><a href="#/profile/{{ userProfile.id }}">Profile</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a ng-click="logout()">Logout!</a></li>
+				  	</ul>
+				</li>
+
+			</ul>
+		</div>			
+
+	</nav>
+	<div class="logo logo-text">
+		<h1 class="site-title">						
+			<a href="#/home" title="Home" rel="home">Exchange Expert</a>
+		</h1>					
+		<p class="site-description">Exchange marketplace platform</p>
 	</div>
+
+	<div class="hero-title">
+		<div class="hero-title-inside">
+			<h1>Exchange whatever you want, whenever you like with Exchange Expert</h1>		
+		</div>
+	</div>	
+
+	<div class="col-md-8 col-xs-10 col-md-offset-2 col-xs-offset-1">
+		<searchbar></searchbar>
+	</div>	
 </div>

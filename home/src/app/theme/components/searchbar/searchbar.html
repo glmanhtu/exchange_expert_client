@@ -1,26 +1,20 @@
-<!--<div class="sidebar">-->
-<div>
 
-    <div class="col-md-2 col-sm-4 col-xs-12">
-        <a href="." class=""><img class="app-logo img-responsive" src="assets/img/expert-exchange-logo_160.png"></a>
-    </div>
+<div class="big-search">
+    <form id="big-searchform" ng-submit="searchCall()">
+        <input type="text" id="big-search" ng-model="searchString" placeholder="Search here..." value=""><br>
 
-    <div class="col-md-10 col-sm-8 col-xs-12">
-        <div class="search-bar">
-            <nav class="navbar">
-                <form ng-submit="searchCall()">
-                    <div class="form-group col-md-8 col-sm-8 col-xs-8">
-                        <input id="searchInput" ng-model="searchString" class="form-control" type="text" placeholder="Search for...">
-                    </div>
+        <div class="search-controls">
+        
+            <div class="search-select-wrap">
+                <select class="search-select" 
+                    ng-model="selectedLocation" 
+                    ng-change="changeSearchLocation(selectedLocation.value)" 
+                    ng-options="item as item.name for item in locationList track by item.value">                            
+                </select>            
+            </div>
 
-                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
-                        <select class="form-control" id="search-location" ng-model="selectedLocation">
-                            <option ng-repeat="x in locationList" value="{{x.value}}">{{x.name}}</option>
-                        </select>
-                    </div>
-                </form>
-                    
-            </nav>
-        </div>
-    </div>
+        
+            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search">
+        </div><!-- .search-controls -->
+    </form><!-- #big-searchform -->
 </div>

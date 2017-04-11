@@ -7,16 +7,15 @@
       'ExpertExchange.pages.post',
       'ExpertExchange.pages.search',
       'ExpertExchange.pages.profile',
-      'ExpertExchange.pages.goods',
-      'ExpertExchange.pages.login',
+      'ExpertExchange.pages.goods',      
       'ExpertExchange.pages.receive',
       'ExpertExchange.pages.register',
   ]).config(routeConfig);
 
     /** @ngInject */
     function routeConfig($urlRouterProvider) {
-        // $urlRouterProvider
-        // .otherwise('/home');
+        $urlRouterProvider
+        .otherwise('/home');
     }
 
 })();

@@ -63,12 +63,10 @@
             
     	}
 
-    	$scope.sendFeedback = function () {
-    		$scope.accessToken = sessionStorage.accessToken;
+    	$scope.sendFeedback = function () {    		
     		if ($scope.accessToken) {
-	    		var msg = $scope.title_feedback + ": " + $scope.msg_feedback;
-	    		// console.log($scope.accessToken);
-	    		UserService.SendFeedback($scope.email,$scope.accessToken,msg).then(function (res) {
+	    		var msg = $scope.title_feedback + ": " + $scope.msg_feedback;	    		
+	    		UserService.SendFeedback($scope.email, msg).then(function (res) {
 	    			// body...
 	    			jQuery('#feedback').modal('hide');
 	    		}, function (res) {
@@ -79,7 +77,7 @@
 	    		console.log($scope.ratingFeedback);
 
 
-	    		UserService.RatingFeedback($scope.email,$scope.accessToken,$scope.ratingFeedback).then(function (res) {
+	    		UserService.RatingFeedback($scope.email, $scope.ratingFeedback).then(function (res) {
 	    			// body...
 	    		}, function (res) {
 	    			// body...

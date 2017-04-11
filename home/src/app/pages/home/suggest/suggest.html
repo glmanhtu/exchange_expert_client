@@ -5,7 +5,7 @@
 	<ul ng-repeat="(key, item) in items | limitTo:5 ">
 		<li class="featured-item row">			
 			<div class="col-md-4 featured-img">
-				<img ng-src="{{ 'http://125.253.123.26:8080/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}">
+				<img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}">
 			</div>
 			<div class="col-md-8 featured-title">
 				<a ng-href="#/goods/{{ item.category.slug }}/{{ item.slug }}" title="{{ item.title }}">

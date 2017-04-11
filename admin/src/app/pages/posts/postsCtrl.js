@@ -23,7 +23,7 @@
 
     $scope.getSearchData = function(statusFilter) {
         getPostsService.searchGoods(statusFilter).then(function (response) {
-          $scope.items = response.data;
+          $scope.items = response.data.content;
          // console.log(response);
         }, function () {
           console.log('Something wrong');

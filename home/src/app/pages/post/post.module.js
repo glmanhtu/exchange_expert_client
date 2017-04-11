@@ -10,6 +10,7 @@
             .state('post', {
               url: '/post',
               templateUrl: 'app/pages/post/post.html',
+              controller: 'postCtrl',
               title: 'Post',
               sidebarMeta: {
                 icon: 'ion-android-home',

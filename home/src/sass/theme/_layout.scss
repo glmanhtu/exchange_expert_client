@@ -105,8 +105,12 @@ body {
     position: relative;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 0 5%;
+    padding: 0;
     overflow: hidden;
+}
+
+.main-container {
+    padding: 62px 5%;
 }
 
 .clearfix {
@@ -139,6 +143,8 @@ body {
 
 .al-main {
   min-height: 100%;
+  padding-top: 0 !important;
+  padding-bottom: 34px;
   /* equal to footer height */
   margin-bottom: -40px;
 }

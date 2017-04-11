@@ -35,6 +35,11 @@
         "./dist/angular-relative-date.min.js"
       ]
     },
+    "ngmap": {
+      "main": [        
+        "./build/scripts/ng-map.min.js"        
+      ]
+    },
     "amcharts": {
       "main": [
         "./dist/amcharts/amcharts.js",

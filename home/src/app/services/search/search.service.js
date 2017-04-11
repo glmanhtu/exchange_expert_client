@@ -41,12 +41,12 @@
             return $http.get('/assets/db/goods/db.json');
         };
 
-        function getGoods() {
+        function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"order":{"by":"postDate","isASC":false}}),
+                data: JSON.stringify({"pagination":{"currentPage":page,"itemsPerPage":itemsPerPage},"order":{"by":"postDate","isASC":false}}),
                 headers: {
                     'Content-Type': 'application/json'
                 }

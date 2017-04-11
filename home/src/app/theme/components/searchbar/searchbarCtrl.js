@@ -29,11 +29,11 @@
 		$scope.searchCall = function() {
 			// console.log("SearchCall");
 			$rootScope.searchString = $scope.searchString;
-			$rootScope.selectedLocation = $scope.selectedLocation;
-			if ($scope.searchString != null) {
-	            $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
-	            location.reload();
-	        }
+			if ($rootScope.expectedLocation != "") {
+				$location.path("/map");
+			} else {
+				$location.path("/search");
+			}
 		}
 
 		$scope.changeSearchLocation = function(searchType) {

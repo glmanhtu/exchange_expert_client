@@ -17,7 +17,7 @@
                         </h3>
 
                         <div class="entry-excerpt">
-                            <p>{{ item.description | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
+                            <p>{{ item.description | htmlToPlaintext | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
                         </div>
 
                         <div class="download-meta">

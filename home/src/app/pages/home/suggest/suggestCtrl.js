@@ -5,11 +5,11 @@
         .controller('suggestCtrl', suggestCtrl);
 
     /** @ngInject */
-    function suggestCtrl($scope, $location, searchService) {
+    function suggestCtrl($scope, $location, searchService, DOMAIN_URL) {
     	$scope.items = {};
-
-    	searchService.getGoods().then(function (response) {
-    		$scope.items = response.data;
+        $scope.DOMAIN_URL = DOMAIN_URL;
+    	searchService.getGoods(0, 10).then(function (response) {
+    		$scope.items = response.data.content;
     		// console.log(response);
     	}, function (response){
     		console.log(response);

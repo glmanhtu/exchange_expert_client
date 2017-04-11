@@ -10,7 +10,7 @@
     'ui.slimscroll',  
     'angular-progress-button-styles',
     'ngCookies',
-
+    'ngMap',
     'BlurAdmin.theme',
     'BlurAdmin.pages'
     ]).run(run);

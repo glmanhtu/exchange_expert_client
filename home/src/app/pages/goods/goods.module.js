@@ -10,6 +10,7 @@
             .state('goods', {
               url: '/goods/:category_slug/:good_slug',
               templateUrl: 'app/pages/goods/goods.html',
+              controller: 'goodsCtrl',
               title: 'Goods',
               sidebarMeta: {
                 icon: 'ion-android-home',

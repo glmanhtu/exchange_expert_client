@@ -67,7 +67,7 @@
 
         }
 
-        function searchGoodsByLocation(lat,lng,distance) {
+        function searchGoodsByLocation(lat, lng, distance) {
             var url = DOMAIN_URL + '/api/search/good';
             var location =  {
                               "pagination": {

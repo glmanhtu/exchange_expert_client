@@ -120,9 +120,7 @@ body {
 .page-top {
     background-color: #282E34;
     position: relative;
-    height: $nav-height;
-
-    z-index: 904;    
+    height: $nav-height;    
     width: 100%;       
     padding: 0;     
 
@@ -165,7 +163,7 @@ body {
 
 navigation {
 	position: absolute;
-    z-index: 1;
+    z-index: 9999;
     width: 100%;
 }
 

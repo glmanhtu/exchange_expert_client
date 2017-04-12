@@ -1,20 +1,34 @@
 
-<div class="big-search">
-    <form id="big-searchform" ng-submit="searchCall()">
-        <input type="text" id="big-search" ng-model="searchString" placeholder="Search here..." value=""><br>
+<div class="big-search" click-outside="closeSuggest()">
+    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">
+        <input type="text" class="big-search-input user-location" placeholder="Your location" value="" autocomplete="off">
+        <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()"><br>
 
         <div class="search-controls">
         
             <div class="search-select-wrap">
                 <select class="search-select" 
-                    ng-model="selectedLocation" 
-                    ng-change="changeSearchLocation(selectedLocation.value)" 
-                    ng-options="item as item.name for item in locationList track by item.value">                            
+                    ng-model="selectedType"                     
+                    ng-options="item as item.name for item in searchTypes track by item.value">                            
                 </select>            
             </div>
 
         
-            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search">
+            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search"/>
         </div><!-- .search-controls -->
     </form><!-- #big-searchform -->
+    <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
+        <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 ">
+            <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+                <div class="col-md-2 featured-img">
+                    <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
+                </div>
+                <div class="col-md-10 featured-title">
+                    <p>
+                        {{ item.title | limitTo: 250 }}{{item.title.length > 250 ? '...' : ''}}
+                    </p>
+                </div>          
+            </a>              
+        </li>
+    </ul>
 </div>

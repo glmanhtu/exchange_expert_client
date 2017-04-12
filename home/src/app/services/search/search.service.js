@@ -11,6 +11,7 @@
             getGoods: getGoods,
             getUser: getUser,
             searchGoods: searchGoods,
+            searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation
         };
         return service;
@@ -51,10 +52,31 @@
                     'Content-Type': 'application/json'
                 }
             });
-
         }
 
-        function searchGoods(key,location) {
+        function searchGoodsByKeyword(key) {
+            var url = DOMAIN_URL + '/api/search/good';
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify({
+                    "pagination": {
+                        "currentPage" : 0,
+                        "itemsPerPage":10
+                    }, 
+                    "title" : key,
+                    "order" : {
+                        "by" : "title",
+                        "isASC":false
+                    }
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function searchGoods(key, location) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
@@ -64,7 +86,6 @@
                     'Content-Type': 'application/json'
                 }
             });
-
         }
 
         function searchGoodsByLocation(lat, lng, distance) {

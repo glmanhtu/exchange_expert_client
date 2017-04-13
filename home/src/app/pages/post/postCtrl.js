@@ -6,15 +6,12 @@
     postCtrl.$inject = ['$scope', '$location', 'postService'];
     /* @ngInject */
     function postCtrl($scope, $location, postService) {
-        if(sessionStorage.userName == null){
-            $location.path('/login');
-        }else{
-            active();
-        }
+        active();
 
         function active(){
+            var userInfor = JSON.parse(sessionStorage.userProfile);
             $scope.aGood = {
-                postBy: {id: sessionStorage.userName}
+                postBy: {id: userInfor.id}
             };
             $scope.categories = ["Book", "Movie", "Toy", "Computer", "Clothing", "Handmade", "Sport"];
 
@@ -68,33 +65,6 @@
                     console.log('Controller Something wrong ');
                     console.log(error);
                 });
-            
-            // var ins = document.getElementById('myfile').files.length;
-
-            // for (var i = 0; i < ins; i++) {
-            //     var data = new FormData();
-            //     data.append("files", document.getElementById('myfile').files[i]);
-
-            //     postService.uploadImage(data).then(
-            //         function (response) {
-            //             $scope.aGood.images.push(response);
-            //         }, function (error) {
-            //             console.log('Controller Something wrong ');
-            //             console.log(error);
-            //         });
-            // }
-
-            // // call service to create a new post after upload the Image
-            // postService.createNewPost($scope.aGood).then(
-            //     function (response) {
-            //         console.log('response create new good');
-            //         console.log(response);
-            //     }, function (error) {
-            //         console.log('Something wrong in controller create new good');
-            //         console.log(error);
-            //     });
-
-            
         }
     }
 })();

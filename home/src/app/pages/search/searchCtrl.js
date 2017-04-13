@@ -8,6 +8,7 @@
     function searchCtrl($scope, $rootScope, $timeout, $location, searchService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'searchCtrl';
+        vm.dummyItems = []; // dummy array of items to be paged
         vm.pager = {};
         vm.setPage = setPage;
         vm.getSearchData = getSearchData;
@@ -40,37 +41,43 @@
 
             $rootScope.searchString = '';
             $rootScope.selectedLocation = 'all';
+            //$location.path('/search?location='+pos.lat+','+pos.lon);
+            //$location.replace();
 
             getSearchByLocationData(pos,100000);
 
             $timeout( function(){
                vm.setPage(1);
             }, 1000 );
-
         }
 
         function initController() {
             var key = $location.path('/search').search();
-
             getSearchData(key.searchString,key.location);
-            // initialize to page 1
-            // 10 seconds delay
             $timeout( function(){
                 vm.setPage(1);
             }, 1000 );
-            
         }
 
         function setPage(page) {
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
             }
+
+            // $scope.tmp = [1,2,3,4,5,6,7];
+            // console.log($scope.tmp.slice(2, 5));
+
             // get pager object from service
-            vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
+            vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page);
             // get current page of items
-            vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
+            // console.log(vm.dummyItems.content);
+            // console.log(vm.pager);
+            // console.log(vm.dummyItems.content.slice(1, 5));
+
+            vm.items = vm.dummyItems.content.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
             console.log(vm.items);
         }
+
 
         ////////////////
         function getSearchData(key,location) {

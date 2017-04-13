@@ -3,63 +3,55 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchbarCtrl', searchbarCtrl);
-    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', '$window', 'toastr'];
+    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL'];
     /** @ngInject */
-    function searchbarCtrl($rootScope, $scope, $location, $window, toastr) {
+    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL) {
 
-    	$scope.locationList = [
-    		{name : "Anywhere", value : "anywhere"},
-    		{name : "My location", value : "current"},
-		    {name : "Custom", value : "custom"}		    
+    	$scope.searchTypes = [
+    		{name : "Content", value : "content"},
+    		{name : "Price", value : "price"},
+		    {name : "Seller Email", value : "seller"},
+		    {name : "Category", value : "category"},
+		    {name : "Location", value : "location"},	    
 		];
 
-		var key = $location.search();
-		$rootScope.expectedLocation = "";
+		$scope.selectedType = $scope.searchTypes[0];
+		$rootScope.searchString = "";
+		$rootScope.hasResults = true;
+		$rootScope.suggestResults = [];		
+		$scope.DOMAIN_URL = DOMAIN_URL;
 
-		if (key.location == null)
-			$scope.selectedLocation = $scope.locationList[0];
-		else
-			$scope.selectedLocation = key.location;
-
-		if (key.searchString == null)
-			$scope.searchString = "";
-		else
-			$scope.searchString = key.searchString;
+		$rootScope.closeSuggest = function() {
+			$rootScope.suggestResults = [];
+			$rootScope.hasResults = false;
+			$rootScope.searchString = "";
+		}
 
 		$scope.searchCall = function() {
-			// console.log("SearchCall");
-			$rootScope.searchString = $scope.searchString;
-			$rootScope.selectedLocation = $scope.selectedLocation;
-			if ($scope.searchString != null) {
-	            $window.location = '#/search?searchString=' + $scope.searchString + '&location=' + $scope.selectedLocation;
-	            location.reload();
-	        }
+
+			switch ($scope.selectedType.value) {
+				case "location":
+					$location.path("/map");
+					break;
+				default:
+					$location.path("/search");
+			}			
 		}
 
-		$scope.changeSearchLocation = function(searchType) {
-			console.log(searchType);
-			if (searchType == "anywhere") {
-				$rootScope.expectedLocation = "";
-			} else if (searchType == "current") {
-				getCurrentLocation()
-			} else {
-				toastr.warning('Not implemented yet');
-			}
-		}
-
-		function getCurrentLocation() {
-			toastr.info('Detecting your location');
-			if (navigator.geolocation) {
-		        navigator.geolocation.getCurrentPosition(function(location) {
-		        	$rootScope.expectedLocation = {lat: location.coords.latitude, lng: location.coords.longitude};
-		        	toastr.success('Found your location');
-		        	console.log($rootScope.expectedLocation);
-		        });
-		    } else {
-		        toastr.error('This browser not support to get your location');
-		    }
-		}
-
+		$scope.getSearchSuggests = function() {
+			if ($rootScope.searchString.length < 2) {
+				$rootScope.suggestResults = [];
+				$rootScope.hasResults = false;
+				return;
+			}			
+			searchService.searchGoodsByKeyword($rootScope.searchString).then(function (response) {
+	    		$rootScope.suggestResults = response.data.content;
+	    		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
+	    		// console.log(response);
+	    	}, function (response){
+	    		console.log(response);
+	    	});
+		}		
     }
 
 })();

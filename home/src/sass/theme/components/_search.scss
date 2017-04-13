@@ -23,8 +23,15 @@
 	    background: #fff;    	   
 	}
 
+	.tip {
+		.featured-img {
+			height: 32px !important;
+		}
+	}
+
 	.search-simple-result {
 		width: 100%;		
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
 		.featured-item {
 			margin: auto;
 			border-radius: 0;
@@ -61,38 +68,6 @@
 	    position: absolute;
 	    right: 0;
 	    top: 0;
-	    height: 100%;
-	    .search-select-wrap {
-		    position: relative;
-		    display: inline-block;
-		    height: 100%;
-		    border-left: solid 2px #EFF2F6;
-		    background: #fff;		    
-		    .search-select {
-			    display: inline-block;
-			    background: transparent;
-			    color: #6E7987;
-			    border: none;
-			    width: auto;
-			    max-width: 250px;
-			    border-radius: 0;
-			    padding-left: 25px;
-			    padding-right: 35px;
-			    -webkit-appearance: none;
-			    -moz-appearance: none;
-			    height: 100%;
-			    cursor: pointer;
-			}
-			&:after {
-			    content: "\f107";
-			    font-family: "FontAwesome";
-			    position: absolute;
-			    top: 12px;
-			    right: 15px;
-			    z-index: 10px;
-			    pointer-events: none;
-			    display: none\9;
-			}
-		}
+	    height: 100%;	   
 	}
 }

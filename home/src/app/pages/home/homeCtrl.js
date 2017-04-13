@@ -14,8 +14,8 @@
         vm.setPage = setPage;        
         vm.itemPerPage = 10;
         $scope.DOMAIN_URL = DOMAIN_URL;
-        $scope.allPosts={};
-        $scope.idPosts={};
+        $scope.allPosts = {};
+        $scope.idPosts = {};
         $scope.currentPosts = {};
         setPage(1);
 

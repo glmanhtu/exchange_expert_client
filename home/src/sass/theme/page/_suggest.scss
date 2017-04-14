@@ -1,0 +1,32 @@
+
+.suggest {
+	.featured {
+		background: $default-button-color;
+		color: #fff;
+		padding: 10px 10px;
+		border-radius: 3px;
+	}
+	.featured-item {
+		padding: 10px 0;
+		background: #fff;
+		border-radius: 3px;
+		border-top: 1px solid #e6e6e6;
+		margin-top: 10px;
+		text-align: center;
+		.featured-img {
+			height: 100px;
+			img {
+				max-height: 95%;
+				max-width: 95%;				
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%);
+			}			
+		}
+
+		.featured-title {
+			font-size: 12pt;
+			text-align: left;
+		}
+	}
+}

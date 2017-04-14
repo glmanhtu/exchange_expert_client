@@ -1,51 +1,37 @@
-<!--<div class="sidebar">-->
-<div>
 
-    <div class="col-md-2 col-sm-3 col-xs-2">
-        <a href="."><img class="app-logo" src="assets/img/expert-exchange-logo_160.png"></a>
+<div class="big-search" click-outside="closeSuggest()">
+    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">        
+        <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()" ng-click="showSearchTips = true"><br>
 
-    </div>
-
-    <div class="col-md-10 col-sm-9 col-xs-10">
-        <div class="search-bar">
-            <nav class="navbar">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-
-                <div class="collapse navbar-collapse" ng-controller="searchbarCtrl">
-               
-         
-                        <div class="form-group col-md-8 col-sm-6 col-xs-6">
-                            <input id="searchInput" ng-model="searchString" search-bar="searchCall()" class="form-control" type="text" placeholder="Search for...">
-                        </div>
-
-                        <div class="form-group col-md-3 col-sm-4 col-xs-4">
-
-                            <select class="form-control" id="search-location">
-                                <option>All</option>
-                                <option>Ho Chi Minh</option>
-                                <option>Ha Noi</option>
-                                <option>Dong Nai</option>
-                                <option>Ba Ria - Vung Tau</option>
-                            </select>
-                        </div>
-            
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        </div>
-    </div>
+        <div class="search-controls">    
+            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search" />
+        </div><!-- .search-controls -->
+    </form><!-- #big-searchform -->
+    <ul class="search-simple-result suggest tip" ng-class="{'hide': !showSearchTips}">
+        <li class="featured-item row">                        
+            <div class="col-md-11 featured-title">
+                <h3><strong>You can search with more attributes, for example:</strong></h3>
+                <p><em>Macbook</em></p>
+                <p><em>Macbook</em> <strong>with price</strong> between<em> $800 and $2000</em></p>
+                <p><em>Macbook</em> <strong>near</strong> <em>me</em></p>
+                <p><em>Macbook</em> <strong>around</strong> 125 Xo Viet Nghe Tinh, 1 district, Ho Chi Minh city</p>
+                <h3><em>Macbook</em> <strong>exchange by</strong> <a href="mailto:glmanhtu@gmail.com">glmanhtu@gmail.com</a>&nbsp;</h3>
+                <p>Or even combine them</p>
+            </div>          
+        </li>
+    </ul>
+    <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
+        <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
+            <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+                <div class="col-md-2 featured-img">
+                    <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
+                </div>
+                <div class="col-md-10 featured-title">
+                    <p>
+                        {{ item.title | limitTo: 250 }}{{item.title.length > 250 ? '...' : ''}}
+                    </p>
+                </div>          
+            </a>              
+        </li>
+    </ul>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#searchInput').keypress(function(e) {
-            if(e.which == 13) {
-                var searchString = $('#searchInput').val();
-                window.location = '#/search?searchString=' + searchString;
-                location.reload();
-            }
-        });
-
-    });
-
-    
-</script>

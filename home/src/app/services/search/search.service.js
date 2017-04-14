@@ -10,7 +10,10 @@
             getData: getData,
             getGoods: getGoods,
             getUser: getUser,
-            searchGoods: searchGoods
+            searchGoods: searchGoods,
+            searchGoodsByKeyword: searchGoodsByKeyword,
+            searchGoodsByLocation: searchGoodsByLocation,
+            predicateSearch: predicateSearch
         };
         return service;
         ////////////////
@@ -40,25 +43,97 @@
             return $http.get('/assets/db/goods/db.json');
         };
 
-        function getGoods() {
+        function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"order":{"by":"postDate","isASC":false}}),
+                data: JSON.stringify({"pagination":{"currentPage":page,"itemsPerPage":itemsPerPage},"order":{"by":"postDate","isASC":false}}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
         }
 
-        function searchGoods(key) {
+        function searchGoodsByKeyword(key) {
+            var url = DOMAIN_URL + '/api/search/good';
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify({
+                    "pagination": {
+                        "currentPage" : 0,
+                        "itemsPerPage":10
+                    }, 
+                    "title" : key,
+                    "order" : {
+                        "by" : "title",
+                        "isASC":false
+                    }
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function predicateSearch(predicates) {
+            var url = DOMAIN_URL + '/api/search/good';
+            predicates['pagination'] = {
+                "currentPage": 0,
+                "itemsPerPage": 10
+            };
+            if (!("order" in predicates)) {
+                predicates['order'] = {
+                    "by" : "postDate",
+                    "isASC" : false
+                }
+            }
+            console.log(predicates);
+            console.log("json: " + JSON.stringify(predicates));
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(predicates),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function searchGoods(key, location) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
                 method: "POST",
                 data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"title":key,"order":{"by":"title","isASC":false}}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function searchGoodsByLocation(lat, lng, distance) {
+            var url = DOMAIN_URL + '/api/search/good';
+            var location =  {
+                              "pagination": {
+                                "currentPage": 0,
+                                "itemsPerPage": 10
+                              },
+                              "location": {
+                                    "lat": lat,
+                                    "lng": lng
+                                },
+                                "distance": distance,
+                              "order": {
+                                "by": "postDate",
+                                "isASC": false
+                              }
+                            };
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"location":{"lat":lat,"lng":lng},"distance": distance,"order":{"by":"postDate","isASC":false}}),
                 headers: {
                     'Content-Type': 'application/json'
                 }

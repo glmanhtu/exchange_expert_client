@@ -6,10 +6,10 @@
       'ExpertExchange.pages.home',
       'ExpertExchange.pages.post',
       'ExpertExchange.pages.search',
+      'ExpertExchange.pages.map',
       'ExpertExchange.pages.profile',
-      'ExpertExchange.pages.goods',
-      'ExpertExchange.pages.login',
-      'ExpertExchange.pages.register',
+      'ExpertExchange.pages.goods',      
+      'ExpertExchange.pages.receive'      
   ]).config(routeConfig);
 
     /** @ngInject */

@@ -12,9 +12,9 @@
 		    	<input-stars max="5" ng-model="user_info.avgRating" class="list-inline" on-star-click="" style="color: #FF9800;"></input-stars>
 
 		    	<br>
-		    	<button class="btn btn-primary" ng-click="feedback('feedback')" ng-if="userName != email">Feedback</button>
-		    	<button type="button" class="btn btn-primary" ng-click="uploadImage('uploadImage')" ng-if="userName == email">Upload Image</button>
-		    	<button type="button" class="btn btn-primary" ng-click="editProfile('editProfile')" ng-if="userName == email">Edit Profile</button>
+		    	<button class="btn btn-primary" ng-click="feedback('feedback')" ng-if="user != email">Feedback</button>
+		    	<button type="button" class="btn btn-primary" ng-click="uploadImage('uploadImage')" ng-if="user == email">Upload Image</button>
+		    	<button type="button" class="btn btn-primary" ng-click="editProfile('editProfile')" ng-if="user == email">Edit Profile</button>
 		    	<br> <br>
 		    </div>
 		</div>

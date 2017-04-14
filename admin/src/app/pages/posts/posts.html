@@ -1,90 +1,47 @@
-<div class="horizontal-scroll">
-  <div class="form-group">
-    <label>Rows on page
-      <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
-              ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
-      </select>
-    </label>
+<div class="widgets" class="horizontal-scroll">
+  <div class="row">
+    <div class="col-md-4">
+      <label>
+        <input class="form-control" id="" ng-model="test" type="text" placeholder="Search for...">
+      </label>
+    </div>
 
-    <label>Category
-      <select class="form-control selectpicker show-tick" name="" id="">
-        <option value="">Category</option>
-        <option value="">Book</option>
-        <option value="">Car</option>
-        <option value="">Computer</option>
-        <option value="">Electric</option>
-        <option value="">Fashion</option>
-      </select>
-    </label>
-
-    <label>Location
-      <select class="form-control selectpicker show-tick" name="" id="">
-        <option value="">Ha Noi</option>
-        <option value="">Hai Phong</option>
-        <option value="">Ho Chi Minh</option>
-        <option value="">Vung Tau</option>
-        <option value="">Binh Duong</option>
-        <option value="">Dong Nai</option>
-      </select>
-    </label>
-
-    <label>From
-      <select class="form-control selectpicker show-tick" name="" id="">
-        <option value="">01/01/2017</option>
-        <option value="">02/01/2017</option>
-        <option value="">03/01/2017</option>
-      </select>
-    </label>
-
-    <label>To
-      <select class="form-control selectpicker show-tick" name="" id="">
-        <option value="">01/01/2017</option>
-        <option value="">02/01/2017</option>
-        <option value="">03/01/2017</option>
-      </select>
-    </label>
-
-    <label>
-      <input class="form-control" id="" type="text" placeholder="Search for...">
-    </label>
-
-    <label>
-      <button class="btn btn-default">Search</button>
-    </label>
-
+    <div class="col-md-2 col-md-offset-6">
+      <label>
+        <select class="form-control select-approve" 
+        ng-model="select" 
+        ng-change="getSearchData(select.id)" 
+        ng-options="select as select.label for select in selects track by select.id">
+        </select>
+      </label>
+    </div>
   </div>
   <table class="table" st-table="smartTableData">
     <thead>
-    <tr class="sortable ">
-      <th class="table-id" st-sort="id" st-sort-default="true">#</th>
-      <th class="table-id" st-sort="id" st-sort-default="true">Id</th>
-      <th st-sort="title">Title</th>
-      <th st-sort="category">Category</th>
-      <th st-sort="location">Location</th>
-      <th st-sort="datePost">Post date</th>
-      <th st-sort="status">Status</th>
-    </tr>
-    
+      <tr class="sortable">
+        <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
+        <th st-sort="title">Title</th>
+        <th st-sort="price">Price (USD)</th>
+        <th st-sort="postDate">Post Date</th>
+        <th st-sort="action"></th>
+      </tr>
     </thead>
-    <tbody>
 
-    <tr ng-repeat="item in postsData">
-      <td class="table-id">1200{{item.id}}</td>
-      <td class="table-id">{{item.id}}</td>
-      <td>{{item.title}}</td>
-      <td>{{item.category}}</td>
-      <td>{{item.location}}</td>
-      <td>{{item.datePost}}</td>
-      <td>{{item.status}}</td>
-    </tr>
-    
+    <tbody>
+      <tr ng-repeat="(key,item) in items | filter:test">
+        <td class="table-Index">{{key+1}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','lg', item)">View</button></td>
+      </tr>
     </tbody>
     <tfoot>
-    <tr>
-      <td colspan="6" class="text-center">
-        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
-      </td>
-    </tr>
+      <tr>
+        <td colspan="7" class="text-center">
+          <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+        </td>
+      </tr>
     </tfoot>
   </table>
 </div>

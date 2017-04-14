@@ -18,15 +18,29 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
     "jquery": "~2.1.4",
+    "angular-toastr": "~2.1.1",
     "angular-ui-router": "0.3.1",
     "angular-cookies": "~1.4.8",
     "lightslider": "^1.1.6",
     "lodash": "^4.17.4",
     "angular-input-stars-directive": "angular-input-stars#^1.6.3",
     "ngmap": "^1.18.4",
-    "textAngular": "^1.5.16"
+    "textAngular": "^1.5.16",
+    "jquery.responsive-slides": "^1.54.1",
+    "angular-relative-date": "^2.1.0",
+    "angular-click-outside": "^2.10.2"
   },
   "overrides": {
+    "angular-relative-date": {
+      "main": [
+        "./dist/angular-relative-date.min.js"
+      ]
+    },
+    "ngmap": {
+      "main": [
+        "./build/scripts/ng-map.min.js"
+      ]
+    },
     "amcharts": {
       "main": [
         "./dist/amcharts/amcharts.js",
@@ -35,6 +49,12 @@
         "./dist/amcharts/funnel.js",
         "./dist/amcharts/pie.js",
         "./dist/amcharts/gantt.js"
+      ]
+    },
+    "bxslider-4": {
+      "main": [
+        "./dist/jquery.bxslider.min.js",
+        "./dist/jquery.bxslider.min.css"
       ]
     },
     "lightslider": {
@@ -48,6 +68,7 @@
         "dist/css/bootstrap.css",
         "js/dropdown.js",
         "js/modal.js",
+        "js/collapse.js",
         "./dist/fonts/**.*"
       ]
     },

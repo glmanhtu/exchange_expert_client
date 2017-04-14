@@ -10,7 +10,7 @@
           .state('home', {
             url: '/home',
             templateUrl: 'app/pages/home/home.html',
-            
+            controller: 'homeCtrl as vm'
           });
     }
 

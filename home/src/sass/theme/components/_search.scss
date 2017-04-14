@@ -1,16 +1,43 @@
 .big-search {
     position: relative;
     display: inline-block;
-    width: 100%;
-    margin-bottom: 5%;
-    #big-search {
+    width: 100%;    
+    .has-results {
+    	border-radius: 3px 3px 0 0 !important;
+    	#big-search-submit {
+    		border-radius: 0 3px 0 0 !important;
+    	}
+    }
+
+    .user-location {
+    	margin-bottom: 1px;
+    }
+
+    .big-search-input {
 	    background: #fff;
-	    font-size: 20px;
+	    font-size: 18px;
 	    line-height: 2;
 	    padding: 15px 20px;	    
 	    border: none;
 	    height: 100%;
+	    background: #fff;    	   
 	}
+
+	.tip {
+		.featured-img {
+			height: 32px !important;
+		}
+	}
+
+	.search-simple-result {
+		width: 100%;		
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+		.featured-item {
+			margin: auto;
+			border-radius: 0;
+		}	
+	}
+
 	.submit {
 	    display: inline-block;
 	    vertical-align: top;
@@ -22,56 +49,25 @@
 	    transition: .2s ease-in-out;
 	    color: #fff;
 	    border: none;
-	    border-radius: 3px;
+	    border-radius: 0 3px 3px 0;
 	    background: #37BF91;
 	    line-height: 1.4;
 	    -webkit-appearance: none;
 	}
 }
 
-#big-searchform {
-    height: 50px;
+#big-searchform {    
     display: inline-block;
-    width: 100%;
-    background: #fff;
-    border-radius: 3px;    
+    border-radius: 3px;
+    width: 100%;    
     position: relative;
+    .user-location {
+    	display: none;
+    }
     .search-controls {
 	    position: absolute;
 	    right: 0;
 	    top: 0;
-	    height: 100%;
-	    .search-select-wrap {
-		    position: relative;
-		    display: inline-block;
-		    height: 100%;
-		    border-left: solid 2px #EFF2F6;
-		    background: #fff;		    
-		    .search-select {
-			    display: inline-block;
-			    background: transparent;
-			    color: #6E7987;
-			    border: none;
-			    width: auto;
-			    max-width: 250px;
-			    border-radius: 0;
-			    padding-left: 25px;
-			    padding-right: 35px;
-			    -webkit-appearance: none;
-			    -moz-appearance: none;
-			    height: 100%;
-			    cursor: pointer;
-			}
-			&:after {
-			    content: "\f107";
-			    font-family: "FontAwesome";
-			    position: absolute;
-			    top: 12px;
-			    right: 15px;
-			    z-index: 10px;
-			    pointer-events: none;
-			    display: none\9;
-			}
-		}
+	    height: 100%;	   
 	}
 }

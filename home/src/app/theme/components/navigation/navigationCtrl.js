@@ -17,6 +17,8 @@
                 $scope.avatar = $rootScope.userProfile.avatar;
             }            
             console.log($rootScope.userProfile);
+        } else {
+            delete $rootScope.userProfile;
         }
 
         $scope.logout = function () {

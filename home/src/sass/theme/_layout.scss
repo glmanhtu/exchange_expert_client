@@ -3,7 +3,7 @@ body {
 	padding: 0;
 }
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, font, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     font-family: inherit;
     font-size: 100%;
     font-weight: inherit;
@@ -105,8 +105,12 @@ body {
     position: relative;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 0 5%;
+    padding: 0;
     overflow: hidden;
+}
+
+.main-container {
+    padding: 62px 5%;
 }
 
 .clearfix {
@@ -116,9 +120,7 @@ body {
 .page-top {
     background-color: #282E34;
     position: relative;
-    height: $nav-height;
-
-    z-index: 904;    
+    height: $nav-height;    
     width: 100%;       
     padding: 0;     
 
@@ -139,6 +141,8 @@ body {
 
 .al-main {
   min-height: 100%;
+  padding-top: 0 !important;
+  padding-bottom: 34px;
   /* equal to footer height */
   margin-bottom: -40px;
 }
@@ -159,7 +163,7 @@ body {
 
 navigation {
 	position: absolute;
-    z-index: 1;
+    z-index: 9999;
     width: 100%;
 }
 

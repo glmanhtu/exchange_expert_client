@@ -84,8 +84,8 @@
             goodService.getGood(url).then(function (response) {
                 $scope.item = response.data;
                 $scope.images = response.data.images;
-                googleMapService.getAddress(response.data.location[0].lat, response.data.location[0].lng).then(function(response) {
-                    $scope.address = response.data.results[0].formatted_address;
+                googleMapService.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function(response) {
+                    $scope.address = response.data.results[0].address_components[0].short_name;
                 }, function(error) {
                     console.log(error);
                 })

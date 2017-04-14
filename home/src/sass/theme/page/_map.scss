@@ -1,0 +1,34 @@
+.map-container {
+	height: 120vh;
+    width:  100%; /* For 100% screen width */
+}
+
+.map-page {
+	height: 170px !important;
+	background: #000;
+	.search-bar-container {
+		margin-left: 0;
+	    padding-left: 0;
+	    margin-top: 50px;
+	    width: 40%;
+	    .big-search {    	    
+    	    #big-searchform {
+    	    	.big-search-input {
+    	    		box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+    	    	}
+	    		.user-location {
+	    			display: inherit;
+	    		}
+    	    	.search-controls {
+			    	display: none;
+			    }
+    	    }    	    
+	    }	   
+	}
+}
+
+.has-results {
+	.big-search-input {
+		box-shadow: none !important;
+	}
+}

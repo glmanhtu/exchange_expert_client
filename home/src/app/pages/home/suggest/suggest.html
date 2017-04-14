@@ -2,8 +2,8 @@
 	<div class="featured row">
 		You may also likes
 	</div>
-	<ul ng-repeat="(key, item) in items | limitTo:5 ">
-		<li class="featured-item row">			
+	<ul>
+		<li class="featured-item row" ng-repeat="(key, item) in items | limitTo:5 ">			
 			<div class="col-md-4 featured-img">
 				<img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}" alt="{{ item.title }}">
 			</div>

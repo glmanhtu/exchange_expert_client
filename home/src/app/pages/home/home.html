@@ -6,7 +6,7 @@
             <div class="row">
                 <article class="post row">
                     <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                        <img src="{{ DOMAIN_URL + '/api' + item.featuredImage || '/assets/img/default-placeholder.png' }}"/>
+                        <img ng-src="{{ item.featuredImage | imageUrl }}"/>
                     </a>
                     
                     <header class="entry-header col-md-8 col-xs-12">
@@ -17,7 +17,7 @@
                         </h3>
 
                         <div class="entry-excerpt">
-                            <p>{{ item.description | htmlToPlaintext | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
+                            <p>{{ item.description | plainText | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
                         </div>
 
                         <div class="download-meta">

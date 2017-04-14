@@ -1,24 +1,27 @@
 
 <div class="big-search" click-outside="closeSuggest()">
-    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">
-        <input type="text" class="big-search-input user-location" placeholder="Your location" value="" autocomplete="off">
-        <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()"><br>
+    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">        
+        <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()" ng-click="showSearchTips = true"><br>
 
-        <div class="search-controls">
-        
-            <div class="search-select-wrap">
-                <select class="search-select" 
-                    ng-model="selectedType"                     
-                    ng-options="item as item.name for item in searchTypes track by item.value">                            
-                </select>            
-            </div>
-
-        
-            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search"/>
+        <div class="search-controls">    
+            <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search" />
         </div><!-- .search-controls -->
     </form><!-- #big-searchform -->
+    <ul class="search-simple-result suggest tip" ng-class="{'hide': !showSearchTips}">
+        <li class="featured-item row">                        
+            <div class="col-md-11 featured-title">
+                <h3><strong>You can search with more attributes, for example:</strong></h3>
+                <p><em>Macbook</em></p>
+                <p><em>Macbook</em> <strong>with price</strong> between<em> $800 and $2000</em></p>
+                <p><em>Macbook</em> <strong>near</strong> <em>me</em></p>
+                <p><em>Macbook</em> <strong>around</strong> 125 Xo Viet Nghe Tinh, 1 district, Ho Chi Minh city</p>
+                <h3><em>Macbook</em> <strong>exchange by</strong> <a href="mailto:glmanhtu@gmail.com">glmanhtu@gmail.com</a>&nbsp;</h3>
+                <p>Or even combine them</p>
+            </div>          
+        </li>
+    </ul>
     <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
-        <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 ">
+        <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
                 <div class="col-md-2 featured-img">
                     <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">

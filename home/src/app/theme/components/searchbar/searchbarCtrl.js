@@ -3,54 +3,53 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchbarCtrl', searchbarCtrl);
-    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL'];
+    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService'];
     /** @ngInject */
-    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL) {
+    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService) {
 
-    	$scope.searchTypes = [
-    		{name : "Content", value : "content"},
-    		{name : "Price", value : "price"},
-		    {name : "Seller Email", value : "seller"},
-		    {name : "Category", value : "category"},
-		    {name : "Location", value : "location"},	    
-		];
+    	$scope.showSearchTips = false;
 
-		$scope.selectedType = $scope.searchTypes[0];
 		$rootScope.searchString = "";
-		$rootScope.hasResults = true;
+		$rootScope.hasResults = false;
 		$rootScope.suggestResults = [];		
 		$scope.DOMAIN_URL = DOMAIN_URL;
+		$rootScope.predicates;
 
 		$rootScope.closeSuggest = function() {
 			$rootScope.suggestResults = [];
 			$rootScope.hasResults = false;
-			$rootScope.searchString = "";
+			$scope.showSearchTips = false;			
 		}
 
 		$scope.searchCall = function() {
+			if ($rootScope.locationSearch) {
+				$location.path("/map");
+			}
+		}
 
-			switch ($scope.selectedType.value) {
-				case "location":
-					$location.path("/map");
-					break;
-				default:
-					$location.path("/search");
-			}			
+		$scope.openSuggest = function(item) {
+			$location.path("/goods/" + item.category.slug + "/" + item.slug);
 		}
 
 		$scope.getSearchSuggests = function() {
-			if ($rootScope.searchString.length < 2) {
+			$rootScope.predicates = recognizeService.exportKeyword($rootScope.searchString);
+			if ($rootScope.searchString.length < 2 || !$rootScope.isCompletedSearch) {
 				$rootScope.suggestResults = [];
 				$rootScope.hasResults = false;
+				$scope.showSearchTips = true;
 				return;
-			}			
-			searchService.searchGoodsByKeyword($rootScope.searchString).then(function (response) {
-	    		$rootScope.suggestResults = response.data.content;
-	    		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
-	    		// console.log(response);
-	    	}, function (response){
-	    		console.log(response);
-	    	});
+			}
+						
+			if ($rootScope.isCompletedSearch) {			
+				searchService.predicateSearch($rootScope.predicates).then(function (response) {
+		    		$rootScope.suggestResults = response.data.content;
+	    			$scope.showSearchTips = $rootScope.suggestResults.length == 0;
+		    		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
+		    		// console.log(response);
+		    	}, function (response){
+		    		console.log(response);
+		    	});
+			}		
 		}		
     }
 

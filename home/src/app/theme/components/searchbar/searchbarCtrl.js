@@ -13,23 +13,18 @@
 		$rootScope.hasResults = false;
 		$rootScope.suggestResults = [];		
 		$scope.DOMAIN_URL = DOMAIN_URL;
+		$rootScope.predicates;
 
 		$rootScope.closeSuggest = function() {
 			$rootScope.suggestResults = [];
 			$rootScope.hasResults = false;
-			$scope.showSearchTips = false;
-			$rootScope.searchString = "";
+			$scope.showSearchTips = false;			
 		}
 
 		$scope.searchCall = function() {
-
-			switch ($scope.selectedType.value) {
-				case "location":
-					$location.path("/map");
-					break;
-				default:
-					$location.path("/search");
-			}			
+			if ($rootScope.locationSearch) {
+				$location.path("/map");
+			}
 		}
 
 		$scope.openSuggest = function(item) {
@@ -37,21 +32,24 @@
 		}
 
 		$scope.getSearchSuggests = function() {
-			recognizeService.exportKeyword($rootScope.searchString);
-			// if ($rootScope.searchString.length < 2) {
-			// 	$rootScope.suggestResults = [];
-			// 	$rootScope.hasResults = false;
-			// 	$scope.showSearchTips = true;
-			// 	return;
-			// }			
-			// searchService.searchGoodsByKeyword($rootScope.searchString).then(function (response) {
-	  //   		$rootScope.suggestResults = response.data.content;
-   //  			$scope.showSearchTips = $rootScope.suggestResults.length == 0;
-	  //   		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
-	  //   		// console.log(response);
-	  //   	}, function (response){
-	  //   		console.log(response);
-	  //   	});
+			$rootScope.predicates = recognizeService.exportKeyword($rootScope.searchString);
+			if ($rootScope.searchString.length < 2 || !$rootScope.isCompletedSearch) {
+				$rootScope.suggestResults = [];
+				$rootScope.hasResults = false;
+				$scope.showSearchTips = true;
+				return;
+			}
+						
+			if ($rootScope.isCompletedSearch) {			
+				searchService.predicateSearch($rootScope.predicates).then(function (response) {
+		    		$rootScope.suggestResults = response.data.content;
+	    			$scope.showSearchTips = $rootScope.suggestResults.length == 0;
+		    		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
+		    		// console.log(response);
+		    	}, function (response){
+		    		console.log(response);
+		    	});
+			}		
 		}		
     }
 

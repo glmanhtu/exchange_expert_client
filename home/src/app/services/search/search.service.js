@@ -12,7 +12,8 @@
             getUser: getUser,
             searchGoods: searchGoods,
             searchGoodsByKeyword: searchGoodsByKeyword,
-            searchGoodsByLocation: searchGoodsByLocation
+            searchGoodsByLocation: searchGoodsByLocation,
+            predicateSearch: predicateSearch
         };
         return service;
         ////////////////
@@ -70,6 +71,30 @@
                         "isASC":false
                     }
                 }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function predicateSearch(predicates) {
+            var url = DOMAIN_URL + '/api/search/good';
+            predicates['pagination'] = {
+                "currentPage": 0,
+                "itemsPerPage": 10
+            };
+            if (!("order" in predicates)) {
+                predicates['order'] = {
+                    "by" : "postDate",
+                    "isASC" : false
+                }
+            }
+            console.log(predicates);
+            console.log("json: " + JSON.stringify(predicates));
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(predicates),
                 headers: {
                     'Content-Type': 'application/json'
                 }

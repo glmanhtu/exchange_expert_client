@@ -24,7 +24,9 @@
         }
 
         function splitWords(transformed) {
-            transformed = transformed.replace(/(\[\w*\])(\[\w*\])/, '$1');
+            console.log(transformed);
+            transformed = transformed.replace(/(\[\w+\])(\[\w+\])/g, '$1');
+            console.log(transformed);
             var keyword = transformed.match(/^[^[]*/)[0];       
             var regex = /\[(\w*)\]([^[]*)?/g;     
 
@@ -36,7 +38,7 @@
                 for (var attribute in predicate) {
                     predicates[attribute] = predicate[attribute];
                 }
-            }            
+            }                        
             return predicates;
         }
 
@@ -105,7 +107,7 @@
             };
         }
 
-        function locationPredicate(input) {      
+        function locationPredicate(input) {
             $rootScope.isCompletedSearch = !(!input);
             $rootScope.locationSearch = input;      
         }
@@ -599,8 +601,8 @@
             );
                  
             // Split out all the individual words in the phrase
-            var words = cleansed_string.match(/[^\s]+|\s+[^\s+]$/g)
-         
+            var words = cleansed_string.match(/[^\s]+|\s+[^\s+]$/g);
+            
             // Review all the words
             for(x=0; x < words.length; x++) {
                 // For each word, check all the stop words

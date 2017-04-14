@@ -3,16 +3,112 @@
     angular
         .module('ExpertExchange')
         .factory('recognizeService', recognizeService);
-    recognizeService.$inject = ['$http','$timeout','DOMAIN_URL'];
+    recognizeService.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope'];
 
     /* @ngInject */
-    function recognizeService($http, $timeout, DOMAIN_URL) {
+    function recognizeService($http, $timeout, DOMAIN_URL, $rootScope) {
         var service = {};
         service.exportKeyword = exportKeyword;
+
+        // Store the location where user want to exchange
+        $rootScope.locationSearch = "";
+
+        // Check if current typing is done to fetch suggests
+        $rootScope.isCompletedSearch = false;
+
         return service;      
+
         function exportKeyword(input) {            
-            console.log(transformWords(input.removeStopWords()));
-        }        
+            var transform = transformWords(input.removeStopWords());
+            return splitWords(transform);
+        }
+
+        function splitWords(transformed) {
+            transformed = transformed.replace(/(\[\w*\])(\[\w*\])/, '$1');
+            var keyword = transformed.match(/^[^[]*/)[0];       
+            var regex = /\[(\w*)\]([^[]*)?/g;     
+
+            var matches, predicates = [];
+            predicates = { "title" : keyword };
+            $rootScope.isCompletedSearch = true;
+            while (matches = regex.exec(transformed)) {
+                var predicate = processingPredicate(matches);
+                for (var attribute in predicate) {
+                    predicates[attribute] = predicate[attribute];
+                }
+            }            
+            return predicates;
+        }
+
+        function processingPredicate(matches) {            
+            switch (matches[1]) {
+                case "price":
+                    return pricePredicate(matches[2]);
+                case "location":
+                    return locationPredicate(matches[2]);
+                case "seller":
+                    return sellerPredicate(matches[2]);
+                case "[order]newest":
+                    return orderPredicate("postDate", false);
+            }
+        }
+
+        function orderPredicate(field, isAsc) {            
+            return {
+                "order" : {
+                    "by" : field,
+                    "isASC" : isAsc
+                }
+            };
+        }
+
+        function sellerPredicate(input) {
+            $rootScope.isCompletedSearch = !(!input);
+            return {
+                "seller" : input
+            }
+        }
+
+        function pricePredicate(input) {            
+            var regex = /\$\s*(\d+)/g;
+            var matches, results = [];
+            while (matches = regex.exec(input)) {                
+                results.push(parseInt(matches[1]));
+            }
+            console.log("price: " + input);
+            console.log(results);
+            var from, to;
+            if (results.length > 1) {                
+                if (results[0] > results[1]) {
+                    from = results[1];
+                    to = results[0];
+                } else {
+                    from = results[0];
+                    to = results[1];
+                }                
+            } else if (results.length == 1) {
+                var lowers = ['lower', 'smaller'];
+                if (new RegExp(lowers.join("|")).test(input)) {
+                    from = 0;
+                    to = results[0];                    
+                } else {                    
+                    from = results[0],
+                    to = 2147483647             
+                }
+            }            
+            $rootScope.isCompletedSearch = !(!from && !to);
+            return {
+                "price" : {
+                    "from" : from,
+                    "to" : to
+                }
+            };
+        }
+
+        function locationPredicate(input) {      
+            $rootScope.isCompletedSearch = !(!input);
+            $rootScope.locationSearch = input;      
+        }
 
         function transformWords(cleansed_string) {
             if (!cleansed_string) {
@@ -25,14 +121,15 @@
             var regex_str;
             var regex;
             var keywords = new Array(
-                ['price',  '[price]'],                
+                ['price',  '[price]'], 
+                ['lower',   '[price]lower'],            
                 ['by', '[seller]'],
                 ['near', '[location]'],
                 ['from'   , '[seller]'],
-                ['new'    , '[order:mewest]'],  
-                ['new'    , '[order:newest]'],
-                ['newer'  , '[order:newest]'],
-                ['newest' , '[order:newest]'],
+                ['new'    , '[order]newest'],  
+                ['new'    , '[order]newest'],
+                ['newer'  , '[order]newest'],
+                ['newest' , '[order]newest'],
                 ['around' , '[location]']
             );
 
@@ -68,6 +165,7 @@
     }
 })();
 
+// Remove unnecessary stopwords
 String.prototype.removeStopWords = function() {
     var x;
     var y;

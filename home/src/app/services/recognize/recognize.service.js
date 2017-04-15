@@ -18,15 +18,14 @@
 
         return service;      
 
-        function exportKeyword(input) {            
+        function exportKeyword(input) {     
+            $rootScope.locationSearch = "";       
             var transform = transformWords(removePreposition(input));
             return splitWords(transform);
         }
 
-        function splitWords(transformed) {
-            console.log(transformed);
-            transformed = transformed.replace(/(\[\w+\])(\[\w+\])/g, '$1');
-            console.log(transformed);
+        function splitWords(transformed) {            
+            transformed = transformed.replace(/(\[\w+\])(\[\w+\])/g, '$1');            
             var keyword = transformed.match(/^[^[]*/)[0];       
             var regex = /\[(\w*)\]([^[]*)?/g;     
 
@@ -76,9 +75,7 @@
             var matches, results = [];
             while (matches = regex.exec(input)) {                
                 results.push(parseInt(matches[1]));
-            }
-            console.log("price: " + input);
-            console.log(results);
+            }            
             var from, to;
             if (results.length > 1) {                
                 if (results[0] > results[1]) {
@@ -132,7 +129,9 @@
                 ['new'    , '[order]newest'],
                 ['newer'  , '[order]newest'],
                 ['newest' , '[order]newest'],
-                ['around' , '[location]']
+                ['around' , '[location]'],
+                ['at'     , '[location]'],
+                ['in'     , '[location]']
             );
 
             // Split out all the individual words in the phrase
@@ -208,8 +207,7 @@
                 'ask',
                 'asked',
                 'asking',
-                'asks',
-                'at',
+                'asks',                
                 'away',
                 'b',
                 'back',
@@ -338,8 +336,7 @@
                 'however',
                 'i',
                 'if',
-                'important',
-                'in',
+                'important',                
                 'interest',
                 'interested',
                 'interesting',

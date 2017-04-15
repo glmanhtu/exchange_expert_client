@@ -546,3 +546,10 @@ ul {
     font-size:13px;
     padding-top:10px;
 }
+
+.modal {
+    z-index: 100000;
+}
+textarea {
+    height: auto;
+}

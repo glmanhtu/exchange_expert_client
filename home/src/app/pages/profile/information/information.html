@@ -1,170 +1,124 @@
 <div ng-controller="informationCtrl">
-	<div class="panel panel-default">
-	  <div class="panel-heading">User's Information</div>
-	  <div class="panel-body">
-		<div class="col-md-12">
-			<div class="col-md-4">
-		    	<img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail" alt="">
-		    </div>
-		    <div class="col-md-8">
-		    	<h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">User's Information</div>
+            <form ng-submit="updateProfileUser()">
+                <div class="col-md-12 profile-user">
+                    <div class="group">
+                    </div>
+                    <div class="group">
+                        <label>Email</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.id"
+                               placeholder="username@info.com"
+                               aria-describedby="profile-email" readonly="readonly">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label>First name</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.firstName"
+                               placeholder="First Name" aria-describedby="profile-firstname">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label>Last name</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.lastName"
+                               placeholder="Last Name" aria-describedby="profile-lastname">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label>Birthday</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched"
+                               ng-model="user_info.birthday | date: 'yyyy-MM-dd'"
+                               placeholder="yyyy-mm-dd" aria-describedby="profile-birthday">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label>Phone</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.phone"
+                               aria-describedby="profile-phone" placeholder="Phone">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label>Address</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.address"
+                               aria-describedby="profile-address" placeholder="Address">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group col-md-6">
+                        <button type="submit" class="button buttonBlue" ng-click="" ng-if="user_info.id == email">Save
+                        </button>
+                    </div>
+                    </ul>
+                </div>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">User's Information</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"
+                             ng-click="selectAvatar()" alt="">
+                        <input type="file" name="avatar" id="userAvatar" ng-model="user_info.avatar"
+                               onchange="angular.element(this).scope().sendAvatar()" multiple>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
+                        <p class="createdate">Join date: {{user_info.createDate | date: 'yyyy-MM-dd'}}</p>
+                        <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline" on-star-click=""
+                                     style="color: #FF9800;"></input-stars>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-if="user.id != email">
+            <form ng-submit="sendFeedback()">
+            <div class="panel-heading">Give feedback for <i><b>{{user_info.id}}</b></i></div>
+            <div class="panel-body profile-user">
+                <div class="modal-body">
+                    <div class="group">
+                        <label for="title_feedback">Title</label>
+                        <input type="text" class="form-control" id="title_feedback" ng-model="feedback.title">
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label for="msg_feedback">Message</label>
+                        <textarea rows="9" id="msg_feedback" ng-model="feedback.message">
+                        </textarea>
+                        <span class="highlight"></span><span class="bar"></span>
+                    </div>
+                    <div class="group col-md-6 pull-right">
+                        <button type="submit" class="button buttonBlue">Send</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
-		    	<input-stars max="5" ng-model="user_info.avgRating" class="list-inline" on-star-click="" style="color: #FF9800;"></input-stars>
+    <!-- Modal -->
+    <div id="popupModel" class="modal animated fadeIn" role="dialog">
+        <div class="modal-dialog">
 
-		    	<br>
-		    	<button class="btn btn-primary" ng-click="feedback('feedback')" ng-if="user != email">Feedback</button>
-		    	<button type="button" class="btn btn-primary" ng-click="uploadImage('uploadImage')" ng-if="user == email">Upload Image</button>
-		    	<button type="button" class="btn btn-primary" ng-click="editProfile('editProfile')" ng-if="user == email">Edit Profile</button>
-		    	<br> <br>
-		    </div>
-		</div>
-		
-		<div class="col-md-12 clearfix">
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-firstname">First Name</span>
-			  <input type="text" class="form-control" value="{{ user_info.firstName }}" placeholder="First Name" aria-describedby="profile-firstname">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-lastname">Last Name</span>
-			  <input type="text" class="form-control" value="{{ user_info.lastName }}" placeholder="Last Name" aria-describedby="profile-lastname">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-email">Email</span>
-			  <input type="text" class="form-control" value="{{ user_info.id }}" placeholder="username@info.com" aria-describedby="profile-email">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-birthday">Birthday</span>
-			  <input type="text" class="form-control" value="{{ user_info.birthday | date:'yyyy-MM-dd'}}" placeholder="empty" aria-describedby="profile-birthday">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-createdate">Create Date</span>
-			  <input type="text" class="form-control" value="{{ user_info.createDate | date:'yyyy-MM-dd'}}" placeholder="empty" aria-describedby="profile-createdate">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-phone">Phone</span>
-			  <input type="text" class="form-control" value="" placeholder="empty" aria-describedby="profile-phone">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-address">Address</span>
-			  <input type="text" class="form-control" value="" placeholder="empty" aria-describedby="profile-address">
-			</div>
-		</div>
-			
-		
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Response Title</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reload()">Close</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
 
-	  </div>
-	 </div>
-
-	<!-- Modal -->
-	<div id="feedback" class="modal animated fadeIn" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Feedback</h4>
-	      </div>
-	      <div class="modal-body col-md-12">
-		
-			<label for="title_feedback">Title</label>
-	        <input type="text" class="form-control" id="title_feedback" ng-model="title_feedback">
-			
-			<label for="Rating">Rating</label>
-			<!-- <input-stars max="5" ng-model="ratingFeedback" class="list-inline" on-star-click="rating()" style="color: #FF9800;"></input-stars> -->
-			<select ng-model="ratingFeedback" class="form-control">
-				<option ng-repeat="rate in listRate" value="{{rate.rate}}">{{rate.name}}</option>
-			</select>
-			<input type="hidden" ng-bind="ratingFeedback">
-
-	        <label for="msg_feedback">Message</label>
-	        <textarea rows="5" id="msg_feedback" ng-model="msg_feedback"></textarea>
-
-	        <button class="btn btn-primary" ng-click="sendFeedback()">Send</button>
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
-
-	<!-- Modal -->
-	<div id="editProfile" class="modal animated fadeIn" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Edit Profile</h4>
-	      </div>
-	      <div class="modal-body col-md-12">
-		
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-firstname">First Name</span>
-			  <input type="text" class="form-control" value="{{ user_info.firstName }}" placeholder="First Name" aria-describedby="profile-firstname">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-lastname">Last Name</span>
-			  <input type="text" class="form-control" value="{{ user_info.lastName }}" placeholder="Last Name" aria-describedby="profile-lastname">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-email">Email</span>
-			  <input type="text" class="form-control" value="{{ user_info.id }}" placeholder="username@info.com" aria-describedby="profile-email">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-birthday">Birthday</span>
-			  <input type="text" class="form-control" value="{{ user_info.birthday | date:'yyyy-MM-dd'}}" placeholder="empty" aria-describedby="profile-birthday">
-			</div>
-			<br>
-			<div class="input-group">
-			  <span class="input-group-addon" id="profile-createdate">Create Date</span>
-			  <input type="text" class="form-control" value="{{ user_info.createDate | date:'yyyy-MM-dd'}}" placeholder="empty" aria-describedby="profile-createdate">
-			</div>
-			<br>
-	        <button class="btn btn-primary" ng-click="">Apply</button>
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
-
-	<!-- Modal -->
-	<div id="uploadImage" class="modal animated fadeIn" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Upload Image</h4>
-	      </div>
-	      <div class="modal-body col-md-12">
-		
-			<input type="button" class="btn btn-primary" value="Choose File">
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
+</div>
 </div>

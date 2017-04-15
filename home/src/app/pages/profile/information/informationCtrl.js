@@ -6,86 +6,95 @@
 
     /** @ngInject */
     function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService) {
-    	$scope.email = $stateParams.user_id;
-    	$scope.user = sessionStorage.userName;
-    	console.log($stateParams.user_id);
-    	console.log($scope.user);
-    	$scope.user_info = {};
-    	$scope.ratingFeedback = 3;
-    	$scope.listRate = [
-	        {rate : "1", name : "1"},
-	        {rate : "2", name : "2"},
-	        {rate : "3", name : "3"},
-	        {rate : "4", name : "4"},
-	        {rate : "5", name : "5"}
-	    ];
+        $scope.feedback = {};
+        $scope.email = $stateParams.user_id;
+        $scope.user = JSON.parse(sessionStorage.userProfile);
+        $scope.user_info = {};
+        $scope.rating = 3;
+        $scope.listRate = [
+            {rate: "1", name: "1"},
+            {rate: "2", name: "2"},
+            {rate: "3", name: "3"},
+            {rate: "4", name: "4"},
+            {rate: "5", name: "5"}
+        ];
 
-    	GetInfo($scope.email);
+        GetInfo($scope.email);
 
-    	function GetInfo(email) {
-    		UserService.GetByEmail(email).then(function (response) {
-    			$scope.user_info = response;
-    			console.log($scope.user_info);
-    		}, function (response) {
-    			console.log(response);
-    		});
-    	}
+        function GetInfo(email) {
+            UserService.GetByEmail(email).then(function (response) {
+                $scope.user_info = response;
+            }, function (response) {
+                console.log(response);
+            });
+        }
 
-    	$scope.feedback = function (element) {
-    		$scope.accessToken = sessionStorage.accessToken;
-    		if ($scope.accessToken)
-    			jQuery('#'+element).modal('show');
-    		else
-    			$window.location.href = '/#/login';
-    	}
+        $scope.selectAvatar = function () {
+            $('#userAvatar').click();
+        };
 
-    	$scope.editProfile = function (element) {
-    		$scope.accessToken = sessionStorage.accessToken;
-    		if ($scope.accessToken)
-    			jQuery('#'+element).modal('show');
-    		else
-    			$window.location.href = '/#/login';
-    	}
+        $scope.updateProfileUser = function () {
+            UserService.Update($scope.user_info);
+        }
 
-    	$scope.uploadImage = function (element) {
-    		$scope.accessToken = sessionStorage.accessToken;
-    		if ($scope.accessToken)
-    			jQuery('#'+element).modal('show');
-    		else
-    			$window.location.href = '/#/login';
-    	}
+        $scope.uploadImage = function (element) {
+            $scope.accessToken = sessionStorage.accessToken;
+            if ($scope.accessToken)
+                jQuery('#' + element).modal('show');
+            else
+                $window.location.href = '/#/login';
+        }
 
-    	$scope.rating = function () {
-    		console.log("rating");
-    		$timeout(function() {
-    			console.log($scope.ratingFeedback);
-    		},1000);
-            
-    	}
+        $scope.rating = function () {
+            $timeout(function () {
+                console.log($scope.rating);
+            }, 1000);
 
-    	$scope.sendFeedback = function () {    		
-    		if ($scope.accessToken) {
-	    		var msg = $scope.title_feedback + ": " + $scope.msg_feedback;	    		
-	    		UserService.SendFeedback($scope.email, msg).then(function (res) {
-	    			// body...
-	    			jQuery('#feedback').modal('hide');
-	    		}, function (res) {
-	    			// body...
-	    			jQuery('#feedback').modal('hide');
-	    		});
+        }
 
-	    		console.log($scope.ratingFeedback);
+        $scope.sendFeedback = function () {
+            var accessToken = sessionStorage.accessToken;
+            if (confirm("Do you want to sent feedback user " + $scope.user.id)) {
+                console.log($scope.feedback);
+                UserService.SendFeedback($scope.email, $scope.feedback, accessToken).then(function (res) {
+                    setTimeout(function () {
+                        $('#popupModel .modal-title').html('Rating response');
+                        $('#popupModel .modal-body').html('<p>Thank you for your feedback to <b>' + $scope.email + '</b></p>');
+                        $('#popupModel').modal('show');
+                    }, 500);
+                });
+            }
+        }
+        $scope.sendRating = function (index) {
 
+            var rating = index + 1;
+            UserService.Rating($scope.email, accessToken, rating).then(function (res) {
+                setTimeout(function () {
+                    $('#popupModel .modal-title').html('Rating response');
+                    $('#popupModel .modal-body').html('<p>Thank you for your rating to <b>' + $scope.email + '</b></p>');
+                    $('#popupModel').modal('show');
+                }, 500);
+            });
+        }
 
-	    		UserService.RatingFeedback($scope.email, $scope.ratingFeedback).then(function (res) {
-	    			// body...
-	    		}, function (res) {
-	    			// body...
-	    		});
-	    	} else {
-	    		$window.location.href = '/#/login';
-	    	}
-    	}
+        $scope.sendAvatar = function () {
+            var avatar = $('#userAvatar');
+            var data = new FormData();
+            data.append("files", avatar[0].files[0]);
+
+            UserService.UploadAvatar(data).then(function (res) {
+                var avatarUri = '';
+                $.each(res, function (index, img) {
+                    avatarUri = UserService.GetDomainUrl() + '/api/' + img;
+                });
+                $('.profile-img').attr('src', avatarUri);
+                $scope.user_info.avatar = avatarUri;
+                $scope.updateProfileUser();
+            });
+        }
+
+        $scope.reload = function () {
+            window.location.reload();
+        }
     }
-
 })();

@@ -22,10 +22,10 @@
     <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
         <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
-                <div class="col-md-2 featured-img">
+                <div class="col-md-2 featured-img col-xs-3">
                     <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
                 </div>
-                <div class="col-md-10 featured-title">
+                <div class="col-md-10 col-xs-9 featured-title">
                     <p>
                         {{ item.title | limitTo: 250 }}{{item.title.length > 250 ? '...' : ''}}
                     </p>

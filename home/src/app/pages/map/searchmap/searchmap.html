@@ -1,12 +1,12 @@
 <div class="big-search" click-outside="closeSuggest()">
-    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">        
-        <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()" ng-click="showSearchTips = true"><br>
+    <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': mapHasResults || showMapSearchTips}">        
+        <input type="text" class="big-search-input" ng-model="mapSearchString" placeholder="Exchange search" autocomplete="off" ng-change="getSearchResult()" ng-click="showMapSearchTips = mapHasResults = true"><br>
 
         <div class="search-controls">    
             <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search" />
         </div><!-- .search-controls -->
     </form><!-- #big-searchform -->
-    <ul class="search-simple-result suggest tip" ng-class="{'hide': !showSearchTips}">
+    <ul class="search-simple-result suggest tip" ng-class="{'hide': !showMapSearchTips || mapHasResults}">
         <li class="featured-item row">                        
             <div class="col-md-11 featured-title">
                 <h3><strong>You can search with more attributes, for example:</strong></h3>
@@ -19,9 +19,9 @@
             </div>          
         </li>
     </ul>
-    <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
-        <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
-            <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+    <ul class="search-simple-result suggest" ng-class="{'hide': !mapHasResults}">
+        <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 " ng-click="moveMap(item.location[0])">
+            <a>
                 <div class="col-md-2 featured-img">
                     <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
                 </div>

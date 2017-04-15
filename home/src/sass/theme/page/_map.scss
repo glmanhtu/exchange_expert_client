@@ -4,7 +4,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-	.map-page {
+	.map-search {
 		.search-bar-container {
 			width: 100%;
 		}
@@ -12,7 +12,7 @@
 }
 
 @media only screen and (min-width: 1024px) {
-	.map-page {
+	.map-search {
 		.search-bar-container {
 			width: 40%;
 			margin-left: 0;
@@ -21,17 +21,15 @@
 	}
 }
 
-.map-page {
-	height: 170px !important;
-	background: #000;
+.map-search {
+	position: absolute;
+	z-index: 9999;
 	.search-bar-container {		
 	    margin-top: 50px;
 	    
-	    .big-search {    	    
-    	    #big-searchform {
-    	    	.big-search-input {
-    	    		box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
-    	    	}
+	    .big-search {    	 
+	    	box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);   
+    	    #big-searchform {    	    	
 	    		.user-location {
 	    			display: inherit;
 	    		}
@@ -41,6 +39,10 @@
     	    }    	    
 	    }	   
 	}
+}
+.map-page {
+	height: 170px !important;
+	background: #000;	
 }
 
 .has-results {

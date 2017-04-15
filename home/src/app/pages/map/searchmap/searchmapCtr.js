@@ -3,16 +3,18 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchmapCtrl', searchmapCtrl);
-    searchmapCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService', '$q'];
+    searchmapCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService', '$q', 'googleMap'];
     /** @ngInject */
-    function searchmapCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService, $q) {
+    function searchmapCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService, $q, googleMap) {
 
     	$scope.showMapSearchTips = false;
     	$scope.distance = 100000;
+    	$scope.showLocationResults = false;
     	var currentLocation = ['me', 'location'];    
 		$scope.mapSearchString = $rootScope.mapSearchStringTrans;
 		$scope.mapHasResults = false;
-		$scope.searchResult = [];		
+		$scope.searchResult = [];
+		$scope.placeResult=[];
 		$scope.DOMAIN_URL = DOMAIN_URL;				
 
         function belongTo(arr, subject) {
@@ -26,14 +28,39 @@
 
 		$scope.closeSuggest = function() {			
 			$scope.mapHasResults = false;
-			$scope.showMapSearchTips = false;			
+			$scope.showMapSearchTips = false;		
+			$scope.showLocationResults = false;	
 		}
 
-		$scope.searchCall = function() {			
+		$scope.showCurrentSuggest = function() {
+			if ($scope.searchResult.length > 0 && !$scope.mapHasResults) {
+				$scope.mapHasResults = true;
+			} else if ($scope.placeResult.length > 0 && !$scope.showLocationResults) {
+				$scope.showLocationResults = true;			
+			} else {
+				$scope.showMapSearchTips = true;		
+			}
 		}
 
 		$scope.openGood = function(item) {
 			$location.path("/goods/" + item.category.slug + "/" + item.slug);
+		}
+
+		$scope.getSearchByLocation = function(item) {			
+			var predicates = recognizeService.exportKeyword($scope.mapSearchString);
+			predicates['location'] = {
+	    		'lat' : item.lat(),
+	    		'lng' : item.lng()
+	    	};
+	    	predicates['distance'] = $scope.distance;
+			searchService.predicateSearch(predicates).then(function(response) {
+				$scope.showLocationResults = false;
+				$scope.searchResult = response.data.content;
+    			$scope.showMapSearchTips = $scope.searchResult.length == 0;
+	    		$scope.mapHasResults = $scope.searchResult.length > 0;
+			}, function(error) {
+
+			});
 		}
 
 		function search(predicates) {			
@@ -51,6 +78,14 @@
 		                }, function(error) {
 		            		reject(error)
 		                });
+		            } else {
+	            		googleMap.searchPlace($rootScope.locationSearch).then(function(result) {
+	            			$scope.showLocationResults = true;
+            				$scope.placeResult = result;
+            				console.log(result);
+	            		}, function(error) {
+
+	            		});
 		            }
 	        	}	        	
 			});			
@@ -68,7 +103,7 @@
 				console.log(response);
 				$scope.searchResult = response.data.content;
     			$scope.showMapSearchTips = $scope.searchResult.length == 0;
-	    		$scope.mapHasResults = $scope.searchResult.length > 0;	
+	    		$scope.mapHasResults = $scope.searchResult.length > 0;
 			}, function(error) {
 				console.log(error);
 			});

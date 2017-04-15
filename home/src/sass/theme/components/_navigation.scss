@@ -228,7 +228,6 @@ navigation {
 
 
 				/* active */
-
 				input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 
 
@@ -244,24 +243,18 @@ navigation {
 					opacity: 0.5;
 				}
 
-
 				/* active */
-
 				input:focus ~ .highlight {
 					animation: inputHighlighter 0.3s ease;
 				}
 
-
 				/* Animations */
-
 				@keyframes inputHighlighter {
 					from { background: $default-button-color; }
 					to 	{ width: 0; background: transparent; }
 				}
 
-
 				/* Button */
-
 				.button {
 				  position: relative;
 				  display: inline-block;

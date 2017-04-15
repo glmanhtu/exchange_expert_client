@@ -22,6 +22,7 @@
             // $scope.address = {};
 
             $scope.listLocations = [];
+            $scope.aGood.location = [];
             $scope.aGood.images = [];
             $scope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
             NgMap.getMap().then(function(map) {
@@ -64,9 +65,11 @@
                 $scope.address.lat = $scope.latlng[0];
                 $scope.address.lon = $scope.latlng[1];
 
-                console.log($scope.address);
+                // console.log($scope.address);
                 $scope.listLocations.push($scope.address);
-                console.log($scope.listLocations);
+                // console.log($scope.listLocations);
+                $scope.searchAutoComplete = '';
+                $scope.latlng = null;
             }
         }
 
@@ -77,8 +80,17 @@
             
 
         $scope.addGood = function(){
-            $scope.aGood.location = $scope.listLocations;
+            // edit suitable list locations
+            for (var i = 0; i < $scope.listLocations.length; i++) {
+                var position = {
+                    lat: $scope.listLocations[i].lat,
+                    lon: $scope.listLocations[i].lon
+                };
+                $scope.aGood.location.push(position);
+                
+            }
 
+            // upload multi image
             var ins = document.getElementById('myfile').files.length;
             var data = new FormData();
 

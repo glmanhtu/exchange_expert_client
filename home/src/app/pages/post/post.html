@@ -45,7 +45,9 @@
                     </div>
                     <br>
                     <div class="form-group" map-lazy-load="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">
-                        <input places-auto-complete types="['geocode']" on-place-changed="placeMarker()">
+                        <input  places-auto-complete types="['geocode']" 
+                                on-place-changed="placeMarker()"
+                                ng-model="searchAutoComplete">
                         <button type="button" ng-click='addLocation()' class="btn btn-primary">Add</button>
                         <ng-map map-type-control="false"
                                 default-style="true" 

@@ -71,7 +71,8 @@
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');   
-            $http.defaults.headers.common['Authorization'] = undefined;         
+            $http.defaults.headers.common['Authorization'] = undefined;
+            delete $rootScope.userProfile;       
         }
     }
 

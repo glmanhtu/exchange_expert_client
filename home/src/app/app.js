@@ -5,7 +5,7 @@
         	'ngCookies',
             'ngMap',
             'textAngular',
-            'toastr',
+            'toastr',            
             'ui.router',
             'relativeDate',
             'ExpertExchange.pages',                 
@@ -15,10 +15,12 @@
         ])
         .run(run);
 
-    function run($rootScope, $location, $cookieStore, $http, toastr, loginService) {        
+    function run($rootScope, $location, $cookieStore, $http, toastr, loginService, GOOGLE_MAP_KEY) {        
+        $rootScope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;        
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            $rootScope.GMapAutocomplete = "";
             if ($location.path() != '/map') {
-                $rootScope.mapPage = false;
+                $rootScope.mapPage = false;                
             }
             if ($rootScope.closeSuggest !== undefined) {
                 $rootScope.closeSuggest();
@@ -35,7 +37,7 @@
                 } else {
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.accessToken;
                 }
-            }                
+            }            
         });
     }
 })();

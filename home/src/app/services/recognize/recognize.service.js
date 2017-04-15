@@ -3,10 +3,10 @@
     angular
         .module('ExpertExchange')
         .factory('recognizeService', recognizeService);
-    recognizeService.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope'];
+    recognizeService.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope', 'googleMap'];
 
     /* @ngInject */
-    function recognizeService($http, $timeout, DOMAIN_URL, $rootScope) {
+    function recognizeService($http, $timeout, DOMAIN_URL, $rootScope, googleMap) {
         var service = {};
         service.exportKeyword = exportKeyword;
 
@@ -104,7 +104,7 @@
             };
         }
 
-        function locationPredicate(input) {
+        function locationPredicate(input) {            
             $rootScope.isCompletedSearch = !(!input);
             $rootScope.locationSearch = input;      
         }

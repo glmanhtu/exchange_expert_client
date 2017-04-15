@@ -6,8 +6,7 @@
     searchService.$inject = ['$http','$timeout','DOMAIN_URL'];
     /* @ngInject */
     function searchService($http, $timeout, DOMAIN_URL) {
-        var service = {
-            getData: getData,
+        var service = {            
             getGoods: getGoods,
             getUser: getUser,
             searchGoods: searchGoods,
@@ -16,11 +15,6 @@
             predicateSearch: predicateSearch
         };
         return service;
-        ////////////////
-
-        function getData(key) {
-            return $http.get('/assets/db/goods/db.json');
-        };
 
         function getUser(email) {
             var url = DOMAIN_URL + '/api/user?email=' + email;
@@ -37,11 +31,6 @@
                     console.log('failed');
             });
         }
-
-        this.getData = function () {
-            // return $http.get(DOMAIN_SERVICE + '/goods');
-            return $http.get('/assets/db/goods/db.json');
-        };
 
         function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';

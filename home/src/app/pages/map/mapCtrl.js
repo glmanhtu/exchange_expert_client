@@ -20,6 +20,10 @@
 
         $scope.moveMap = function(location) {
             console.log(location);
+            $rootScope.expectedLocation = {lat: location.lat(), lng: location.lng()};
+        }
+
+        $scope.moveMapOnServer = function(location) {
             $rootScope.expectedLocation = {lat: location.lat, lng: location.lon};
         }
 

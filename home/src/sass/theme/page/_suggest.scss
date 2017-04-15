@@ -1,4 +1,10 @@
-
+@media only screen and (max-width: 600px) {
+	.suggest {
+		p {
+			font-size: 11pt;
+		}		
+	}
+}
 .suggest {
 	.featured {
 		background: $default-button-color;

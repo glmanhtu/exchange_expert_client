@@ -27,7 +27,10 @@
 			} else {
 				$location.path("/search");
 				if ($location.path() == "/search") {
-					// $window.location.reload();
+					searchService.prepForBroadcast($rootScope.predicates);
+					$scope.$on('handleBroadcast', function() {
+				        searchService.setBroadcast($rootScope.predicates);
+				    });  
 				}
 			}
 		}

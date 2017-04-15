@@ -22,6 +22,16 @@
         $scope.latlon = {"lat":44.841225,"lon":-0.580036};
         $scope.listLocations.push($scope.latlon);
 
+        $scope.$on('handleBroadcast', function() {
+            $scope.searchNull = 0;
+            vm.dummyItems = [];
+            vm.pager = {};
+            vm.setPage = setPage;
+            vm.getSearchData = getSearchData;
+            vm.items = {};
+            initController();
+        });
+
         // event click on the map add to listLocations
         $scope.getpos = function(event){
             var pos = {
@@ -48,10 +58,6 @@
             }, 1000 );
         }
 
-        $rootScope.$on('predicates', function(){
-            initController();
-        });
-
         function initController() {
 
             if($rootScope.predicates){
@@ -72,6 +78,10 @@
                 $timeout( function(){
                     vm.setPage(1);
                     console.log(vm.dummyItems);
+                    if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
+                        $scope.searchNull = 1;
+                    }
+
                 }, 1000 );
             }
 

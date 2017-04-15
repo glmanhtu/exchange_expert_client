@@ -3,9 +3,11 @@
     angular
         .module('ExpertExchange')
         .factory('searchService', searchService);
-    searchService.$inject = ['$http','$timeout','DOMAIN_URL'];
+    searchService.$inject = ['$http','$timeout','$rootScope','DOMAIN_URL'];
     /* @ngInject */
-    function searchService($http, $timeout, DOMAIN_URL) {
+    function searchService($http, $timeout, $rootScope, DOMAIN_URL) {
+        var msg = '';
+
         var service = {
             getData: getData,
             getGoods: getGoods,
@@ -13,14 +15,17 @@
             searchGoods: searchGoods,
             searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation,
-            predicateSearch: predicateSearch
+            predicateSearch: predicateSearch,
+            prepForBroadcast: prepForBroadcast,
+            broadcastItem: broadcastItem,
+            setBroadcast: setBroadcast
         };
         return service;
         ////////////////
 
         function getData(key) {
             return $http.get('/assets/db/goods/db.json');
-        };
+        }
 
         function getUser(email) {
             var url = DOMAIN_URL + '/api/user?email=' + email;
@@ -38,10 +43,10 @@
             });
         }
 
-        this.getData = function () {
+        function getData() {
             // return $http.get(DOMAIN_SERVICE + '/goods');
             return $http.get('/assets/db/goods/db.json');
-        };
+        }
 
         function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
@@ -139,7 +144,19 @@
                     'Content-Type': 'application/json'
                 }
             });
+        }
 
+        function prepForBroadcast(msg) {
+            this.msg = msg;
+            this.broadcastItem();
+        }
+
+        function broadcastItem() {
+            $rootScope.$broadcast('handleBroadcast');
+        }
+
+        function setBroadcast(msg) {
+            this.msg = msg;
         }
 
     }

@@ -12,7 +12,7 @@
         vm.pager = {};
         vm.setPage = setPage;
         vm.getSearchData = getSearchData;
-        vm.items = {}; 
+        vm.items = {};
         
         initController();
 
@@ -37,12 +37,9 @@
                 lat: _.last($scope.listLocations).lat,
                 lon: _.last($scope.listLocations).lon
             };
-            console.log(pos);
 
             $rootScope.searchString = '';
             $rootScope.selectedLocation = 'all';
-            //$location.path('/search?location='+pos.lat+','+pos.lon);
-            //$location.replace();
 
             getSearchByLocationData(pos,100000);
 
@@ -51,37 +48,53 @@
             }, 1000 );
         }
 
+        $rootScope.$on('predicates', function(){
+            initController();
+        });
+
         function initController() {
-            var key = $location.path('/search').search();
-            getSearchData(key.searchString,key.location);
-            $timeout( function(){
-                vm.setPage(1);
-            }, 1000 );
+
+            if($rootScope.predicates){
+                console.log('predicates: ');
+                console.log($rootScope.predicates);
+                getSearchPredicate($rootScope.predicates);
+                $timeout( function(){
+                    vm.setPage(1);
+                    console.log(vm.dummyItems.content);
+                    if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
+                        $scope.searchNull = 1;
+                    }
+                    
+                }, 1000 );
+            } else {
+                var key = $location.path('/search').search();
+                getSearchData(key.searchString,key.location);
+                $timeout( function(){
+                    vm.setPage(1);
+                    console.log(vm.dummyItems);
+                }, 1000 );
+            }
+
         }
 
         function setPage(page) {
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
             }
-
-            // $scope.tmp = [1,2,3,4,5,6,7];
-            // console.log($scope.tmp.slice(2, 5));
-
-            // get pager object from service
             vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page);
-            // get current page of items
-            // console.log(vm.dummyItems.content);
-            // console.log(vm.pager);
-            // console.log(vm.dummyItems.content.slice(1, 5));
-
             vm.items = vm.dummyItems.content.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
-            console.log(vm.items);
         }
 
-
-        ////////////////
         function getSearchData(key,location) {
              searchService.searchGoods(key,location).then(function (response) {
+                vm.dummyItems = response.data;  
+             }, function () {
+                console.log('Something wrong');
+             });
+        }
+
+        function getSearchPredicate(predicate) {
+             searchService.predicateSearch(predicate).then(function (response) {
                 vm.dummyItems = response.data;  
              }, function () {
                 console.log('Something wrong');
@@ -92,7 +105,6 @@
             searchService.searchGoodsByLocation(pos.lat,pos.lon,distance).then(function (response) {
                vm.dummyItems = response.data;
                console.log(response);
-
             }, function () {
                console.log('Something wrong search');
             });

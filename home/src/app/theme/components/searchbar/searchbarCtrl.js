@@ -3,9 +3,9 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchbarCtrl', searchbarCtrl);
-    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService'];
+    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService', '$window'];
     /** @ngInject */
-    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService) {
+    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService, $window) {
 
     	$scope.showSearchTips = false;
 
@@ -24,6 +24,11 @@
 		$scope.searchCall = function() {
 			if ($rootScope.locationSearch) {
 				$location.path("/map");
+			} else {
+				$location.path("/search");
+				if ($location.path() == "/search") {
+					// $window.location.reload();
+				}
 			}
 		}
 

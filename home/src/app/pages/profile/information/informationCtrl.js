@@ -5,7 +5,7 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService) {
+    function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService, toastr) {
         $scope.feedback = {};
         $scope.email = $stateParams.user_id;
         $scope.user = JSON.parse(sessionStorage.userProfile);
@@ -30,19 +30,16 @@
         }
 
         $scope.selectAvatar = function () {
-            $('#userAvatar').click();
+            if ($scope.user.id == $scope.email)
+                $('#userAvatar').click();
         };
 
         $scope.updateProfileUser = function () {
-            UserService.Update($scope.user_info);
-        }
-
-        $scope.uploadImage = function (element) {
-            $scope.accessToken = sessionStorage.accessToken;
-            if ($scope.accessToken)
-                jQuery('#' + element).modal('show');
-            else
-                $window.location.href = '/#/login';
+            UserService.Update($scope.user_info).then(function (res) {
+                toastr.success("Your profile has been updated successfully.");
+            }, function (error) {
+                toastr.success("Have been occurred when updated your profile. " + error);
+            });
         }
 
         $scope.rating = function () {
@@ -53,27 +50,28 @@
         }
 
         $scope.sendFeedback = function () {
-            var accessToken = sessionStorage.accessToken;
             if (confirm("Do you want to sent feedback user " + $scope.user.id)) {
                 console.log($scope.feedback);
-                UserService.SendFeedback($scope.email, $scope.feedback, accessToken).then(function (res) {
+                UserService.SendFeedback($scope.email, $scope.feedback).then(function (res) {
+                    toastr.success('Thank you for your feedback to ' + $scope.email);
                     setTimeout(function () {
-                        $('#popupModel .modal-title').html('Rating response');
-                        $('#popupModel .modal-body').html('<p>Thank you for your feedback to <b>' + $scope.email + '</b></p>');
-                        $('#popupModel').modal('show');
-                    }, 500);
+                        $scope.reload();
+                    }, 1500);
+                }, function (res) {
+                    toastr.error("Have been occurred sending feedback for user. Please try again.");
                 });
             }
         }
         $scope.sendRating = function (index) {
 
             var rating = index + 1;
-            UserService.Rating($scope.email, accessToken, rating).then(function (res) {
+            UserService.Rating($scope.email, rating).then(function (res) {
+                toastr.success('Thank you for your rating to ' + $scope.email);
                 setTimeout(function () {
-                    $('#popupModel .modal-title').html('Rating response');
-                    $('#popupModel .modal-body').html('<p>Thank you for your rating to <b>' + $scope.email + '</b></p>');
-                    $('#popupModel').modal('show');
-                }, 500);
+                    $scope.reload();
+                }, 1500);
+            }, function (res) {
+                toastr.error("Have been occurred sending rating user. Please try again.");
             });
         }
 
@@ -90,6 +88,9 @@
                 $('.profile-img').attr('src', avatarUri);
                 $scope.user_info.avatar = avatarUri;
                 $scope.updateProfileUser();
+                toastr.success("Your avatar has been changed");
+            }, function (res) {
+                toastr.error("Have been occurred when changing your avatar. Please try again.");
             });
         }
 

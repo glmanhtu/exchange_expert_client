@@ -44,11 +44,6 @@
 
         function SendFeedback(email, token, msg) {
             var url = DOMAIN_URL + '/api/feedback?user=' + email;
-            var header = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
-            };
             var data = {
                 "message": msg
             };
@@ -59,32 +54,21 @@
                 data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'
                 }
             }).then(handleSuccess, handleError('Error feedback'));
         }
 
-        function Rating(email, token, rate) {
-
-            console.log(rate);
+        function Rating(email, rate) {
 
             var url = DOMAIN_URL + '/api/rating?forEmailUser=' + email + '&star=' + rate;
-            var header = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
-            };
-            var data = {};
 
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Accept': 'application/json'
                 }
             }).then(handleSuccess, handleError('Error rating'));
         }

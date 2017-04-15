@@ -58,7 +58,7 @@
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function SendFeedback(email, feedback, accessToken) {
+        function SendFeedback(email, feedback) {
             var url = DOMAIN_URL + '/api/feedback?user=' + email;
             var header = {
                 'Content-Type': 'application/json',
@@ -72,7 +72,6 @@
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization' : 'Bearer ' + accessToken
                 }
             }).then(handleSuccess, handleError('Error feedback'));
         }

@@ -219,9 +219,10 @@
   }
 }
 
-#userAvatar{
+#userAvatar {
   display: none;
 }
+
 .createdate {
   font-size: 13px;
   color: #8c8c8c;
@@ -235,4 +236,15 @@
 #userRating {
   font-size: 30px;
   margin-top: 10px;
+}
+
+.profile-img {
+  margin: auto;
+}
+
+.headProfile {
+  text-align: center;
+  h3 {
+    margin-top: 15px;
+  }
 }

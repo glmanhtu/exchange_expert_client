@@ -8,14 +8,15 @@
     function searchmapCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService, $q, googleMap) {
 
     	$scope.showMapSearchTips = false;
-    	$scope.distance = 100000;
+    	$scope.distance = 100000;    	
     	$scope.showLocationResults = false;
     	var currentLocation = ['me', 'location'];    
 		$scope.mapSearchString = $rootScope.mapSearchStringTrans;
 		$scope.mapHasResults = false;
 		$scope.searchResult = [];
 		$scope.placeResult=[];
-		$scope.DOMAIN_URL = DOMAIN_URL;				
+		$scope.DOMAIN_URL = DOMAIN_URL;	
+		$scope.loading = false;	
 
         function belongTo(arr, subject) {
             for (var i = 0; i < arr.length; i++) {
@@ -30,6 +31,7 @@
 			$scope.mapHasResults = false;
 			$scope.showMapSearchTips = false;		
 			$scope.showLocationResults = false;	
+			$scope.loading = false;	
 		}
 
 		$scope.showCurrentSuggest = function() {
@@ -46,15 +48,18 @@
 			$location.path("/goods/" + item.category.slug + "/" + item.slug);
 		}
 
-		$scope.getSearchByLocation = function(item) {			
+		$scope.getSearchByLocation = function(item) {
+			$scope.loading = true;			
 			var predicates = recognizeService.exportKeyword($scope.mapSearchString);
 			predicates['location'] = {
 	    		'lat' : item.lat(),
 	    		'lng' : item.lng()
 	    	};
+	    	$scope.lastSelectedLocation = predicates['location'];
 	    	predicates['distance'] = $scope.distance;
 			searchService.predicateSearch(predicates).then(function(response) {
 				setResultView(response.data.content, item.lat(), item.lng());
+				$scope.loading = false;	
 			}, function(error) {
 
 			});
@@ -106,7 +111,7 @@
 		  	return Math.round(earthRadiusKm * c * 100)/100;
 		}
 
-		function search(predicates) {			
+		function search(predicates) {					
 			return $q(function(resolve, reject) {
 				if ($rootScope.isCompletedSearch && $rootScope.locationSearch) {
 					if (belongTo(currentLocation, $rootScope.locationSearch)) {           	
@@ -116,6 +121,7 @@
 		                		'lat' : response.lat,
 		                		'lng' : response.lng
 		                	};
+		                	$scope.lastSelectedLocation = predicates['location'];
 		                	predicates['distance'] = $scope.distance;
 							return resolve(searchService.predicateSearch(predicates));
 		                }, function(error) {
@@ -129,7 +135,9 @@
 
 	            		});
 		            }
-	        	}	        	
+	        	} else if ($rootScope.isCompletedSearch) {
+	        		return resolve(searchService.predicateSearch(predicates));
+	        	}
 			});			
 		}
 
@@ -141,8 +149,11 @@
 				$scope.showMapSearchTips = true;
 				return;
 			}
+			$scope.loading = true;	
+			$scope.showMapSearchTips = false;
 			search(predicates).then(function(response) {
 				setResultView(response.data.content, $rootScope.expectedLocation.lat, $rootScope.expectedLocation.lng);
+				$scope.loading = false;	
 			}, function(error) {
 				console.log(error);
 			});

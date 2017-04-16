@@ -3,9 +3,9 @@
     angular
         .module('ExpertExchange')
         .service('loginService', loginService);
-    loginService.$inject = ['$cookieStore', '$http', 'DOMAIN_URL'];
+    loginService.$inject = ['$cookieStore', '$http', 'DOMAIN_URL', '$rootScope', '$q', 'UserService'];
     /* @ngInject */
-    function loginService($cookieStore, $http, DOMAIN_URL) {
+    function loginService($cookieStore, $http, DOMAIN_URL, $rootScope, $q, UserService) {
         this.login = function (userlogin) {
             return $http({
                 url: DOMAIN_URL + '/api/oauth/token',
@@ -65,12 +65,26 @@
                 });
         }
 
+        this.setSesssion = function(authData){
+            var deferred = $q.defer();
+            sessionStorage.setItem('accessToken', authData.access_token);            
+            var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(authData.expires_in);
+            sessionStorage.setItem('expiresIn', expiresIn);
+
+            UserService.GetCurrentUser().then(function (response) {                
+                $rootScope.userProfile = response;
+                sessionStorage.setItem('userProfile', JSON.stringify(response));
+                deferred.resolve(response);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+
         this.logout = function() {
             console.log("called logout");
-            sessionStorage.removeItem('userProfile');
-            sessionStorage.removeItem('userName');
-            sessionStorage.removeItem('accessToken');
-            sessionStorage.removeItem('refreshToken');   
+            sessionStorage.removeItem('userProfile');            
+            sessionStorage.removeItem('accessToken');            
             $http.defaults.headers.common['Authorization'] = undefined;
             delete $rootScope.userProfile;       
         }

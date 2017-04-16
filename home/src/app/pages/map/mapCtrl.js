@@ -42,7 +42,7 @@
                     });                    
                 });                
             } else {
-                return reject('This browser not support to get your location');
+                deferred.reject('This browser not support to get your location');
             }
             return deferred.promise;
         }        

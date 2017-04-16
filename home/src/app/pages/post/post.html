@@ -1,15 +1,16 @@
 <div class="main-container">
     <div class="col-md-12 col-xs-12">
         <form>
-            <div class="col-md-12">
+            <div class="col-md-12 profile-user">
                 <div class="col-md-5 col-xs-12">
-                    <div class="input-group">
-                        <label for="exampleInputEmail1">Title</label>
-                        <input type="text" class="input-group" placeholder="Title" ng-model="aGood.title">
+                    <div class="group">
+                        <label>Title</label>
+                        <input type="text" class="ng-pristine ng-valid ng-touched"
+                                ng-model="aGood.title">
+                        <span class="highlight"></span><span class="bar"></span>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="inputs-category">Category</span>
+                    <div class="group">
+                        <label>Category</label>
                         <select class="selectpicker" ng-model="aGood.category.name" ng-options="cate for cate in categories">
                         </select>
                     </div>

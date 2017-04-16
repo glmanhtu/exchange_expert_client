@@ -7,17 +7,11 @@
     /* @ngInject */
     function loginCtrl($rootScope, $scope, $location, $window, $interval, loginService, UserService, $cookieStore, toastr) {
 
-        //Scope Declaration
-        $scope.responseData = "";
-
-        $scope.userLoginEmail = "";
-        $scope.userLoginPassword = "";
-
-        $scope.accessToken = "";
-        $scope.refreshToken = "";
+        //Scope Declaration        
+        $scope.accessToken = "";        
 
         //Function to Login. This will generate Token 
-        $scope.login = function () {
+        $scope.login = function (username, password) {
             //This is the information to pass for token based authentication
             var userLogin = {
                 username: $scope.userLoginEmail,
@@ -25,6 +19,7 @@
             };
 
             loginService.login(userLogin).then(function (response) {   
+                console.log(response);
                 if ('access_token' in response.data) {
                     response.data.expires_in = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
                     $cookieStore.put('auth', response.data);    

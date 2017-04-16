@@ -11,15 +11,9 @@
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
 
-        if ((sessionStorage.userProfile) != null){            
-            $rootScope.userProfile = JSON.parse(sessionStorage.userProfile);
-            if ($rootScope.userProfile.avatar != null) {
-                $scope.avatar = $rootScope.userProfile.avatar;
-            }            
-            console.log($rootScope.userProfile);
-        } else {
-            delete $rootScope.userProfile;
-        }
+        if ($rootScope.userProfile.avatar != null) {
+            $scope.avatar = $rootScope.userProfile.avatar;
+        }            
 
         $scope.logout = function () {
             loginService.logout();

@@ -37,19 +37,14 @@
             });
         };
 
-        $scope.register = function() {       
-            console.log("Staring register");
+        $scope.register = function() {                   
             registerService.registerUser($scope.registerParams).then(function(registerResponse) {                
                 var loginData = {"username" : $scope.registerParams.id, "password" : $scope.registerParams.password};
                 loginService.login(loginData).then(function(loginResponse) {
-                    sessionStorage.setItem('accessToken', loginResponse.data.access_token);
-                    sessionStorage.setItem('refreshToken', loginResponse.data.refresh_token);
-                    var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(loginResponse.data.expires_in);
-                    sessionStorage.setItem('expiresIn', expiresIn);
-                    $rootScope.userProfile = registerResponse;
-                    $scope.avatar = registerResponse.avatar;
-                    sessionStorage.setItem('userProfile', JSON.stringify(registerResponse)); 
-                    toastr.success("Welcome to Exchange Expert, " + registerResponse.firstName + " " + registerResponse.lastName);                   
+                    loginService.setSesssion(loginResponse.data).then(function(response) {
+                        $scope.avatar = registerResponse.response;
+                        toastr.success("Welcome to Exchange Expert, " + registerResponse.firstName + " " + registerResponse.lastName);
+                    });                                        
                 }, function (error) {
                     toastr.error("An error occurred when we try to automatic login you. Please try login again");
                 });

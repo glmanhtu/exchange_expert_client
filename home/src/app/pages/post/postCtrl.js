@@ -3,17 +3,18 @@
     angular
     .module('ExpertExchange.pages.post')
     .controller('postCtrl', postCtrl);
-    postCtrl.$inject = ['$scope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap'];
+    postCtrl.$inject = ['$scope', '$rootScope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap'];
     /* @ngInject */
-    function postCtrl($scope, $location, postService, GOOGLE_MAP_KEY, NgMap) {
+    function postCtrl($scope, $rootScope, $location, postService, GOOGLE_MAP_KEY, NgMap) {
         active();
 
         function active(){
-            var userInfor = JSON.parse(sessionStorage.userProfile);
+            console.log($rootScope.userProfile);
+            // var userInfor = JSON.parse(sessionStorage.userProfile);
             
-            $scope.aGood = {
-                postBy: {id: userInfor.id}
-            };
+            // $scope.aGood = {
+            //     postBy: {id: userInfor.id}
+            // };
             $scope.categories = ["Book", "Movie", "Toy", "Computer", "Clothing", "Handmade", "Sport"];
 
             // set default position marker
@@ -22,8 +23,8 @@
             // $scope.address = {};
 
             $scope.listLocations = [];
-            $scope.aGood.location = [];
-            $scope.aGood.images = [];
+            // $scope.aGood.location = [];
+            // $scope.aGood.images = [];
             $scope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
             NgMap.getMap().then(function(map) {
                 // console.log('map', map);

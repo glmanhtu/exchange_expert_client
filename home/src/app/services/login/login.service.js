@@ -3,9 +3,9 @@
     angular
         .module('ExpertExchange')
         .service('loginService', loginService);
-    loginService.$inject = ['$cookieStore', '$http', 'DOMAIN_URL'];
+    loginService.$inject = ['$cookieStore', '$http', 'DOMAIN_URL', '$rootScope'];
     /* @ngInject */
-    function loginService($cookieStore, $http, DOMAIN_URL) {
+    function loginService($cookieStore, $http, DOMAIN_URL, $rootScope) {
         this.login = function (userlogin) {
             return $http({
                 url: DOMAIN_URL + '/api/oauth/token',

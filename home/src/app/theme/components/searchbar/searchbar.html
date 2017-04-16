@@ -19,7 +19,14 @@
             </div>          
         </li>
     </ul>
-    <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
+    <ul class="search-simple-result suggest">
+        <li class="featured-item row" ng-class="{'hide': !loading}">
+            <div class="cssload-loader" >
+                <div class="cssload-inner cssload-one"></div>
+                <div class="cssload-inner cssload-two"></div>
+                <div class="cssload-inner cssload-three"></div>
+            </div>
+        </li>        
         <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
                 <div class="col-md-2 featured-img col-xs-3">

@@ -14,11 +14,13 @@
 		$scope.suggestResults = [];		
 		$scope.DOMAIN_URL = DOMAIN_URL;
 		$rootScope.predicates;
+		$scope.loading = false;
 
 		$rootScope.closeSuggest = function() {
 			$scope.suggestResults = [];
 			$rootScope.hasResults = false;
-			$scope.showSearchTips = false;			
+			$scope.showSearchTips = false;	
+			$scope.loading = false;		
 		}
 
 		$scope.searchCall = function() {
@@ -33,7 +35,7 @@
 			$location.path("/goods/" + item.category.slug + "/" + item.slug);
 		}
 
-		$scope.getSearchSuggests = function() {
+		$scope.getSearchSuggests = function() {			
 			$rootScope.predicates = recognizeService.exportKeyword($scope.searchString);
 			if ($scope.searchString.length < 2 || !$rootScope.isCompletedSearch) {
 				$scope.suggestResults = [];
@@ -42,13 +44,17 @@
 				return;
 			}
 
-			if ($rootScope.isCompletedSearch) {			
+			if ($rootScope.isCompletedSearch) {	
+				$scope.loading = true;		
+				$scope.showSearchTips = false;
 				searchService.predicateSearch($rootScope.predicates).then(function (response) {
 		    		$scope.suggestResults = response.data.content;
 	    			$scope.showSearchTips = $scope.suggestResults.length == 0;
-		    		$rootScope.hasResults = $scope.suggestResults.length > 0;			    		
+		    		$rootScope.hasResults = !$scope.showSearchTips;	
+		    		$scope.loading = false;		    		
 		    	}, function (response){
 		    		console.log(response);
+		    		$scope.loading = false;		
 		    	});
 			}		
 		}		

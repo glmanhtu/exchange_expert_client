@@ -77,6 +77,11 @@
             $scope.listLocations.splice($scope.listLocations.indexOf(location), 1);
             // $scope.listLocations.remove(location);
         }
+
+        $scope.chooseMarker = function(location){
+            $scope.latlng = [location.lat, location.lon];
+            $scope.centerMap = [location.lat, location.lon];
+        }
             
 
         $scope.addGood = function(){

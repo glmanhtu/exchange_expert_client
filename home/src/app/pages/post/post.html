@@ -35,8 +35,9 @@
                     <div class="form-group">
                         <label for="inputs-image">Location</label>
                         <ul>
-                            <li ng-repeat="location in listLocations" ng-class="{'bg-info': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-                                {{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}
+                            <li ng-repeat="location in listLocations">
+                                <button type="button" class="btn btn-primary btn-sm" 
+                                        ng-click="chooseMarker(location)">{{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}</button>
                                 <button type="button" class="close" aria-label="Close" ng-click="removeLocation(location)">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

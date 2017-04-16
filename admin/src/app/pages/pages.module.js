@@ -9,10 +9,7 @@
     'ui.router',
 
     'BlurAdmin.pages.profile',
-    'BlurAdmin.pages.posts',
-    'BlurAdmin.pages.category',
-    'BlurAdmin.pages.location',
-    'BlurAdmin.pages.member',
+    'BlurAdmin.pages.posts',    
     'BlurAdmin.pages.login',
   ])
       .config(routeConfig);

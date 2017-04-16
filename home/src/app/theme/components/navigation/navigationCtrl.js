@@ -30,22 +30,10 @@
             loginService.login($scope.loginParams).then(function (response) {
 
                 if (response != null) {
-                    // Store the token information in the SessionStorage
-                    // So that it can be accessed for other views                
-                    sessionStorage.setItem('accessToken', response.data.access_token);
-                    sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                    var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
-                    sessionStorage.setItem('expiresIn', expiresIn);
-                    
-                    UserService.GetCurrentUser().then(function (response) {
-                        $rootScope.userProfile = response;
+                    loginService.setSesssion(response.data).then(function(response) {
                         $scope.avatar = response.avatar;
-                        sessionStorage.setItem('userProfile', JSON.stringify(response));    
-                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);
-                    }, function (response) {
-                        toastr.error('An error occurreed when get your information');
-                        console.log(response);
-                    });      
+                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);                    
+                    });                    
                 } else {
                     toastr.error('Username or password incorrect');    
                 }

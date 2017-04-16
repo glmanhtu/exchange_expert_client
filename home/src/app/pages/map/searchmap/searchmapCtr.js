@@ -101,6 +101,7 @@
 			}
 			search(predicates).then(function(response) {
 				console.log(response);
+				$scope.showLocationResults = false;
 				$scope.searchResult = response.data.content;
     			$scope.showMapSearchTips = $scope.searchResult.length == 0;
 	    		$scope.mapHasResults = $scope.searchResult.length > 0;

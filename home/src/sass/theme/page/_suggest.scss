@@ -1,4 +1,10 @@
-
+@media only screen and (max-width: 600px) {
+	.suggest {
+		p {
+			font-size: 11pt;
+		}		
+	}
+}
 .suggest {
 	.featured {
 		background: $default-button-color;
@@ -10,7 +16,9 @@
 		padding: 10px 0;
 		background: #fff;
 		border-radius: 3px;
+		border-top: 1px solid #e6e6e6;
 		margin-top: 10px;
+		text-align: center;
 		.featured-img {
 			height: 100px;
 			img {
@@ -24,6 +32,7 @@
 
 		.featured-title {
 			font-size: 12pt;
+			text-align: left;
 		}
 	}
 }

@@ -17,11 +17,12 @@
                 $scope.avatar = $rootScope.userProfile.avatar;
             }            
             console.log($rootScope.userProfile);
+        } else {
+            delete $rootScope.userProfile;
         }
 
         $scope.logout = function () {
             loginService.logout();
-            delete $rootScope.userProfile;            
         };
 
         //Function to Login. This will generate Token 

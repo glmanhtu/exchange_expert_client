@@ -27,12 +27,18 @@
     "ngmap": "^1.18.4",
     "textAngular": "^1.5.16",
     "jquery.responsive-slides": "^1.54.1",
-    "angular-relative-date": "^2.1.0"
+    "angular-relative-date": "^2.1.0",
+    "angular-click-outside": "^2.10.2"
   },
   "overrides": {
     "angular-relative-date": {
       "main": [
         "./dist/angular-relative-date.min.js"
+      ]
+    },
+    "ngmap": {
+      "main": [
+        "./build/scripts/ng-map.min.js"
       ]
     },
     "amcharts": {

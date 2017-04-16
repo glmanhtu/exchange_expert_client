@@ -32,17 +32,31 @@
         </li>
     </ul>
     <ul class="search-simple-result suggest" ng-class="{'hide': !mapHasResults}">
-        <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 " ng-click="moveMapOnServer(item.location[0])">
-            <a>
+        <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 ">
+            <header>
                 <div class="col-md-2 col-xs-3 featured-img">
                     <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
                 </div>
                 <div class="col-md-10 col-xs-9 featured-title">
-                    <p>
-                        {{ item.title | limitTo: 250 }}{{item.title.length > 250 ? '...' : ''}}
-                    </p>
-                </div>          
-            </a>              
+                    <div ng-click="openGood(item)">
+                        {{ item.title | limitTo: 100 }}{{item.title.length > 100 ? '...' : ''}}
+                    </div>
+                    <div class="download-meta">
+                        <div class="download-meta-price download-price-toggle">
+                            <div class="download-meta-price-details">
+                                <a href="#"><span class="ng-binding">$1295.15</span></a>
+                            </div>
+                        </div>
+                        <div class="download-meta-name">
+                            <span class="author vcard" ng-click="moveMapOnServer(item.location[0])">
+                                <a>
+                                    {{item.distance}} Km
+                                </a>
+                            </span>
+                        </div>
+                    </div>                     
+                </div>    
+            </header>
         </li>
     </ul>
 </div>

@@ -18,12 +18,13 @@
 
         $scope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
 
-        $scope.moveMap = function(location) {
-            console.log(location);
+        $scope.moveMap = function(location) {    
+            $scope.closeSuggest();        
             $rootScope.expectedLocation = {lat: location.lat(), lng: location.lng()};
         }
 
         $scope.moveMapOnServer = function(location) {
+            $scope.closeSuggest();
             $rootScope.expectedLocation = {lat: location.lat, lng: location.lon};
         }
 

@@ -54,13 +54,56 @@
 	    	};
 	    	predicates['distance'] = $scope.distance;
 			searchService.predicateSearch(predicates).then(function(response) {
-				$scope.showLocationResults = false;
-				$scope.searchResult = response.data.content;
-    			$scope.showMapSearchTips = $scope.searchResult.length == 0;
-	    		$scope.mapHasResults = $scope.searchResult.length > 0;
+				setResultView(response.data.content, item.lat(), item.lng());
 			}, function(error) {
 
 			});
+		}
+
+		function setResultView(result, lat, lng) {
+			$scope.showLocationResults = false;
+			$scope.searchResult = result;
+			for (var i = 0; i < $scope.searchResult.length; i++) {
+				var minDistanceLocation = getClosedLocation($scope.searchResult[i].location, lat, lng);
+				$scope.searchResult[i]['distance'] = minDistanceLocation.distance;
+				$scope.searchResult[i].location = [minDistanceLocation.coordinate];
+			}							
+			console.log($scope.searchResult);
+			$scope.showMapSearchTips = $scope.searchResult.length == 0;
+    		$scope.mapHasResults = $scope.searchResult.length > 0;
+		}
+
+		function getClosedLocation(locations, lat, lng) {
+			var minLocation = {};
+			minLocation.coordinate = locations[0];
+			minLocation.distance = distanceInKmBetweenEarthCoordinates(minLocation.coordinate.lat, minLocation.coordinate.lon, lat, lng);
+			for (var i = 0; i < locations.length; i++) {
+				var distance = distanceInKmBetweenEarthCoordinates(locations[i].lat, locations[i].lon, lat, lng);
+				if (minLocation.distance < distance) {
+					minLocation.distance = distance;
+					minLocation.coordinate = locations[i];
+				}
+			}
+			return minLocation;
+		}
+
+		function degreesToRadians(degrees) {
+		  	return degrees * Math.PI / 180;
+		}
+
+		function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
+		  	var earthRadiusKm = 6371;
+
+		  	var dLat = degreesToRadians(lat2-lat1);
+		  	var dLon = degreesToRadians(lon2-lon1);
+
+		  	lat1 = degreesToRadians(lat1);
+		  	lat2 = degreesToRadians(lat2);
+
+		  	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	          	Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+		  	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		  	return Math.round(earthRadiusKm * c * 100)/100;
 		}
 
 		function search(predicates) {			
@@ -81,8 +124,7 @@
 		            } else {
 	            		googleMap.searchPlace($rootScope.locationSearch).then(function(result) {
 	            			$scope.showLocationResults = true;
-            				$scope.placeResult = result;
-            				console.log(result);
+            				$scope.placeResult = result;            				
 	            		}, function(error) {
 
 	            		});
@@ -100,10 +142,7 @@
 				return;
 			}
 			search(predicates).then(function(response) {
-				console.log(response);
-				$scope.searchResult = response.data.content;
-    			$scope.showMapSearchTips = $scope.searchResult.length == 0;
-	    		$scope.mapHasResults = $scope.searchResult.length > 0;
+				setResultView(response.data.content, $rootScope.expectedLocation.lat, $rootScope.expectedLocation.lng);
 			}, function(error) {
 				console.log(error);
 			});

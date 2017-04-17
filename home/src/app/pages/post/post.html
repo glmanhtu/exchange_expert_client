@@ -1,68 +1,74 @@
 <div class="main-container">
-    <div class="col-md-12 col-xs-12" style="clear:both;padding-top:20px;">
-    <header class="text-center">
-        <h1  style="margin: 0 0 30px 0;">Posting your good</h1>
-    </header>
-    <form ng-submit="addGood()">
-        <div class="col-md-12">
-            <div class="col-md-6 col-xs-12">
-                <div class="input-group">
-                    <span class="input-group-addon" id="inputs-title">Title</span>
-                    <input type="text" class="form-control" placeholder="Title" aria-describedby="inputs-title" ng-model="aGood.title">
+    <div class="col-md-12 col-xs-12">
+        <form>
+            <div class="col-md-12 menu-item">
+                <div class="col-md-5 col-xs-12">
+                    <div class="group">
+                        <input type="text" ng-model="aGood.title" ng-class="{used: aGood.title}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Title</label>
+                    </div>
+                    <div class="group">
+                        <label>Category</label>
+                        <select ng-model="aGood.category.name" ng-options="cate for cate in categories">
+                        </select>
+                    </div>
+                    <div class="group">
+                        <input type="text" ng-model="aGood.price" ng-class="{used: aGood.price}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Price</label>
+                    </div>
+                    <div class="group">
+                        <input type="text" ng-model="aGood.address" ng-class="{used: aGood.address}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Address</label>
+                    </div>
+                    <div class="group">
+                        <label for="inputs-image">Upload Images</label>
+                        <input type="file" id="myfile" name="myfile" multiple />
+                    </div>
                 </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="inputs-category">Category</span>
-                    <select class="selectpicker" ng-model="aGood.category.name" ng-options="cate for cate in categories">
-                    </select>
+                <div class="col-md-7 col-xs-12">
+                    <div class="group">
+                        <label>Location</label>
+                        <ul>
+                            <li ng-repeat="location in listLocations">
+                                <button type="button" class="btn btn-primary btn-sm" 
+                                        ng-click="chooseMarker(location)">{{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}</button>
+                                <button type="button" class="close" aria-label="Close" ng-click="removeLocation(location)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="group" map-lazy-load="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">
+                        <input  places-auto-complete types="['geocode']" 
+                                on-place-changed="placeMarker()"
+                                ng-model="searchAutoComplete">
+                        <button type="button" ng-click='addLocation()' class="btn btn-success">Add</button>
+                        <ng-map map-type-control="false"
+                                default-style="true" 
+                                scrollwheel="false"
+                                center="{{centerMap}}"
+                                zoom="15">
+                            <marker position="{{latlng}}" 
+                                    on-dragend="getpos($event)" 
+                                    animation="Animation.BOUNCE" 
+                                    animation="DROP"
+                                    draggable="true"></marker>
+                        </ng-map>
+                    </div>
                 </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="inputs-price">Price</span>
-                    <input type="text" class="form-control" placeholder="Price" aria-describedby="inputs-price" ng-model="aGood.price">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon" id="inputs-address">Address</span>
-                    <input type="text" name="catogory" class="form-control" placeholder="Address" aria-describedby="inputs-category" ng-model="aGood.address">
-                </div>
-                <br>
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
-                    <label for="inputs-image">Upload Images</label>
-                    <input type="file" id="myfile" name="myfile" multiple />
-                </div>
-                <br>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                <div class="form-group">
-                    <label for="inputs-image">Location</label>
-                    <ul>
-                        <li ng-repeat="loca in listLocations" ng-class="{'bg-info': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-                          {{loca.lat}},{{loca.lon}}
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <br>
-                <div class="form-group" map-lazy-load="https://maps.google.com/maps/api/js">
-                    <ng-map center="44.841225,-0.580036" zoom="6" on-click="getpos($event)">
-                        <marker position="{{latlng}}" title="Hello World!" on-dragend="getpos($event)" animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
-                    </ng-map>
+                    <label for="inputs-content"><span class="">Description:</span></label>
+                    <text-angular name="htmlcontent" ng-model="aGood.description"></text-angular>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="inputs-content"><span class="">Description:</span></label>
-                <text-angular name="htmlcontent" ng-model="aGood.description"></text-angular>
+            <div class="col-md-2 col-md-offset-10">
+                <button type="button" ng-click='addGood()' class="btn btn-success">Submit</button>
             </div>
-        </div>
-        <div class="col-md-2 col-md-offset-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>

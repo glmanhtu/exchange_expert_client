@@ -140,7 +140,32 @@ navigation {
 		    padding: 0;
 		    list-style: none;
 		    text-align: right;
-		    .menu-item {
+		    
+		    > li > a {
+			    line-height: 3.5;			   
+			}
+
+			> li.menu-item-has-children > a:after {
+			    font-family: "FontAwesome";
+			    font-size: 15px;
+			    margin-left: 7px;
+			    content: "\f107";
+			}
+		}
+
+		a {
+		    font-size: 16px;
+		    font-weight: bold;	   
+		    outline: none;
+		    display: block;
+		    padding: 0 20px;
+		    text-decoration: none;
+		    text-transform: uppercase;		    
+		}
+	}
+}
+
+.menu-item {
 		    	position: relative;		    
 			    display: inline-block;
 			    > a {
@@ -228,7 +253,6 @@ navigation {
 
 
 				/* active */
-
 				input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 
 
@@ -244,24 +268,18 @@ navigation {
 					opacity: 0.5;
 				}
 
-
 				/* active */
-
 				input:focus ~ .highlight {
 					animation: inputHighlighter 0.3s ease;
 				}
 
-
 				/* Animations */
-
 				@keyframes inputHighlighter {
 					from { background: $default-button-color; }
 					to 	{ width: 0; background: transparent; }
 				}
 
-
 				/* Button */
-
 				.button {
 				  position: relative;
 				  display: inline-block;
@@ -352,27 +370,3 @@ navigation {
 			    	}
 			    }
 		    }
-		    > li > a {
-			    line-height: 3.5;			   
-			}
-
-			> li.menu-item-has-children > a:after {
-			    font-family: "FontAwesome";
-			    font-size: 15px;
-			    margin-left: 7px;
-			    content: "\f107";
-			}
-		}
-
-		a {
-		    font-size: 16px;
-		    font-weight: bold;	   
-		    outline: none;
-		    display: block;
-		    padding: 0 20px;
-		    text-decoration: none;
-		    text-transform: uppercase;		    
-		}
-	}
-}
-

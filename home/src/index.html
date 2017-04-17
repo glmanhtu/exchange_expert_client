@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<main>    
+<main map-lazy-load="https://maps.google.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">    
   <div class="page-top col-md-12 col-sm-12 col-xs-12" ng-class="{'map-page' : mapPage}">
     <navigation></navigation>
     <div class="site-header-bg-wrap"></div>
@@ -39,7 +39,7 @@
     </div>
 
   </div>
-
+  <input type="text" name="google_autocomplete" id="google-map-autocomplete" ng-model="GMapAutocomplete" />
   <footer class="footer col-md-12 col-sm-12 col-xs-12">
     <div class="col-md-4">
       <h2>About Exchange Expert</h2>

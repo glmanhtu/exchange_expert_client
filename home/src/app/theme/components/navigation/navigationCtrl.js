@@ -11,7 +11,7 @@
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
 
-        if ($rootScope.userProfile.avatar != null) {
+        if ("userProfile" in $rootScope) {
             $scope.avatar = $rootScope.userProfile.avatar;
         }            
 

@@ -1,11 +1,14 @@
 (function() {
     'use strict';
+
     angular
-    .module('ExpertExchange.pages.home')
-    .controller('homeCtrl', homeCtrl);
-    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService','DOMAIN_URL'];
+        .module('ExpertExchange.pages.managepost')
+        .controller('managepostCtrl', managepostCtrl);
+
+    managepostCtrl.$inject = ['$http', '$scope', '$rootScope', 'postService','PagerService','DOMAIN_URL'];
+
     /* @ngInject */
-    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService, DOMAIN_URL) {
+    function managepostCtrl($http, $scope, $rootScope, postService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'homeCtrl';
         vm.dummyItems = []; // dummy array of items to be paged
@@ -22,18 +25,25 @@
         function setPage(page) {
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
-            }   
+            }
 
-            searchService.getGoods(page - 1, vm.itemPerPage).then(function (response) {
-                vm.dummyItems = response.data;
+            var userEmail = $rootScope.userProfile.id;
+
+
+            postService.getPost(userEmail).then(function (response) {
+                
+                vm.dummyItems = response;
+
                 
                 // get pager object from service
                 vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page, vm.itemPerPage);
 
                 // get current page of items
                 vm.items = vm.dummyItems.content;
-            }, function () {
-                // alert('Something wrong');
+                // console.log(vm.items);
+            }, function (error) {
+                console.log('error in managepost controller');
+                console.log(error);
             });        
         }
 
@@ -44,6 +54,5 @@
             // alert('Something wrong');
          });
         }
-
     }
 })();

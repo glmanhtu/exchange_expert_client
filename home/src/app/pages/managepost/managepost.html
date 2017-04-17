@@ -1,0 +1,91 @@
+<div class="main-container">
+    <div class="col-md-12 col-xs-12">
+
+        <table class="table" st-table="smartTableData">
+            <thead>
+              <tr class="sortable">
+                <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
+                <th st-sort="title">Title</th>
+                <th st-sort="price">Price (USD)</th>
+                <th st-sort="postDate">Post Date</th>
+                <th st-sort="action"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="(key,item) in vm.items | filter:test">
+                <td class="table-Index">{{key+1}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','lg', item)">View</button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7" class="text-center">
+                  <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+        <div ng-repeat="item in vm.items">
+
+            <div class="row">
+                <article class="post row">
+                    <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                        <img ng-src="{{ item.featuredImage | imageUrl }}"/>
+                    </a>
+                    
+                    <header class="entry-header col-md-8 col-xs-12">
+                        <h3 class="entry-title">
+                            <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+                                {{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}
+                            </a>
+                        </h3>
+
+                        <div class="entry-excerpt">
+                            <p>{{ item.description | plainText | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
+                        </div>
+
+                        <div class="download-meta">
+                            <div class="download-meta-price download-price-toggle">
+                                <div class="download-meta-price-details">
+                                    <a href="#"><span>${{item.price}}</span></a>
+                                </div>
+                            </div>
+                            <div class="download-meta-name">
+                                <span class="author vcard">
+                                    <a href="/#/profile/{{ item.seller.id }}">
+                                        <img alt="" ng-src="{{ item.seller.avatar | imageUrl }}" class="avatar" height="20" width="20" originals="20"> {{item.seller.firstName}} {{ item.seller.lastName }}
+                                    </a>
+                                </span>
+                            </div>
+                        </div><!-- .download-meta -->
+                    </header><!-- .entry-header -->
+                </article>
+
+            </div>
+
+        </div>          
+
+        <div class="row">
+
+            <ul ng-if="vm.pager.pages.length" class="pagination">
+                <li ng-class="{hidden:vm.pager.currentPage === 1}">
+                    <a ng-click="vm.setPage(1)">First</a>
+                </li>            
+                <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                    <a href="#" ng-click="vm.setPage(page)">{{page}}</a>
+                </li>                            
+                <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
+                    <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+                </li>
+            </ul>
+
+        </div>
+
+
+    </div
+</div>

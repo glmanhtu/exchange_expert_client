@@ -55,7 +55,7 @@
         }
 
         function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get('/api/user/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function SendFeedback(email, feedback) {
@@ -84,26 +84,24 @@
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization' : 'Bearer ' + accessToken
+                    'Accept': 'application/json'
                 }
             }).then(handleSuccess, handleError('Error rating'));
         }
 
         function Create(user) {
-            return $http.post(DOMAIN_URL + '/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post(DOMAIN_URL + '/api/user', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
-            var url = DOMAIN_URL + '/api/users/' + user.id;
+            var url = DOMAIN_URL + '/api/user/' + user.id;
             return $http({
                 url: url,
                 method: "PUT",
                 data: JSON.stringify(user),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.accessToken
+                    'Accept': 'application/json'
                 }
             }).then(handleSuccess, handleError('Error feedback'));
         }

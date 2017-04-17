@@ -1,0 +1,37 @@
+<div ng-controller="inboxCtrl">
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a class="active" href="#/inbox">Inbox</a> <span class="separator"><i class="fa fa-caret-right" aria-hidden="true"></i> </span><span>Detail</span></div>
+            <div class="panel-body">
+                <article>
+                    <h3>{{mailPost.title}}</h3>
+                    <p class="createdate">Date: {{mailPost.createdDate | date:'MM-dd-yyyy'}}</p>
+                    <div class="content">{{mailPost.content}}</div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default headProfile">
+            <div class="panel-heading">User's Information</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"
+                             ng-click="selectAvatar()" alt="">
+                        <input type="file" name="avatar" id="userAvatar" ng-model="user_info.avatar"
+                               onchange="angular.element(this).scope().sendAvatar()" multiple>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
+                        <p class="createdate">Join date: {{user_info.createDate | date: 'yyyy-MM-dd'}}</p>
+                        <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline"
+                                     on-star-click=""
+                                     style="color: #FF9800;"></input-stars>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

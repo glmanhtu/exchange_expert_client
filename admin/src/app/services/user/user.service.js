@@ -74,16 +74,13 @@
         }
 
         function Create(user) {
-            return $http.post(DOMAIN_URL + '/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post(DOMAIN_URL + '/api/user', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
-            return $http.put(DOMAIN_URL + '/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put(DOMAIN_URL + '/api/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
-        function Delete(id) {
-            return $http.delete(DOMAIN_URL + '/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
-        }
 
         // private functions
 

@@ -8,7 +8,7 @@
                     <tr class="sortable">
                         <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
                         <th st-sort="title">Title</th>
-                        <th st-sort="postDate">Created date</th>
+                        <th st-sort="postDate" width="160">Created date</th>
                     </tr>
                     </thead>
 
@@ -17,12 +17,12 @@
                         ng-class="{'font-weight-bold' : item.read == false}" ng-click="postMailDetail(item.id)">
                         <td class="table-Index">{{key+1}}</td>
                         <td>{{item.title}}</td>
-                        <td>{{item.createdDate | date:'HH:mm:ss MM-dd-yyyy'}}</td>
+                        <td>{{item.createdDate | date:'HH:mm:ss MM/dd/yyyy'}}</td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td>
+                        <td colspan="3" class="text-center">
                             <ul ng-if="mailPosts.totalPages" class="pagination">
                                 <li ng-class="{hidden : mailPosts.number === 0}">
                                     <a ng-click="setInboxPage(0)">First</a>
@@ -43,9 +43,9 @@
         </div>
     </div>
     <div class="col-md-5">
-        <div class="panel panel-default headProfile">
+        <div class="panel panel-default">
             <div class="panel-heading">User's Information</div>
-            <div class="panel-body">
+            <div class="panel-body headProfile">
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"

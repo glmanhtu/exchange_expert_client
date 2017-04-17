@@ -64,10 +64,12 @@
 				<li class="menu-item menu-item-has-children header-search" ng-if="userProfile">					
 					<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="profile-dropdown">
 						<img ng-src="{{avatar}}" class="img-circle img-small">
+						<span ng-if="unreadMailPost>0" class="unreadMailPost unreadMailPostTop">{{unreadMailPost}}</span>
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="profile-dropdown">
 					    <li><a href="#/post">Post</a></li>
-					    <li><a href="#/inbox">Inbox</a></li>
+					    <li><a href="#/profile/{{userProfile.id}}">Profile</a></li>
+					    <li><a href="#/inbox">Inbox<span ng-if="unreadMailPost>0" class="unreadMailPost">{{unreadMailPost}}</span></a></li>
 					    <li><a href="#/managepost">Mange Post</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a ng-click="logout()">Logout!</a></li>

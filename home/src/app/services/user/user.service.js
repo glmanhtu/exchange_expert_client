@@ -76,7 +76,7 @@
             }).then(handleSuccess, handleError('Error feedback'));
         }
 
-        function Rating(email, accessToken, rate) {
+        function Rating(email, rate) {
             var url = DOMAIN_URL + '/api/rating?forEmailUser=' + email + '&star=' + rate;
 
             return $http({

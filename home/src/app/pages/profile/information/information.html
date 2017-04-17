@@ -33,14 +33,14 @@
                         <span class="highlight"></span><span class="bar"></span>
                     </div>
                     <div class="group col-md-6">
-                        <button type="submit" class="button buttonBlue" ng-click="" ng-if="user_info.id == email">Save
+                        <button type="submit" class="button buttonBlue" ng-click="" ng-if="user != null && user.id == email">Save
                         </button>
                     </div>
                 </div>
             </form>
             <div class="clearfix"></div>
         </div>
-        <div class="panel panel-default"  ng-if="user_info.id == email">
+        <div class="panel panel-default"  ng-if="user != null && user.id == email">
             <div class="panel-heading">Change password</div>
             <div class="panel-body">
                 <form ng-submit="updateProfileUser()">
@@ -74,9 +74,9 @@
         </div>
     </div>
     <div class="col-md-5">
-        <div class="panel panel-default headProfile">
+        <div class="panel panel-default">
             <div class="panel-heading">User's Information</div>
-            <div class="panel-body">
+            <div class="panel-body headProfile">
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"
@@ -111,9 +111,10 @@
                         </textarea>
                             <span class="highlight"></span><span class="bar"></span>
                         </div>
-                        <div class="group col-md-6 pull-right">
+                        <div class="group col-md-6 pull-right" ng-if="user != null && user.id != email">
                             <button type="submit" class="button buttonBlue">Send</button>
                         </div>
+                        <p user == null><i>Please, login to give feedback.</i></p>
                     </div>
                 </div>
             </form>

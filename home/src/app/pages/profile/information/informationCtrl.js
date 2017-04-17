@@ -8,7 +8,7 @@
     function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService, toastr) {
         $scope.feedback = {};
         $scope.email = $stateParams.user_id;
-        $scope.user = JSON.parse(sessionStorage.userProfile);
+        $scope.user = (sessionStorage.userProfile != null ) ? JSON.parse(sessionStorage.userProfile) : null;
         $scope.user_info = {};
         $scope.rating = 3;
         $scope.listRate = [
@@ -72,16 +72,22 @@
         }
 
         $scope.sendRating = function (index) {
+            if ($scope.user != null) {
+                if ($scope.user != $scope.email) {
+                    var rating = index + 1;
+                    UserService.Rating($scope.email, rating).then(function (res) {
+                        toastr.success('Thank you for your rating to ' + $scope.email);
+                        setTimeout(function () {
+                            $scope.reload();
+                        }, 1500);
+                    }, function (res) {
+                        toastr.error("Have been occurred sending rating user. Please try again.");
+                    });
+                }
+            } else {
+                toastr.error("Please, login to rating this seller");
+            }
 
-            var rating = index + 1;
-            UserService.Rating($scope.email, rating).then(function (res) {
-                toastr.success('Thank you for your rating to ' + $scope.email);
-                setTimeout(function () {
-                    $scope.reload();
-                }, 1500);
-            }, function (res) {
-                toastr.error("Have been occurred sending rating user. Please try again.");
-            });
         }
 
         $scope.sendAvatar = function () {
@@ -104,18 +110,18 @@
         }
 
         $scope.changePassword = function () {
-               
+
         }
 
         $scope.reload = function () {
             window.location.reload();
         }
 
-        $scope.open1 = function() {
+        $scope.open1 = function () {
             $scope.popup1.opened = true;
         };
 
-        $scope.setDate = function(year, month, day) {
+        $scope.setDate = function (year, month, day) {
             $scope.dt = new Date(year, month, day);
         };
 

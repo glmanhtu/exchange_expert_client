@@ -6,23 +6,15 @@
     googleMap.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope', 'NgMap', '$q'];
     /* @ngInject */
     function googleMap($http, $timeout, DOMAIN_URL, $rootScope, NgMap, $q) {
-
+        
         var services = {};
         services.searchPlace = searchPlace;
+        services.showPath = showPath;
         return services;        
-
-        function initGoogleAutoComplete() {     
-            var deferred = $q.defer();
-
-            NgMap.getMap().then(function(map) {                
-                $rootScope.googlePlace = new google.maps.places.PlacesService(map);                
-            });
-        }
 
         function searchPlace(keyword) {            
             var deferred = $q.defer();
-            NgMap.getMap().then(function(map) {
-                var gLocation = new google.maps.LatLng(location.lat, location.lng);
+            NgMap.getMap().then(function(map) {                
                 var request = {                    
                     query: keyword
                 };
@@ -32,6 +24,27 @@
                 });
             });            
             return deferred.promise;
-        }        
+        }
+
+        function showPath(startLat, startLng, endLat, endLng) {
+            NgMap.getMap().then(function(map) {
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                var startLocation = new google.maps.LatLng(startLat, startLng);
+                var endLocation = new google.maps.LatLng(endLat, endLng);                
+                directionsDisplay.setMap(map);
+                var request = {
+                    origin : startLocation,
+                    destination : endLocation,
+                    travelMode: 'DRIVING'
+                };
+
+                directionsService.route(request, function(response, status) {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                    }
+                });
+            });
+        }
     }
 })();

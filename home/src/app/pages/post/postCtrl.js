@@ -3,16 +3,17 @@
     angular
     .module('ExpertExchange.pages.post')
     .controller('postCtrl', postCtrl);
-    postCtrl.$inject = ['$scope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap'];
+    postCtrl.$inject = ['$scope', '$rootScope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap'];
     /* @ngInject */
-    function postCtrl($scope, $location, postService, GOOGLE_MAP_KEY, NgMap) {
+    function postCtrl($scope, $rootScope, $location, postService, GOOGLE_MAP_KEY, NgMap) {
         active();
 
         function active(){
-            var userInfor = JSON.parse(sessionStorage.userProfile);
+            // console.log($rootScope.userProfile.id);
+            // var userInfor = JSON.parse(sessionStorage.userProfile);
             
             $scope.aGood = {
-                postBy: {id: userInfor.id}
+                postBy: {id: $rootScope.userProfile.id}
             };
             $scope.categories = ["Book", "Movie", "Toy", "Computer", "Clothing", "Handmade", "Sport"];
 
@@ -76,6 +77,11 @@
         $scope.removeLocation = function(location){
             $scope.listLocations.splice($scope.listLocations.indexOf(location), 1);
             // $scope.listLocations.remove(location);
+        }
+
+        $scope.chooseMarker = function(location){
+            $scope.latlng = [location.lat, location.lon];
+            $scope.centerMap = [location.lat, location.lon];
         }
             
 

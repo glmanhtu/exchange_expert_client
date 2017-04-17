@@ -1,54 +1,51 @@
 <div class="main-container">
     <div class="col-md-12 col-xs-12">
         <form>
-            <div class="col-md-12">
+            <div class="col-md-12 menu-item">
                 <div class="col-md-5 col-xs-12">
-                    <div class="input-group">
-                        <label for="exampleInputEmail1">Title</label>
-                        <input type="text" class="input-group" placeholder="Title" ng-model="aGood.title">
+                    <div class="group">
+                        <input type="text" ng-model="aGood.title" ng-class="{used: aGood.title}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Title</label>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="inputs-category">Category</span>
-                        <select class="selectpicker" ng-model="aGood.category.name" ng-options="cate for cate in categories">
+                    <div class="group">
+                        <label>Category</label>
+                        <select ng-model="aGood.category.name" ng-options="cate for cate in categories">
                         </select>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="inputs-price">Price</span>
-                        <input type="text" class="form-control" placeholder="Price" aria-describedby="inputs-price" ng-model="aGood.price">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                    <div class="group">
+                        <input type="text" ng-model="aGood.price" ng-class="{used: aGood.price}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Price</label>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="inputs-address">Address</span>
-                        <input type="text" name="catogory" class="form-control" placeholder="Address" aria-describedby="inputs-category" ng-model="aGood.address">
+                    <div class="group">
+                        <input type="text" ng-model="aGood.address" ng-class="{used: aGood.address}" />
+                        <span class="highlight"></span><span class="bar"></span>
+                        <label>Address</label>
                     </div>
-                    <br>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="inputs-image">Upload Images</label>
                         <input type="file" id="myfile" name="myfile" multiple />
                     </div>
-                    <br>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <div class="form-group">
-                        <label for="inputs-image">Location</label>
+                    <div class="group">
+                        <label>Location</label>
                         <ul>
-                            <li ng-repeat="location in listLocations" ng-class="{'bg-info': hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-                                {{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}
+                            <li ng-repeat="location in listLocations">
+                                <button type="button" class="btn btn-primary btn-sm" 
+                                        ng-click="chooseMarker(location)">{{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}</button>
                                 <button type="button" class="close" aria-label="Close" ng-click="removeLocation(location)">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </li>
                         </ul>
                     </div>
-                    <br>
-                    <div class="form-group" map-lazy-load="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">
+                    <div class="group" map-lazy-load="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">
                         <input  places-auto-complete types="['geocode']" 
                                 on-place-changed="placeMarker()"
                                 ng-model="searchAutoComplete">
-                        <button type="button" ng-click='addLocation()' class="btn btn-primary">Add</button>
+                        <button type="button" ng-click='addLocation()' class="btn btn-success">Add</button>
                         <ng-map map-type-control="false"
                                 default-style="true" 
                                 scrollwheel="false"
@@ -59,11 +56,6 @@
                                     animation="Animation.BOUNCE" 
                                     animation="DROP"
                                     draggable="true"></marker>
-                            <info-window id="myInfoWindow" >
-                                <div ng-non-bindable="">
-                                <h4>aaaa</h4>
-                                </div>
-                            </info-window>
                         </ng-map>
                     </div>
                 </div>
@@ -75,7 +67,7 @@
                 </div>
             </div>
             <div class="col-md-2 col-md-offset-10">
-                <button type="button" ng-click='addGood()' class="btn btn-primary">Submit</button>
+                <button type="button" ng-click='addGood()' class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>

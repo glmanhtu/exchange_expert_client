@@ -3,10 +3,9 @@
     angular
         .module('ExpertExchange.pages.map')
         .controller('mapCtrl', mapCtrl);
-    mapCtrl.$inject = ['$scope', '$rootScope', '$location','searchService', 'DOMAIN_URL', 'NgMap', 'GOOGLE_MAP_KEY', 'toastr', '$q'];
+    mapCtrl.$inject = ['$scope', '$rootScope', '$location','searchService', 'DOMAIN_URL', 'googleMap', 'GOOGLE_MAP_KEY', 'toastr', '$q'];
     /* @ngInject */
-    function mapCtrl($scope, $rootScope, $location, searchService, DOMAIN_URL, NgMap, GOOGLE_MAP_KEY, toastr, $q) {
-        $scope.distance = 10000;
+    function mapCtrl($scope, $rootScope, $location, searchService, DOMAIN_URL, googleMap, GOOGLE_MAP_KEY, toastr, $q) {        
         $scope.items = [];
         $rootScope.mapPage = true;           
 
@@ -25,8 +24,11 @@
 
         $scope.moveMapOnServer = function(location) {
             $scope.closeSuggest();
-            $rootScope.expectedLocation = {lat: location.lat, lng: location.lon};
-        }
+            var currentUserLocation = $scope.lastSelectedLocation;
+            googleMap.showPath(currentUserLocation.lat, currentUserLocation.lng, location.lat, location.lon);
+
+            //$rootScope.expectedLocation = {lat: location.lat, lng: location.lon};
+        }    
 
         $scope.getCurrentLocation = function() {            
             var deferred = $q.defer();

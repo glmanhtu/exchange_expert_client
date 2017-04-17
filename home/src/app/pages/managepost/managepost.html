@@ -1,5 +1,34 @@
 <div class="main-container">
-    <div class="col-md-9 col-xs-12">
+    <div class="col-md-12 col-xs-12">
+
+        <table class="table" st-table="smartTableData">
+            <thead>
+              <tr class="sortable">
+                <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
+                <th st-sort="title">Title</th>
+                <th st-sort="price">Price (USD)</th>
+                <th st-sort="postDate">Post Date</th>
+                <th st-sort="action"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="(key,item) in vm.items | filter:test">
+                <td class="table-Index">{{key+1}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','lg', item)">View</button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7" class="text-center">
+                  <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
 
         <div ng-repeat="item in vm.items">
 
@@ -58,9 +87,5 @@
         </div>
 
 
-    </div>
-
-    <div class="col-md-3 suggest-container" >
-        <suggest></suggest>
-    </div>
+    </div
 </div>

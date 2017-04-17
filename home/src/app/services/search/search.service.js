@@ -21,12 +21,7 @@
             setBroadcast: setBroadcast
         };
         return service;
-        ////////////////
-
-        function getData(key) {
-            return $http.get('/assets/db/goods/db.json');
-        }
-
+      
         function getUser(email) {
             var url = DOMAIN_URL + '/api/user?email=' + email;
 
@@ -42,12 +37,6 @@
                     console.log('failed');
             });
         }
-
-        function getData() {
-            // return $http.get(DOMAIN_SERVICE + '/goods');
-            return $http.get('/assets/db/goods/db.json');
-        }
-
         function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({

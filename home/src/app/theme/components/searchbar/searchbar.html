@@ -1,4 +1,3 @@
-
 <div class="big-search" click-outside="closeSuggest()">
     <form id="big-searchform" ng-submit="searchCall()" ng-class="{'has-results': hasResults}">        
         <input type="text" class="big-search-input" ng-model="searchString" placeholder="Exchange search" value="" autocomplete="off" ng-change="getSearchSuggests()" ng-click="showSearchTips = true"><br>
@@ -20,13 +19,20 @@
             </div>          
         </li>
     </ul>
-    <ul class="search-simple-result suggest" ng-class="{'hide': !hasResults}">
+    <ul class="search-simple-result suggest">
+        <li class="featured-item row" ng-class="{'hide': !loading}">
+            <div class="cssload-loader" >
+                <div class="cssload-inner cssload-one"></div>
+                <div class="cssload-inner cssload-two"></div>
+                <div class="cssload-inner cssload-three"></div>
+            </div>
+        </li>        
         <li class="featured-item row" ng-repeat="(key, item) in suggestResults | limitTo:5 " ng-click="openSuggest(item)">
             <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
-                <div class="col-md-2 featured-img">
+                <div class="col-md-2 featured-img col-xs-3">
                     <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
                 </div>
-                <div class="col-md-10 featured-title">
+                <div class="col-md-10 col-xs-9 featured-title">
                     <p>
                         {{ item.title | limitTo: 250 }}{{item.title.length > 250 ? '...' : ''}}
                     </p>

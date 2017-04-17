@@ -3,19 +3,25 @@
     angular
         .module('ExpertExchange')
         .factory('searchService', searchService);
-    searchService.$inject = ['$http','$timeout','DOMAIN_URL'];
+    searchService.$inject = ['$http','$timeout','$rootScope','DOMAIN_URL'];
     /* @ngInject */
-    function searchService($http, $timeout, DOMAIN_URL) {
-        var service = {            
+    function searchService($http, $timeout, $rootScope, DOMAIN_URL) {
+        var msg = '';
+
+        var service = {
+            getData: getData,
             getGoods: getGoods,
             getUser: getUser,
             searchGoods: searchGoods,
             searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation,
-            predicateSearch: predicateSearch
+            predicateSearch: predicateSearch,
+            prepForBroadcast: prepForBroadcast,
+            broadcastItem: broadcastItem,
+            setBroadcast: setBroadcast
         };
         return service;
-
+      
         function getUser(email) {
             var url = DOMAIN_URL + '/api/user?email=' + email;
 
@@ -31,7 +37,6 @@
                     console.log('failed');
             });
         }
-
         function getGoods(page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
@@ -97,7 +102,8 @@
                 method: "POST",
                 data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"title":key,"order":{"by":"title","isASC":false}}),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic Y2xpZW50YXBwOjEyMzQ1Ng=='
                 }
             });
         }
@@ -127,7 +133,19 @@
                     'Content-Type': 'application/json'
                 }
             });
+        }
 
+        function prepForBroadcast(msg) {
+            this.msg = msg;
+            this.broadcastItem();
+        }
+
+        function broadcastItem() {
+            $rootScope.$broadcast('handleBroadcast');
+        }
+
+        function setBroadcast(msg) {
+            this.msg = msg;
         }
 
     }

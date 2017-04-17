@@ -8,10 +8,11 @@
     function searchCtrl($scope, $rootScope, $timeout, $location, searchService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'searchCtrl';
+        vm.dummyItems = []; // dummy array of items to be paged
         vm.pager = {};
         vm.setPage = setPage;
         vm.getSearchData = getSearchData;
-        vm.items = {}; 
+        vm.items = {};
         
         initController();
 
@@ -20,6 +21,16 @@
         $scope.latlng = [44.841225,-0.580036];
         $scope.latlon = {"lat":44.841225,"lon":-0.580036};
         $scope.listLocations.push($scope.latlon);
+
+        $scope.$on('handleBroadcast', function() {
+            $scope.searchNull = 0;
+            vm.dummyItems = [];
+            vm.pager = {};
+            vm.setPage = setPage;
+            vm.getSearchData = getSearchData;
+            vm.items = {};
+            initController();
+        });
 
         // event click on the map add to listLocations
         $scope.getpos = function(event){
@@ -36,7 +47,6 @@
                 lat: _.last($scope.listLocations).lat,
                 lon: _.last($scope.listLocations).lon
             };
-            console.log(pos);
 
             $rootScope.searchString = '';
             $rootScope.selectedLocation = 'all';
@@ -46,35 +56,55 @@
             $timeout( function(){
                vm.setPage(1);
             }, 1000 );
-
         }
 
         function initController() {
-            var key = $location.path('/search').search();
 
-            getSearchData(key.searchString,key.location);
-            // initialize to page 1
-            // 10 seconds delay
-            $timeout( function(){
-                vm.setPage(1);
-            }, 1000 );
-            
+            if($rootScope.predicates){
+                console.log('predicates: ');
+                console.log($rootScope.predicates);
+                getSearchPredicate($rootScope.predicates);
+                $timeout( function(){
+                    vm.setPage(1);
+                    console.log(vm.dummyItems.content);
+                    if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
+                        $scope.searchNull = 1;
+                    }
+                    
+                }, 1000 );
+            } else {
+                var key = $location.path('/search').search();
+                getSearchData(key.searchString,key.location);
+                $timeout( function(){
+                    vm.setPage(1);
+                    console.log(vm.dummyItems);
+                    if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
+                        $scope.searchNull = 1;
+                    }
+
+                }, 1000 );
+            }
+
         }
 
         function setPage(page) {
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
             }
-            // get pager object from service
-            vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
-            // get current page of items
-            vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
-            console.log(vm.items);
+            vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page);
+            vm.items = vm.dummyItems.content.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
         }
 
-        ////////////////
         function getSearchData(key,location) {
              searchService.searchGoods(key,location).then(function (response) {
+                vm.dummyItems = response.data;  
+             }, function () {
+                console.log('Something wrong');
+             });
+        }
+
+        function getSearchPredicate(predicate) {
+             searchService.predicateSearch(predicate).then(function (response) {
                 vm.dummyItems = response.data;  
              }, function () {
                 console.log('Something wrong');
@@ -85,7 +115,6 @@
             searchService.searchGoodsByLocation(pos.lat,pos.lon,distance).then(function (response) {
                vm.dummyItems = response.data;
                console.log(response);
-
             }, function () {
                console.log('Something wrong search');
             });

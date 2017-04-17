@@ -17,6 +17,13 @@
 
     function run($rootScope, $location, $cookieStore, $http, toastr, loginService, GOOGLE_MAP_KEY) {        
         $rootScope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;        
+
+        if ((sessionStorage.userProfile) != null){            
+            $rootScope.userProfile = JSON.parse(sessionStorage.userProfile);
+        } else {
+            delete $rootScope.userProfile;
+        }
+
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             $rootScope.GMapAutocomplete = "";
             if ($location.path() != '/map') {

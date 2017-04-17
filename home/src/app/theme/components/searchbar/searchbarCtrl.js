@@ -36,9 +36,6 @@
 				        searchService.setBroadcast($rootScope.predicates);
 				    });  
 				}
-				$rootScope.mapPage = true;
-				$rootScope.mapSearchStringTrans = $scope.searchString;
-				$state.go('map', {}, { reload: true });
 			}
 		}
 

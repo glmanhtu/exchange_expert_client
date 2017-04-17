@@ -3,27 +3,31 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('searchbarCtrl', searchbarCtrl);
-    searchbarCtrl.$inject = ['$rootScope', '$scope', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService'];
+    searchbarCtrl.$inject = ['$rootScope', '$scope', '$state', '$location', 'toastr', 'searchService', 'DOMAIN_URL', 'recognizeService'];
     /** @ngInject */
-    function searchbarCtrl($rootScope, $scope, $location, toastr, searchService, DOMAIN_URL, recognizeService) {
+    function searchbarCtrl($rootScope, $scope, $state, $location, toastr, searchService, DOMAIN_URL, recognizeService) {
 
     	$scope.showSearchTips = false;
 
-		$rootScope.searchString = "";
+		$scope.searchString = "";
 		$rootScope.hasResults = false;
-		$rootScope.suggestResults = [];		
+		$scope.suggestResults = [];		
 		$scope.DOMAIN_URL = DOMAIN_URL;
 		$rootScope.predicates;
+		$scope.loading = false;
 
 		$rootScope.closeSuggest = function() {
-			$rootScope.suggestResults = [];
+			$scope.suggestResults = [];
 			$rootScope.hasResults = false;
-			$scope.showSearchTips = false;			
+			$scope.showSearchTips = false;	
+			$scope.loading = false;		
 		}
 
 		$scope.searchCall = function() {
 			if ($rootScope.locationSearch) {
-				$location.path("/map");
+				$rootScope.mapPage = true;
+				$rootScope.mapSearchStringTrans = $scope.searchString;
+				$state.go('map', {}, { reload: true });
 			}
 		}
 
@@ -31,23 +35,26 @@
 			$location.path("/goods/" + item.category.slug + "/" + item.slug);
 		}
 
-		$scope.getSearchSuggests = function() {
-			$rootScope.predicates = recognizeService.exportKeyword($rootScope.searchString);
-			if ($rootScope.searchString.length < 2 || !$rootScope.isCompletedSearch) {
-				$rootScope.suggestResults = [];
+		$scope.getSearchSuggests = function() {			
+			$rootScope.predicates = recognizeService.exportKeyword($scope.searchString);
+			if ($scope.searchString.length < 2 || !$rootScope.isCompletedSearch) {
+				$scope.suggestResults = [];
 				$rootScope.hasResults = false;
 				$scope.showSearchTips = true;
 				return;
 			}
-						
-			if ($rootScope.isCompletedSearch) {			
+
+			if ($rootScope.isCompletedSearch) {	
+				$scope.loading = true;		
+				$scope.showSearchTips = false;
 				searchService.predicateSearch($rootScope.predicates).then(function (response) {
-		    		$rootScope.suggestResults = response.data.content;
-	    			$scope.showSearchTips = $rootScope.suggestResults.length == 0;
-		    		$rootScope.hasResults = $rootScope.suggestResults.length > 0;
-		    		// console.log(response);
+		    		$scope.suggestResults = response.data.content;
+	    			$scope.showSearchTips = $scope.suggestResults.length == 0;
+		    		$rootScope.hasResults = !$scope.showSearchTips;	
+		    		$scope.loading = false;		    		
 		    	}, function (response){
 		    		console.log(response);
+		    		$scope.loading = false;		
 		    	});
 			}		
 		}		

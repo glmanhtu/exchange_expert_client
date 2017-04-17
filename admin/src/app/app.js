@@ -18,7 +18,7 @@
     function run($rootScope, $location, $cookieStore, $http, toastr) {
         $rootScope.auth = $cookieStore.get('auth') || {};
 
-        if ('access_token' in $rootScope.auth != null) {
+        if ('access_token' in $rootScope.auth) {
           $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.auth.access_token;
         }
 

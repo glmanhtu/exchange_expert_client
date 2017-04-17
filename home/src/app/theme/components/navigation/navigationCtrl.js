@@ -11,19 +11,12 @@
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
 
-        if ((sessionStorage.userProfile) != null){            
-            $rootScope.userProfile = JSON.parse(sessionStorage.userProfile);
-            if ($rootScope.userProfile.avatar != null) {
-                $scope.avatar = $rootScope.userProfile.avatar;
-            }            
-            console.log($rootScope.userProfile);
-        } else {
-            delete $rootScope.userProfile;
-        }
+        if ("userProfile" in $rootScope) {
+            $scope.avatar = $rootScope.userProfile.avatar;
+        }            
 
         $scope.logout = function () {
             loginService.logout();
-            delete $rootScope.userProfile;            
         };
 
         //Function to Login. This will generate Token 
@@ -31,22 +24,10 @@
             loginService.login($scope.loginParams).then(function (response) {
 
                 if (response != null) {
-                    // Store the token information in the SessionStorage
-                    // So that it can be accessed for other views                
-                    sessionStorage.setItem('accessToken', response.data.access_token);
-                    sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                    var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(response.data.expires_in);
-                    sessionStorage.setItem('expiresIn', expiresIn);
-                    
-                    UserService.GetCurrentUser().then(function (response) {
-                        $rootScope.userProfile = response;
+                    loginService.setSesssion(response.data).then(function(response) {
                         $scope.avatar = response.avatar;
-                        sessionStorage.setItem('userProfile', JSON.stringify(response));    
-                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);
-                    }, function (response) {
-                        toastr.error('An error occurreed when get your information');
-                        console.log(response);
-                    });      
+                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);                    
+                    });                    
                 } else {
                     toastr.error('Username or password incorrect');    
                 }
@@ -56,19 +37,14 @@
             });
         };
 
-        $scope.register = function() {       
-            console.log("Staring register");
+        $scope.register = function() {                   
             registerService.registerUser($scope.registerParams).then(function(registerResponse) {                
                 var loginData = {"username" : $scope.registerParams.id, "password" : $scope.registerParams.password};
                 loginService.login(loginData).then(function(loginResponse) {
-                    sessionStorage.setItem('accessToken', loginResponse.data.access_token);
-                    sessionStorage.setItem('refreshToken', loginResponse.data.refresh_token);
-                    var expiresIn = Math.round((new Date()).getTime() / 1000) + parseInt(loginResponse.data.expires_in);
-                    sessionStorage.setItem('expiresIn', expiresIn);
-                    $rootScope.userProfile = registerResponse;
-                    $scope.avatar = registerResponse.avatar;
-                    sessionStorage.setItem('userProfile', JSON.stringify(registerResponse)); 
-                    toastr.success("Welcome to Exchange Expert, " + registerResponse.firstName + " " + registerResponse.lastName);                   
+                    loginService.setSesssion(loginResponse.data).then(function(response) {
+                        $scope.avatar = registerResponse.response;
+                        toastr.success("Welcome to Exchange Expert, " + registerResponse.firstName + " " + registerResponse.lastName);
+                    });                                        
                 }, function (error) {
                     toastr.error("An error occurred when we try to automatic login you. Please try login again");
                 });

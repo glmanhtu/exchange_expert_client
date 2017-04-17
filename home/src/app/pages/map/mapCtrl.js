@@ -3,41 +3,50 @@
     angular
         .module('ExpertExchange.pages.map')
         .controller('mapCtrl', mapCtrl);
-    mapCtrl.$inject = ['$scope', '$rootScope', '$location','searchService', 'DOMAIN_URL', 'NgMap', 'GOOGLE_MAP_KEY'];
+    mapCtrl.$inject = ['$scope', '$rootScope', '$location','searchService', 'DOMAIN_URL', 'googleMap', 'GOOGLE_MAP_KEY', 'toastr', '$q'];
     /* @ngInject */
-    function mapCtrl($scope, $rootScope, $location, searchService, DOMAIN_URL, NgMap, GOOGLE_MAP_KEY) {
-        $scope.distance = 10000;
+    function mapCtrl($scope, $rootScope, $location, searchService, DOMAIN_URL, googleMap, GOOGLE_MAP_KEY, toastr, $q) {        
         $scope.items = [];
-        $rootScope.mapPage = true;
+        $rootScope.mapPage = true;           
 
-        if (!$rootScope.expectedLocation) {
-            $rootScope.expectedLocation = {lat: 10.772091, lng: 106.697266};            
+        if (sessionStorage.currentUserLocation) {
+            $rootScope.expectedLocation = JSON.parse(sessionStorage.currentUserLocation);            
+        } else {
+            $rootScope.expectedLocation = {lat: 10.772091, lng: 106.697266};
         }
 
-        $scope.changeLocation = function(distance) {
-            searchService.searchGoodsByLocation($rootScope.expectedLocation.lat, $rootScope.expectedLocation.lng, distance).then(function(response) {
-                $scope.items = response.data.content;                    
-            }, function() {
-
-            });
-        }
-        console.log($rootScope.expectedLocation);
         $scope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
-        $scope.changeLocation($scope.distance);        
 
-        $scope.changeLocation($scope.distance);
-
-        function getCurrentLocation() {
-            toastr.info('Detecting your location');
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(location) {
-                    $rootScope.expectedLocation = {lat: location.coords.latitude, lng: location.coords.longitude};
-                    toastr.success('Found your location');
-                    console.log($rootScope.expectedLocation);
-                });
-            } else {
-                toastr.error('This browser not support to get your location');
-            }
+        $scope.moveMap = function(location) {    
+            $scope.closeSuggest();        
+            $rootScope.expectedLocation = {lat: location.lat(), lng: location.lng()};
         }
+
+        $scope.moveMapOnServer = function(location) {
+            $scope.closeSuggest();
+            var currentUserLocation = $scope.lastSelectedLocation;
+            googleMap.showPath(currentUserLocation.lat, currentUserLocation.lng, location.lat, location.lon);
+
+            //$rootScope.expectedLocation = {lat: location.lat, lng: location.lon};
+        }    
+
+        $scope.getCurrentLocation = function() {            
+            var deferred = $q.defer();
+            if (sessionStorage.currentUserLocation) {                
+                deferred.resolve(JSON.parse(sessionStorage.currentUserLocation));
+            } else if (navigator.geolocation) {
+                toastr.info('Detecting your location');
+                navigator.geolocation.getCurrentPosition(function(location) {
+                    $rootScope.$apply(function() {
+                        $rootScope.expectedLocation = {lat: location.coords.latitude, lng: location.coords.longitude};
+                        sessionStorage.setItem('currentUserLocation', JSON.stringify($rootScope.expectedLocation));
+                        deferred.resolve($rootScope.expectedLocation);
+                    });                    
+                });                
+            } else {
+                deferred.reject('This browser not support to get your location');
+            }
+            return deferred.promise;
+        }        
     }
 })();

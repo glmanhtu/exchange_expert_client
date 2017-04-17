@@ -9,7 +9,9 @@
       'ExpertExchange.pages.map',
       'ExpertExchange.pages.profile',
       'ExpertExchange.pages.goods',      
-      'ExpertExchange.pages.receive'      
+      'ExpertExchange.pages.receive',
+      'ExpertExchange.pages.managepost'
+      // 'ExpertExchange.pages.editpost'
   ]).config(routeConfig);
 
     /** @ngInject */

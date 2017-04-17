@@ -5,6 +5,10 @@
 .item-container {
 	background: #fff;
 	margin-bottom: 50px;
+	.item-title {
+		padding: 1% 5%;
+		font-weight: bold;
+	}
 	.item-description {
 		display: block;
 	    padding: 5%;

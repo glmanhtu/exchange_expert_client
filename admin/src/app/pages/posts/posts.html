@@ -44,4 +44,19 @@
       </tr>
     </tfoot>
   </table>
+
+  <div class="row">
+      <ul ng-if="vm.pager.pages.length" class="pagination">
+          <li ng-class="{hidden:vm.pager.currentPage === 1}">
+              <a ng-click="vm.setPage(1)">First</a>
+          </li>            
+          <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+              <a href="#" ng-click="vm.setPage(page)">{{page}}</a>
+          </li>                            
+          <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
+              <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+          </li>
+      </ul>
+
+  </div>
 </div>

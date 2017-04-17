@@ -9,7 +9,6 @@
         var msg = '';
 
         var service = {
-            getData: getData,
             getGoods: getGoods,
             getUser: getUser,
             searchGoods: searchGoods,

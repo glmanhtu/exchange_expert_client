@@ -19,68 +19,63 @@
             <div ng-if="vm.items">
                 <div ng-repeat="item in vm.items">
 
-            <div class="row">
-                <article class="post row">
-                    <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                        <img ng-src="{{ item.featuredImage | imageUrl }}"/>
-                    </a>
-                    
-                    <header class="entry-header col-md-8 col-xs-12">
-                        <h3 class="entry-title">
-                            <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
-                                {{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}
+                    <div class="row">
+                        <article class="post row">
+                            <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                                <img ng-src="{{ item.featuredImage | imageUrl }}"/>
                             </a>
-                        </h3>
-
-                        <div class="entry-excerpt">
-                            <p>{{ item.description | plainText | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
-                        </div>
-
-                        <div class="download-meta">
-                            <div class="download-meta-price download-price-toggle">
-                                <div class="download-meta-price-details">
-                                    <a href="#"><span>${{item.price}}</span></a>
-                                </div>
-                            </div>
-                            <div class="download-meta-name">
-                                <span class="author vcard">
-                                    <a href="/#/profile/{{ item.seller.id }}">
-                                        <img alt="" src="https://secure.gravatar.com/avatar/0aeecce7f483aa2b409fe65c352d034a?s=40&amp;d=mm&amp;r=g" class="avatar" height="20" width="20" originals="20"> {{item.seller.firstName}} {{ item.seller.lastName }}
+                            
+                            <header class="entry-header col-md-8 col-xs-12">
+                                <h3 class="entry-title">
+                                    <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+                                        {{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}
                                     </a>
-                                </span>
-                            </div>
-                        </div><!-- .download-meta -->
-                    </header><!-- .entry-header -->
-                </article>
+                                </h3>
 
-            </div>
+                                <div class="entry-excerpt">
+                                    <p>{{ item.description | plainText | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
+                                </div>
 
-        </div>                
+                                <div class="download-meta">
+                                    <div class="download-meta-price download-price-toggle">
+                                        <div class="download-meta-price-details">
+                                            <a href="#"><span>${{item.price}}</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="download-meta-name">
+                                        <span class="author vcard">
+                                            <a href="/#/profile/{{ item.seller.id }}">
+                                                <img alt="" src="https://secure.gravatar.com/avatar/0aeecce7f483aa2b409fe65c352d034a?s=40&amp;d=mm&amp;r=g" class="avatar" height="20" width="20" originals="20"> {{item.seller.firstName}} {{ item.seller.lastName }}
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div><!-- .download-meta -->
+                            </header><!-- .entry-header -->
+                        </article>
 
-                <hr>
+                    </div>
 
-                <div class="col-md-12">
+                </div>                
+
+                <div class="row">
 
                     <ul ng-if="vm.pager.pages.length" class="pagination">
-                        <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                        <li ng-class="{hidden:vm.pager.currentPage === 1}">
                             <a ng-click="vm.setPage(1)">First</a>
-                        </li>
-                        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                            <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
-                        </li>
+                        </li>            
                         <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
                             <a href="#/search" ng-click="vm.setPage(page)">{{page}}</a>
-                        </li>                
-                        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                            <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
-                        </li>
-                        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                        </li>                            
+                        <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
                             <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
                         </li>
                     </ul>
 
                 </div>
+
             </div>
+
+                
         </div>
    
         <div class="col-md-4">

@@ -29,12 +29,20 @@
             });
         }
 
+        $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
+            var index = Math.floor(Math.random() * $dates.length);
+            $dates[index].selectable = false;
+        }
+
         $scope.selectAvatar = function () {
             if ($scope.user.id == $scope.email)
                 $('#userAvatar').click();
         };
 
         $scope.updateProfileUser = function () {
+            var outputDate = new Date($scope.user_info.birthday);
+            $scope.user_info.birthday = outputDate.getTime();
+
             UserService.Update($scope.user_info).then(function (res) {
                 toastr.success("Your profile has been updated successfully.");
             }, function (error) {
@@ -62,6 +70,7 @@
                 });
             }
         }
+
         $scope.sendRating = function (index) {
 
             var rating = index + 1;
@@ -94,8 +103,24 @@
             });
         }
 
+        $scope.changePassword = function () {
+               
+        }
+
         $scope.reload = function () {
             window.location.reload();
         }
+
+        $scope.open1 = function() {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.setDate = function(year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        $scope.popup1 = {
+            opened: false
+        };
     }
 })();

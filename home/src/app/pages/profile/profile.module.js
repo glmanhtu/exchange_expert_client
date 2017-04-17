@@ -15,6 +15,24 @@
                 icon: 'ion-android-home',
                 order: 0,
               },
+            })
+            .state('inbox', {
+              url: '/inbox',
+              templateUrl: 'app/pages/profile/inbox/inbox.html',
+              title: 'Profile',
+              sidebarMeta: {
+                icon: 'ion-android-home',
+                order: 0,
+              },
+            })
+            .state('inboxDetail', {
+              url: '/inbox/detail/:user_id?id',
+              templateUrl: 'app/pages/profile/inbox/detail.html',
+              title: 'Profile',
+              sidebarMeta: {
+                icon: 'ion-android-home',
+                order: 0,
+              },
             });
       }
 

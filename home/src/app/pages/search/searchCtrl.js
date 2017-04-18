@@ -3,92 +3,52 @@
     angular
         .module('ExpertExchange.pages.search')
         .controller('searchCtrl', searchCtrl);
-    searchCtrl.$inject = ['$scope', '$rootScope', '$timeout', '$location','searchService', 'PagerService', 'DOMAIN_URL'];
+    searchCtrl.$inject = ['$scope', '$rootScope', '$location','searchService', 'PagerService', 'DOMAIN_URL'];
     /* @ngInject */
-    function searchCtrl($scope, $rootScope, $timeout, $location, searchService, PagerService, DOMAIN_URL) {
+    function searchCtrl($scope, $rootScope, $location, searchService, PagerService, DOMAIN_URL) {
         var vm = this;
         vm.title = 'searchCtrl';
+        vm.dummyItems = []; // dummy array of items to be paged
         vm.pager = {};
         vm.setPage = setPage;
-        vm.getSearchData = getSearchData;
-        vm.items = {}; 
-        
-        initController();
+        vm.itemPerPage = 10;
 
         $scope.DOMAIN_URL = DOMAIN_URL;
-        $scope.listLocations = [];
-        $scope.latlng = [44.841225,-0.580036];
-        $scope.latlon = {"lat":44.841225,"lon":-0.580036};
-        $scope.listLocations.push($scope.latlon);
+        $scope.allPosts = {};
+        $scope.idPosts = {};
+        $scope.currentPosts = {};
 
-        // event click on the map add to listLocations
-        $scope.getpos = function(event){
-            var pos = {
-                lat: event.latLng.lat(),
-                lon: event.latLng.lng()
-            };
-            $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
-            $scope.listLocations.push(pos);
-        };
+        initController();
 
-        $scope.searchByLocation = function() {
-            var pos = {
-                lat: _.last($scope.listLocations).lat,
-                lon: _.last($scope.listLocations).lon
-            };
-            console.log(pos);
-
-            $rootScope.searchString = '';
-            $rootScope.selectedLocation = 'all';
-
-            getSearchByLocationData(pos,100000);
-
-            $timeout( function(){
-               vm.setPage(1);
-            }, 1000 );
-
-        }
+        $scope.$on('handleBroadcast', function() {
+            $scope.searchNull = false;
+            vm.dummyItems = [];
+            vm.pager = {};
+            initController();
+        });
 
         function initController() {
-            var key = $location.path('/search').search();
-
-            getSearchData(key.searchString,key.location);
-            // initialize to page 1
-            // 10 seconds delay
-            $timeout( function(){
+            if($rootScope.predicates){
                 vm.setPage(1);
-            }, 1000 );
-            
+            }
         }
 
         function setPage(page) {
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
             }
-            // get pager object from service
-            vm.pager = PagerService.GetPager(vm.dummyItems.length, page);
-            // get current page of items
-            vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
-            console.log(vm.items);
-        }
-
-        ////////////////
-        function getSearchData(key,location) {
-             searchService.searchGoods(key,location).then(function (response) {
-                vm.dummyItems = response.data;  
-             }, function () {
-                console.log('Something wrong');
-             });
-        }
-
-        function getSearchByLocationData(pos,distance) {
-            searchService.searchGoodsByLocation(pos.lat,pos.lon,distance).then(function (response) {
-               vm.dummyItems = response.data;
-               console.log(response);
-
+            searchService.searchGoods($rootScope.predicates.title, page - 1, vm.itemPerPage).then(function (response) {
+                vm.dummyItems = response.data;
+                vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page, vm.itemPerPage);  
+                vm.items = vm.dummyItems.content;
+                if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
+                    $scope.searchNull = true;
+                } else {
+                    $scope.searchNull = false;
+                }
             }, function () {
-               console.log('Something wrong search');
-            });
+                console.log('Something wrong');
+            });                   
         }
     }
 })();

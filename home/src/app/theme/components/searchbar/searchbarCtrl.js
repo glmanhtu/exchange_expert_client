@@ -28,6 +28,12 @@
 				$rootScope.mapPage = true;
 				$rootScope.mapSearchStringTrans = $scope.searchString;
 				$state.go('map', {}, { reload: true });
+			} else {
+				$location.path("/search");
+                if ($location.path() == "/search") {
+                    searchService.broadcastItem();
+                }
+
 			}
 		}
 

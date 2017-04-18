@@ -69,10 +69,10 @@
           size: size,
           resolve: {
             items: function () {
-              $scope.currentItem.featuredImage = DOMAIN_URL+'/api' + response.data.featuredImage;
+              $scope.currentItem.featuredImage = DOMAIN_URL+'/api/' + response.data.featuredImage;
 
               for (var i = 0; i < $scope.currentItem.images.length; i++) { 
-                $scope.currentItem.images[i].url = DOMAIN_URL+'/api' + response.data.images[i].url;
+                $scope.currentItem.images[i].url = DOMAIN_URL+'/api/' + response.data.images[i].url;
               }          
             }
           }

@@ -128,8 +128,7 @@
             return $http.post(url, file, {
                 // transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
-            }).then(
-                function (response) {
+            }).then(function (response) {
                     return response.data;
                 }, function (error) {
                     console.log('Something wrong ' + error);

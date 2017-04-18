@@ -106,6 +106,7 @@
 
             postService.uploadImage(data).then(
                 function (response) {
+                    console.log(response);
                     // $scope.aGood.images = response;
                     $scope.aGood.featuredImage = response[0];
                     for (var i = 0; i < response.length; i++) {

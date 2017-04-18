@@ -3,13 +3,15 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('navigationCtrl', navigationCtrl);
-        navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService', 'UserService', 'toastr', 'registerService'];
+        navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService', 'UserService', 'toastr', 'registerService', 'InboxService'];
     /** @ngInject */
-    function navigationCtrl($rootScope, $scope, $location, $http, loginService, UserService, toastr, registerService) {
-
+    function navigationCtrl($rootScope, $scope, $location, $http, loginService, UserService, toastr, registerService, InboxService) {
+        $scope.unreadMailPost = 0;
         $scope.loginParams = {};
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
+
+        getUnreadMailPost();
 
         if ("userProfile" in $rootScope) {
             $scope.avatar = $rootScope.userProfile.avatar;
@@ -26,6 +28,7 @@
                 if (response != null) {
                     loginService.setSesssion(response.data).then(function(response) {
                         $scope.avatar = response.avatar;
+                        //clear session
                         toastr.success("Welcome back, " + response.firstName + " " + response.lastName);                    
                     });                    
                 } else {
@@ -61,6 +64,14 @@
         $scope.loginGoogle = function(){        
             var url = 'https://accounts.google.com/o/oauth2/auth?client_id=472454960459-tmd9n592ddch2lt6mtrs34r1h4gfat5p.apps.googleusercontent.com&redirect_uri=http://exchange-expert.cf&scope=profile email openid&response_type=token';
             window.location = url;
+        }
+
+        function getUnreadMailPost() {
+            InboxService.GetUnreadMailPost().then(function (response) {
+                $scope.unreadMailPost = response;
+            }, function (error) {
+                toastr.error(error);
+            })
         }
     }
 

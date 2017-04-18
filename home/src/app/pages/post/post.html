@@ -30,10 +30,10 @@
                 </div>
                 <div class="col-md-7 col-xs-12">
                     <div class="group">
-                        <label>Location</label>
+                        <label>Yours locations</label>
                         <ul>
                             <li ng-repeat="location in listLocations">
-                                <button type="button" class="btn btn-primary btn-sm" 
+                                <button type="button" class="btn btn-success" 
                                         ng-click="chooseMarker(location)">{{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}</button>
                                 <button type="button" class="close" aria-label="Close" ng-click="removeLocation(location)">
                                     <span aria-hidden="true">&times;</span>

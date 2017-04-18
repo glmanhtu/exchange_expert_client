@@ -52,6 +52,12 @@
             InboxService.GetMailPost(id).then(function (response) {
                 $scope.mailPost = response;
                 MakeAsRead(id);
+                //load unread mail post
+                InboxService.GetUnreadMailPost().then(function (response) {
+                    $rootScope.unreadMailPost = response;
+                }, function (error) {
+                    toastr.error(error);
+                })
             }, function (error) {
                 toastr.error(error);
             });

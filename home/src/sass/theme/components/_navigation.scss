@@ -195,7 +195,7 @@ navigation {
     margin-bottom: 45px;
   }
 
-  input {
+  input, select {
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     -webkit-appearance: none;
@@ -324,6 +324,14 @@ navigation {
     text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
   }
 
+  .btnRight {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    padding: 12px 25px 13px 25px;
+  }
+
   /* Ripples container */
 
   .ripples {
@@ -405,4 +413,29 @@ navigation {
   .unreadMailPostTop{
     margin:0px 0 0 -20px;
   }
+  label.labelPositionArea {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .locationArea ul>li {
+    display: inline-block;
+    margin: 5px;
+    position: relative;
+    padding-right: 19px;
+    color: #fff;
+    background-color: #5cb85c;
+  }
+  .mapArea {
+    position: relative;
+    margin-top: 10px;
+  }
+  button.btnRightClose {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+  }
+}
+
+.col-md-12.menu-item {
+  width: 100%;
 }

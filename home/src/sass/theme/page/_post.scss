@@ -1,3 +1,19 @@
+@media only screen and (max-width: 600px) {
+	.mapArea {
+		.map-add-location {
+			width: 100%;
+		}
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	.mapArea {
+		.map-add-location {
+			width: 50%;
+		}
+	}
+}
+
 .post-container {
 	padding: 2%;
 	background: #fff;
@@ -8,4 +24,29 @@
 		font-size: 22pt;
 		font-weight: 600;
 	}
+
+	.menu-item {
+		input, select {
+			background: #fff;
+		}
+	}
+
+	.mapArea {
+		.map-content {
+			height: 600px;
+		}
+		.map-add-location {
+			margin: 10px;			
+		    position: absolute;
+		    z-index: 9999;		    
+		    input {
+		    	text-indent: 15px;
+		    	border: 0;
+		    	box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+		    }
+		}		
+	}
+	.button-control {
+			margin-top: 20px;
+		}
 }

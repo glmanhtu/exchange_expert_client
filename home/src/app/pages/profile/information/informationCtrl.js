@@ -5,10 +5,10 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService, toastr) {
+    function informationCtrl($scope, $location, $stateParams, UserService, toastr, $rootScope) {
         $scope.feedback = {};
         $scope.email = $stateParams.user_id;
-        $scope.user = (sessionStorage.userProfile != null ) ? JSON.parse(sessionStorage.userProfile) : null;
+        $scope.user = $rootScope.userProfile;
         $scope.user_info = {};
         $scope.rating = 3;
         $scope.listRate = [
@@ -35,14 +35,13 @@
         }
 
         $scope.selectAvatar = function () {
-            if ($scope.user.id == $scope.email)
+            if ($rootScope.userProfile.id == $scope.email)
                 $('#userAvatar').click();
         };
 
         $scope.updateProfileUser = function () {
             var outputDate = new Date($scope.user_info.birthday);
             $scope.user_info.birthday = outputDate.getTime();
-
             UserService.Update($scope.user_info).then(function (res) {
                 toastr.success("Your profile has been updated successfully.");
             }, function (error) {
@@ -50,21 +49,11 @@
             });
         }
 
-        $scope.rating = function () {
-            $timeout(function () {
-                console.log($scope.rating);
-            }, 1000);
-
-        }
-
         $scope.sendFeedback = function () {
             if (confirm("Do you want to sent feedback user " + $scope.user.id)) {
-                console.log($scope.feedback);
                 UserService.SendFeedback($scope.email, $scope.feedback).then(function (res) {
                     toastr.success('Thank you for your feedback to ' + $scope.email);
-                    setTimeout(function () {
-                        $scope.reload();
-                    }, 1500);
+                    $scope.feedback = {};
                 }, function (res) {
                     toastr.error("Have been occurred sending feedback for user. Please try again.");
                 });
@@ -72,14 +61,12 @@
         }
 
         $scope.sendRating = function (index) {
-            if ($scope.user != null) {
-                if ($scope.user != $scope.email) {
+            if ($rootScope.userProfile != null) {
+                if ($rootScope.userProfile.id != $scope.email) {
                     var rating = index + 1;
                     UserService.Rating($scope.email, rating).then(function (res) {
                         toastr.success('Thank you for your rating to ' + $scope.email);
-                        setTimeout(function () {
-                            $scope.reload();
-                        }, 1500);
+                        GetInfo($scope.email);
                     }, function (res) {
                         toastr.error("Have been occurred sending rating user. Please try again.");
                     });

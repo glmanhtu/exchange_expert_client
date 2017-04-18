@@ -17,7 +17,7 @@
                         ng-class="{'font-weight-bold' : item.read == false}" ng-click="postMailDetail(item.id)">
                         <td class="table-Index">{{key+1}}</td>
                         <td>{{item.title}}</td>
-                        <td>{{item.createdDate | date:'HH:mm:ss MM/dd/yyyy'}}</td>
+                        <td>{{item.createdDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     </tr>
                     </tbody>
                     <tfoot>

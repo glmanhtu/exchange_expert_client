@@ -87,10 +87,6 @@
             sessionStorage.removeItem('accessToken');            
             $http.defaults.headers.common['Authorization'] = undefined;
             delete $rootScope.userProfile;
-            setTimeout(function () {
-                window.location.reload();
-            },1000);
-
         }
     }
 

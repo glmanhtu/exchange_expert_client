@@ -11,7 +11,8 @@
             'ExpertExchange.pages',                 
             'ExpertExchange.theme',
             'angular-click-outside',
-            'angular-input-stars'        
+            'angular-input-stars',
+            'ui.bootstrap'
         ])
         .run(run);
 

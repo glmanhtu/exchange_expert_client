@@ -1,0 +1,68 @@
+<div ng-controller="inboxCtrl">
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">Inbox</div>
+            <div class="panel-body">
+                <table class="table" st-table="smartTableData">
+                    <thead>
+                    <tr class="sortable">
+                        <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
+                        <th st-sort="title">Title</th>
+                        <th st-sort="postDate">Created date</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="(key,item) in mailPosts.content"
+                        ng-class="{'font-weight-bold' : item.read == false}" ng-click="postMailDetail(item.id)">
+                        <td class="table-Index">{{key+1}}</td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.createdDate | date:'HH:mm:ss MM-dd-yyyy'}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <ul ng-if="mailPosts.totalPages" class="pagination">
+                                <li ng-class="{hidden : mailPosts.number === 0}">
+                                    <a ng-click="setInboxPage(0)">First</a>
+                                </li>
+                                <li ng-repeat="i in [].constructor(mailPosts.totalPages) track by $index"
+                                    ng-class="{active : $index == mailPosts.number}">
+                                    <a href="" ng-click="setInboxPage($index)">{{$index+1}}</a>
+                                </li>
+                                <li ng-class="{hidden:mailPosts.number === mailPosts.totalPages}">
+                                    <a ng-click="setInboxPage(mailPosts.totalPages-1)">Last</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default headProfile">
+            <div class="panel-heading">User's Information</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"
+                             ng-click="selectAvatar()" alt="">
+                        <input type="file" name="avatar" id="userAvatar" ng-model="user_info.avatar"
+                               onchange="angular.element(this).scope().sendAvatar()" multiple>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
+                        <p class="createdate">Join date: {{user_info.createDate | date: 'yyyy-MM-dd'}}</p>
+                        <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline"
+                                     on-star-click=""
+                                     style="color: #FF9800;"></input-stars>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

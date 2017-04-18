@@ -1,5 +1,5 @@
 <div ng-controller="informationCtrl">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading">User's Information</div>
             <form ng-submit="updateProfileUser()">
@@ -27,34 +27,53 @@
                     </div>
                     <div class="group">
                         <label>Birthday</label>
-                        <input type="text" class="ng-pristine ng-valid ng-touched"
-                               ng-model="user_info.birthday | date: 'yyyy-MM-dd'"
-                               placeholder="yyyy-mm-dd" aria-describedby="profile-birthday">
-                        <span class="highlight"></span><span class="bar"></span>
-                    </div>
-                    <div class="group">
-                        <label>Phone</label>
-                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.phone"
-                               aria-describedby="profile-phone" placeholder="Phone">
-                        <span class="highlight"></span><span class="bar"></span>
-                    </div>
-                    <div class="group">
-                        <label>Address</label>
-                        <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="user_info.address"
-                               aria-describedby="profile-address" placeholder="Address">
+                        <input ng-model="user_info.birthday" uib-datepicker-popup="MM-dd-yyyy" ng-click="open1()"
+                               is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
+                               close-text="Close"/>
                         <span class="highlight"></span><span class="bar"></span>
                     </div>
                     <div class="group col-md-6">
                         <button type="submit" class="button buttonBlue" ng-click="" ng-if="user_info.id == email">Save
                         </button>
                     </div>
-                    </ul>
                 </div>
             </form>
             <div class="clearfix"></div>
         </div>
+        <div class="panel panel-default"  ng-if="user_info.id == email">
+            <div class="panel-heading">Change password</div>
+            <div class="panel-body">
+                <form ng-submit="updateProfileUser()">
+                    <div class="col-md-12 profile-user">
+                        <div class="group">
+                        </div>
+                        <div class="group">
+                            <label>Current password</label>
+                            <input type="password" class="ng-pristine ng-valid ng-touched" ng-model="user_info.password"
+                                   aria-describedby="profile-password" ng-minlength="3" ng-maxlength="8">
+                            <span class="highlight"></span><span class="bar"></span>
+                        </div>
+                        <div class="group">
+                            <label>New password</label>
+                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-new-password"  required="required">
+                            <span class="highlight"></span><span class="bar"></span>
+                        </div>
+                        <div class="group">
+                            <label>Confirm new password</label>
+                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-confirm-new-password" required="required">
+                            <span class="highlight"></span><span class="bar"></span>
+                        </div>
+                        <div class="group col-md-6">
+                            <button type="submit" class="button buttonBlue" ng-click="">Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="panel panel-default headProfile">
             <div class="panel-heading">User's Information</div>
             <div class="panel-body">
@@ -68,33 +87,35 @@
                     <div class="col-md-8">
                         <h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
                         <p class="createdate">Join date: {{user_info.createDate | date: 'yyyy-MM-dd'}}</p>
-                        <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline" on-star-click=""
+                        <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline"
+                                     on-star-click=""
                                      style="color: #FF9800;"></input-stars>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="panel panel-default" ng-if="user.id != email">
             <form ng-submit="sendFeedback()">
-            <div class="panel-heading">Give feedback for <i><b>{{user_info.id}}</b></i></div>
-            <div class="panel-body profile-user">
-                <div class="modal-body">
-                    <div class="group">
-                        <label for="title_feedback">Title</label>
-                        <input type="text" class="form-control" id="title_feedback" ng-model="feedback.title">
-                        <span class="highlight"></span><span class="bar"></span>
-                    </div>
-                    <div class="group">
-                        <label for="msg_feedback">Message</label>
-                        <textarea rows="9" id="msg_feedback" ng-model="feedback.message">
+                <div class="panel-heading">Give feedback for <i><b>{{user_info.id}}</b></i></div>
+                <div class="panel-body profile-user">
+                    <div class="modal-body">
+                        <div class="group">
+                            <label for="title_feedback">Title</label>
+                            <input type="text" class="form-control" id="title_feedback" ng-model="feedback.title">
+                            <span class="highlight"></span><span class="bar"></span>
+                        </div>
+                        <div class="group">
+                            <label for="msg_feedback">Message</label>
+                            <textarea rows="9" id="msg_feedback" ng-model="feedback.message">
                         </textarea>
-                        <span class="highlight"></span><span class="bar"></span>
-                    </div>
-                    <div class="group col-md-6 pull-right">
-                        <button type="submit" class="button buttonBlue">Send</button>
+                            <span class="highlight"></span><span class="bar"></span>
+                        </div>
+                        <div class="group col-md-6 pull-right">
+                            <button type="submit" class="button buttonBlue">Send</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
         </div>
     </div>

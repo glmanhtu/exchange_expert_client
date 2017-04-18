@@ -30,7 +30,8 @@
     "angular-ui-carousel": "^0.1.7",
     "jquery.responsive-slides": "^1.54.1",
     "angular-relative-date": "^2.1.0",
-    "angular-click-outside": "^2.10.2"
+    "angular-click-outside": "^2.10.2",
+    "angular-bootstrap": "^2.5.0"
   },
   "overrides": {
     "angular-relative-date": {

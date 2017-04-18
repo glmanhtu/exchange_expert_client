@@ -20,7 +20,7 @@
 
         initController();
 
-        $rootScope.$watch('predicates', function (newValue, oldValue) {
+        $scope.$on('handleBroadcast', function() {
             $scope.searchNull = false;
             vm.dummyItems = [];
             vm.pager = {};

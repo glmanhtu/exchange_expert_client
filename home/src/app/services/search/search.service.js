@@ -12,7 +12,8 @@
             searchGoods: searchGoods,
             searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation,
-            predicateSearch: predicateSearch
+            predicateSearch: predicateSearch,
+            broadcastItem: broadcastItem
         };
         return service;
       
@@ -126,6 +127,10 @@
                     'Content-Type': 'application/json'
                 }
             });
+        }
+
+        function broadcastItem() {
+            $rootScope.$broadcast('handleBroadcast');
         }
 
     }

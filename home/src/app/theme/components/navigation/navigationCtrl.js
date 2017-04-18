@@ -6,12 +6,12 @@
         navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService', 'UserService', 'toastr', 'registerService', 'InboxService'];
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location, $http, loginService, UserService, toastr, registerService, InboxService) {
-        $scope.unreadMailPost = 0;
+        $rootScope.unreadMailPost = 0;
         $scope.loginParams = {};
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
 
-        getUnreadMailPost();
+        //getUnreadMailPost();
 
         if ("userProfile" in $rootScope) {
             $scope.avatar = $rootScope.userProfile.avatar;
@@ -29,7 +29,9 @@
                     loginService.setSesssion(response.data).then(function(response) {
                         $scope.avatar = response.avatar;
                         //clear session
-                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);                    
+                        toastr.success("Welcome back, " + response.firstName + " " + response.lastName);
+                        //load mail post
+                        getUnreadMailPost();
                     });                    
                 } else {
                     toastr.error('Username or password incorrect');    
@@ -68,7 +70,7 @@
 
         function getUnreadMailPost() {
             InboxService.GetUnreadMailPost().then(function (response) {
-                $scope.unreadMailPost = response;
+                $rootScope.unreadMailPost = response;
             }, function (error) {
                 toastr.error(error);
             })

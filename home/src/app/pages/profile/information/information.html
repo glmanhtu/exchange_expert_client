@@ -27,45 +27,46 @@
                     </div>
                     <div class="group">
                         <label>Birthday</label>
-                        <input ng-model="user_info.birthday" uib-datepicker-popup="MM-dd-yyyy" ng-click="open1()"
+                        <input ng-model="user_info.birthday" uib-datepicker-popup="yyyy-MM-dd" ng-click="open1()"
                                is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
                                close-text="Close"/>
                         <span class="highlight"></span><span class="bar"></span>
                     </div>
                     <div class="group col-md-6">
-                        <button type="submit" class="button buttonBlue" ng-click="" ng-if="user_info.id == email">Save
+                        <button type="submit" class="button buttonBlue" ng-click="" ng-if="user != null && user.id == email">Save
                         </button>
                     </div>
                 </div>
             </form>
             <div class="clearfix"></div>
         </div>
-        <div class="panel panel-default"  ng-if="user_info.id == email">
+        <div class="panel panel-default"  ng-if="user != null && user.id == email">
             <div class="panel-heading">Change password</div>
             <div class="panel-body">
-                <form ng-submit="updateProfileUser()">
+                <form ng-submit="changePassword()">
                     <div class="col-md-12 profile-user">
                         <div class="group">
                         </div>
                         <div class="group">
                             <label>Current password</label>
-                            <input type="password" class="ng-pristine ng-valid ng-touched" ng-model="user_info.password"
+                            <input type="password" class="ng-pristine ng-valid ng-touched" ng-model="password.password"
                                    aria-describedby="profile-password" ng-minlength="3" ng-maxlength="8">
                             <span class="highlight"></span><span class="bar"></span>
                         </div>
                         <div class="group">
                             <label>New password</label>
-                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-new-password"  required="required">
+                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-new-password"
+                                   ng-model="password.newPassword"  required="required">
                             <span class="highlight"></span><span class="bar"></span>
                         </div>
                         <div class="group">
                             <label>Confirm new password</label>
-                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-confirm-new-password" required="required">
+                            <input type="password" class="ng-pristine ng-valid ng-touched" aria-describedby="profile-confirm-new-password"
+                                   ng-model="password.confirmNewPassword" required="required">
                             <span class="highlight"></span><span class="bar"></span>
                         </div>
                         <div class="group col-md-6">
-                            <button type="submit" class="button buttonBlue" ng-click="">Save
-                            </button>
+                            <button type="submit" class="button buttonBlue">Save</button>
                         </div>
                     </div>
                 </form>
@@ -74,9 +75,9 @@
         </div>
     </div>
     <div class="col-md-5">
-        <div class="panel panel-default headProfile">
+        <div class="panel panel-default">
             <div class="panel-heading">User's Information</div>
-            <div class="panel-body">
+            <div class="panel-body headProfile">
                 <div class="col-md-12">
                     <div class="col-md-4">
                         <img ng-src="{{ user_info.avatar }}" width="128" class="profile-img thumbnail"
@@ -111,9 +112,10 @@
                         </textarea>
                             <span class="highlight"></span><span class="bar"></span>
                         </div>
-                        <div class="group col-md-6 pull-right">
+                        <div class="group col-md-6 pull-right" ng-if="user != null && user.id != email">
                             <button type="submit" class="button buttonBlue">Send</button>
                         </div>
+                        <p ng-if="user == null"><i>Please, login to give feedback.</i></p>
                     </div>
                 </div>
             </form>

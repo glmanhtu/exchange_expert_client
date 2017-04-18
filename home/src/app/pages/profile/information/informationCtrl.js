@@ -5,11 +5,12 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $timeout, $window, $location, $stateParams, UserService, toastr) {
+    function informationCtrl($scope, $location, $stateParams, UserService, toastr, $rootScope) {
         $scope.feedback = {};
         $scope.email = $stateParams.user_id;
-        $scope.user = JSON.parse(sessionStorage.userProfile);
+        $scope.user = $rootScope.userProfile;
         $scope.user_info = {};
+        $scope.password = {}
         $scope.rating = 3;
         $scope.listRate = [
             {rate: "1", name: "1"},
@@ -35,14 +36,13 @@
         }
 
         $scope.selectAvatar = function () {
-            if ($scope.user.id == $scope.email)
+            if ($rootScope.userProfile.id == $scope.email)
                 $('#userAvatar').click();
         };
 
         $scope.updateProfileUser = function () {
             var outputDate = new Date($scope.user_info.birthday);
             $scope.user_info.birthday = outputDate.getTime();
-
             UserService.Update($scope.user_info).then(function (res) {
                 toastr.success("Your profile has been updated successfully.");
             }, function (error) {
@@ -50,21 +50,11 @@
             });
         }
 
-        $scope.rating = function () {
-            $timeout(function () {
-                console.log($scope.rating);
-            }, 1000);
-
-        }
-
         $scope.sendFeedback = function () {
             if (confirm("Do you want to sent feedback user " + $scope.user.id)) {
-                console.log($scope.feedback);
                 UserService.SendFeedback($scope.email, $scope.feedback).then(function (res) {
                     toastr.success('Thank you for your feedback to ' + $scope.email);
-                    setTimeout(function () {
-                        $scope.reload();
-                    }, 1500);
+                    $scope.feedback = {};
                 }, function (res) {
                     toastr.error("Have been occurred sending feedback for user. Please try again.");
                 });
@@ -72,16 +62,20 @@
         }
 
         $scope.sendRating = function (index) {
+            if ($rootScope.userProfile != null) {
+                if ($rootScope.userProfile.id != $scope.email) {
+                    var rating = index + 1;
+                    UserService.Rating($scope.email, rating).then(function (res) {
+                        toastr.success('Thank you for your rating to ' + $scope.email);
+                        GetInfo($scope.email);
+                    }, function (res) {
+                        toastr.error("Have been occurred sending rating user. Please try again.");
+                    });
+                }
+            } else {
+                toastr.error("Please, login to rating this seller");
+            }
 
-            var rating = index + 1;
-            UserService.Rating($scope.email, rating).then(function (res) {
-                toastr.success('Thank you for your rating to ' + $scope.email);
-                setTimeout(function () {
-                    $scope.reload();
-                }, 1500);
-            }, function (res) {
-                toastr.error("Have been occurred sending rating user. Please try again.");
-            });
         }
 
         $scope.sendAvatar = function () {
@@ -103,19 +97,30 @@
             });
         }
 
+
         $scope.changePassword = function () {
-               
+            if($scope.password.newPassword != $scope.password.confirmNewPassword) {
+                toastr.error("Confirm new password was not match");
+            }else {
+                UserService.ChangePassword($rootScope.userProfile.id, $scope.password).then(function () {
+                    toastr.success("Your password has been changed");
+                    $scope.password = {};
+                }, function (error) {
+                    console.error(error);
+                    toastr.error(error.data.error);
+                });
+            }
         }
 
         $scope.reload = function () {
             window.location.reload();
         }
 
-        $scope.open1 = function() {
+        $scope.open1 = function () {
             $scope.popup1.opened = true;
         };
 
-        $scope.setDate = function(year, month, day) {
+        $scope.setDate = function (year, month, day) {
             $scope.dt = new Date(year, month, day);
         };
 

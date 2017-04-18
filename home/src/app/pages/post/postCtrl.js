@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.post')
     .controller('postCtrl', postCtrl);
-    postCtrl.$inject = ['$scope', '$rootScope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap'];
+    postCtrl.$inject = ['$scope', '$rootScope', '$location', 'postService', 'GOOGLE_MAP_KEY', 'NgMap', 'toastr'];
     /* @ngInject */
-    function postCtrl($scope, $rootScope, $location, postService, GOOGLE_MAP_KEY, NgMap) {
+    function postCtrl($scope, $rootScope, $location, postService, GOOGLE_MAP_KEY, NgMap, toastr) {
         active();
 
         function active(){
@@ -106,6 +106,7 @@
 
             postService.uploadImage(data).then(
                 function (response) {
+                    console.log(response);
                     // $scope.aGood.images = response;
                     $scope.aGood.featuredImage = response[0];
                     for (var i = 0; i < response.length; i++) {
@@ -119,7 +120,8 @@
                     //call service to create a new post after upload the Image
                     postService.createNewPost($scope.aGood).then(
                         function (response) {
-                            // $location.path('/home');
+                            toastr.success("Successful");  
+                            $location.path('/home');
                             // console.log(response);
                         }, function (error) {
                             console.log('Something wrong in controller create new good');

@@ -1,5 +1,5 @@
 <div class="main-container">
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-xs-12" id="popupContainer" ng-cloak>
         <form>
             <div class="col-md-12 menu-item">
                 <div class="col-md-5 col-xs-12">
@@ -30,10 +30,10 @@
                 </div>
                 <div class="col-md-7 col-xs-12">
                     <div class="group">
-                        <label>Location</label>
+                        <label>Yours locations</label>
                         <ul>
                             <li ng-repeat="location in listLocations">
-                                <button type="button" class="btn btn-primary btn-sm" 
+                                <button type="button" class="btn btn-success" 
                                         ng-click="chooseMarker(location)">{{ location.nameStreet | limitTo: 35 }}{{location.nameStreet.length > 35 ? '...' : ''}}</button>
                                 <button type="button" class="close" aria-label="Close" ng-click="removeLocation(location)">
                                     <span aria-hidden="true">&times;</span>
@@ -68,6 +68,7 @@
             </div>
             <div class="col-md-2 col-md-offset-10">
                 <button type="button" ng-click='addGood()' class="btn btn-success">Submit</button>
+                <button type="button" class="btn btn-default">Cancel</button>
             </div>
         </form>
     </div>

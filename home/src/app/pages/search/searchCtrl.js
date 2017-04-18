@@ -20,8 +20,11 @@
 
         initController();
 
-        $scope.$on('handleBroadcast', function() {
-            $scope.searchNull = 0;
+        $rootScope.$watch('predicates', function (newValue, oldValue) {
+            console.log('predicates');
+            console.log(newValue);
+            console.log(oldValue);
+            $scope.searchNull = false;
             vm.dummyItems = [];
             vm.pager = {};
             initController();
@@ -30,10 +33,7 @@
         function initController() {
             if($rootScope.predicates){
                 vm.setPage(1);
-            } else {
-                $scope.searchNull = 1;
             }
-
         }
 
         function setPage(page) {
@@ -45,10 +45,11 @@
                 vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page, vm.itemPerPage);  
                 vm.items = vm.dummyItems.content;
                 if (vm.dummyItems.content && vm.dummyItems.content.length == 0) {
-                    $scope.searchNull = 1;
+                    $scope.searchNull = true;
+                } else {
+                    $scope.searchNull = false;
                 }
             }, function () {
-                $scope.searchNull = 1;
                 console.log('Something wrong');
             });                   
         }

@@ -6,7 +6,7 @@
 
         <div class="col-md-8 ">
 
-            <div ng-if="searchNull == 1">
+            <div ng-class="{'hide': !searchNull}">
                 
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -49,8 +49,8 @@
                                             </a>
                                         </span>
                                     </div>
-                                </div><!-- .download-meta -->
-                            </header><!-- .entry-header -->
+                                </div>
+                            </header>
                         </article>
 
                     </div>

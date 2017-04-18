@@ -6,18 +6,13 @@
     searchService.$inject = ['$http','$timeout','$rootScope','DOMAIN_URL'];
     /* @ngInject */
     function searchService($http, $timeout, $rootScope, DOMAIN_URL) {
-        var msg = '';
-
         var service = {
             getGoods: getGoods,
             getUser: getUser,
             searchGoods: searchGoods,
             searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation,
-            predicateSearch: predicateSearch,
-            prepForBroadcast: prepForBroadcast,
-            broadcastItem: broadcastItem,
-            setBroadcast: setBroadcast
+            predicateSearch: predicateSearch
         };
         return service;
       
@@ -132,19 +127,6 @@
                     'Content-Type': 'application/json'
                 }
             });
-        }
-
-        function prepForBroadcast(msg) {
-            this.msg = msg;
-            this.broadcastItem();
-        }
-
-        function broadcastItem() {
-            $rootScope.$broadcast('handleBroadcast');
-        }
-
-        function setBroadcast(msg) {
-            this.msg = msg;
         }
 
     }

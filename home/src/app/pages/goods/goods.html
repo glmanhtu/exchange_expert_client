@@ -121,4 +121,42 @@
 			</ul>
 		</div>
 	</div>
+
+
+	<!-- Modal -->
+	<div id="exchangeModal" class="modal animated fadeIn" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Exchange</h4>
+	      </div>
+	      <div class="modal-body col-md-12">
+
+	      	<div class="input-group">
+			  <span class="input-group-addon" id="exchange-address">Address</span>
+			  <input type="text" class="form-control" value="{{ user_info.firstName }}" placeholder="empty" aria-describedby="exchange-address">
+			</div>
+			<br>
+			<div class="input-group">
+			  <span class="input-group-addon" id="exchange-time">Time</span>
+			  <input type="text" class="form-control" value="{{ user_info.lastName }}" placeholder="yyyy-MM-dd hh:mm:ss" aria-describedby="exchange-time">
+			</div>
+			<br>
+			<input type="button" class="btn btn-primary pull-left" ng-click="exchangeApply()" value="Apply">
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
 </div>	
+
+</div>	
+

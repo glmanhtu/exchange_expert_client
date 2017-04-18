@@ -42,7 +42,7 @@
         <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 ">
             <header>
                 <div class="col-md-2 col-xs-3 featured-img">
-                    <img ng-src="{{ DOMAIN_URL + '/api' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
+                    <img ng-src="{{ DOMAIN_URL + '/api/' + item.featuredImage || 'assets/img/default-50x50.gif' }}">
                 </div>
                 <div class="col-md-10 col-xs-9 featured-title">
                     <div ng-click="openGood(item)">

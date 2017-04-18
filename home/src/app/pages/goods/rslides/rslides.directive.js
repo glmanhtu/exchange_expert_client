@@ -18,7 +18,7 @@
           },
           template: '<ul class="rslides">' + 
                       '<li ng-repeat="image in rslides" rslides-item>' +
-                        '<img ng-src="' + DOMAIN_URL + '/api{{image.url}}" title=""/>' +
+                        '<img ng-src="' + DOMAIN_URL + '/api/{{image.url}}" title=""/>' +
                       '</li>'+
                     '</ul>',
           link: function(scope, elm, attrs, ctrl) {

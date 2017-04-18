@@ -45,6 +45,7 @@
             $scope.user_info.birthday = outputDate.getTime();
             UserService.Update($scope.user_info).then(function (res) {
                 toastr.success("Your profile has been updated successfully.");
+                $rootScope.userProfile = res;
             }, function (error) {
                 toastr.success("Have been occurred when updated your profile. " + error);
             });
@@ -99,15 +100,14 @@
 
 
         $scope.changePassword = function () {
-            if($scope.password.newPassword != $scope.password.confirmNewPassword) {
+            if ($scope.password.newPassword != $scope.password.confirmNewPassword) {
                 toastr.error("Confirm new password was not match");
-            }else {
-                UserService.ChangePassword($rootScope.userProfile.id, $scope.password).then(function () {
+            } else {
+                UserService.ChangePassword($rootScope.userProfile.id, $scope.password).then(function (response) {
                     toastr.success("Your password has been changed");
                     $scope.password = {};
                 }, function (error) {
-                    console.error(error);
-                    toastr.error(error.data.error);
+                    toastr.error(error.data.message);
                 });
             }
         }

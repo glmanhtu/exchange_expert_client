@@ -5,7 +5,7 @@
         .controller('inboxCtrl', inboxCtrl);
 
     /** @ngInject */
-    function inboxCtrl($scope, $stateParams, UserService, InboxService, toastr, $rootScope) {
+    function inboxCtrl($scope, $stateParams, UserService, InboxService, toastr, $rootScope, $location) {
         $scope.mailPosts = {}
         $scope.mailPost = {}
         $scope.feedback = {};

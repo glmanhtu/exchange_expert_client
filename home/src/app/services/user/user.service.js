@@ -22,6 +22,7 @@
         service.Delete = Delete;
         service.UploadAvatar = UploadAvatar;
         service.GetDomainUrl = GetDomainUrl;
+        service.ChangePassword = ChangePassword;
 
         return service;
 
@@ -104,6 +105,19 @@
                     'Accept': 'application/json'
                 }
             }).then(handleSuccess, handleError('Error feedback'));
+        }
+
+        function ChangePassword(userId, password) {
+            var url = DOMAIN_URL + '/api/user/change-password/' + userId;
+            return $http({
+                url: url,
+                method: "PUT",
+                data: JSON.stringify(password),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
         }
 
         function UploadAvatar(file) {

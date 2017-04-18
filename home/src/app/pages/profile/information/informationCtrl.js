@@ -10,6 +10,7 @@
         $scope.email = $stateParams.user_id;
         $scope.user = $rootScope.userProfile;
         $scope.user_info = {};
+        $scope.password = {}
         $scope.rating = 3;
         $scope.listRate = [
             {rate: "1", name: "1"},
@@ -96,8 +97,19 @@
             });
         }
 
-        $scope.changePassword = function () {
 
+        $scope.changePassword = function () {
+            if($scope.password.newPassword != $scope.password.confirmNewPassword) {
+                toastr.error("Confirm new password was not match");
+            }else {
+                UserService.ChangePassword($rootScope.userProfile.id, $scope.password).then(function () {
+                    toastr.success("Your password has been changed");
+                    $scope.password = {};
+                }, function (error) {
+                    console.error(error);
+                    toastr.error(error.data.error);
+                });
+            }
         }
 
         $scope.reload = function () {

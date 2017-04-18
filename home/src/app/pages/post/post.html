@@ -1,25 +1,29 @@
 <div class="main-container">
-    <div class="col-md-12 col-xs-12" id="popupContainer" ng-cloak>
+    <div class="col-md-12 col-xs-12 post-container" id="popupContainer" ng-cloak>
         <form>
+            <div class="col-md-12 col-xs-12 post-title">
+                Creating your new good
+            </div>
             <div class="col-md-12 menu-item">
-                <div class="col-md-5 col-xs-12">
+                <div class="col-md-6 col-xs-12">
                     <div class="group">
                         <input type="text" ng-model="aGood.title" ng-class="{used: aGood.title}"/>
                         <span class="highlight"></span><span class="bar"></span>
                         <label>Title</label>
                     </div>
                     <div class="group">
-
                         <select ng-model="aGood.category.name" ng-options="cate for cate in categories">
                         </select>
                         <span class="highlight"></span><span class="bar"></span>
-                        <label>Category</label>
+                        <label ng-if="!aGood.category.name">Category</label>
                     </div>
                     <div class="group">
                         <input type="text" ng-model="aGood.price" ng-class="{used: aGood.price}"/>
                         <span class="highlight"></span><span class="bar"></span>
                         <label>Price</label>
-                    </div>
+                    </div>                    
+                </div>
+                <div class="col-md-6 col-xs-12">
                     <div class="group">
                         <input type="text" ng-model="aGood.address" ng-class="{used: aGood.address}"/>
                         <span class="highlight"></span><span class="bar"></span>
@@ -33,10 +37,8 @@
                                onchange="angular.element(this).scope().setFileNameToTempFileInput()"/>
                     </div>
                 </div>
-                <div class="col-md-7 col-xs-12">
-                    <div class="group"
-                         map-lazy-load="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&libraries=places">
-                        <label class="labelPositionArea">Yours locations</label>
+                <div class="col-md-12 col-xs-12">
+                    <div class="group">
                         <div class="locationArea">
                             <ul>
                                 <li ng-repeat="location in listLocations">
@@ -52,12 +54,14 @@
                             </ul>
                         </div>
                         <div class="mapArea">
-                            <input places-auto-complete types="['geocode']"
+                            <div class="map-add-location">
+                                <input places-auto-complete types="['geocode']"
                                    on-place-changed="placeMarker()"
                                    ng-model="searchAutoComplete">
-                            <button type="button" ng-click='addLocation()' class="btn btn-success btnRight">Add</button>
+                                <button type="button" ng-click='addLocation()' class="btn btn-success btnRight">Add</button>
+                            </div>                            
                             <ng-map map-type-control="false"
-                                    default-style="true"
+                                    class="map-content"                                    
                                     scrollwheel="false"
                                     center="{{centerMap}}"
                                     zoom="15">
@@ -70,17 +74,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="inputs-content"><span class="">Description:</span></label>
+            </div>            
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12">              
                     <text-angular name="htmlcontent" ng-model="aGood.description"></text-angular>
                 </div>
             </div>
-            <div class="col-md-2 col-md-offset-10">
+            <div class="col-md-2 col-md-offset-10 button-control">
                 <button type="button" ng-click='addGood()' class="btn btn-success">Submit</button>
                 <button type="button" class="btn btn-default">Cancel</button>
             </div>
-        </form>
-    </div>
+        </div>        
+    </form>
 </div>

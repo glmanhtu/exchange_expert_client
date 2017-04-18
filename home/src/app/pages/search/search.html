@@ -2,12 +2,11 @@
     <div class="container" ng-controller="searchCtrl as vm">
         
         <div class="col-md-12 form-group">
-            <h2><span class="label label-primary from-control">Search Results:</span></h2>
         </div>
 
         <div class="col-md-8 ">
 
-            <div ng-if="!vm.items">
+            <div ng-class="{'hide': !searchNull}">
                 
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -21,64 +20,66 @@
                 <div ng-repeat="item in vm.items">
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="thumbnail">
-                                <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                                    <img ng-src="{{DOMAIN_URL}}/api/{{ item.featuredImage }}" alt="item" style="width:100%">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="caption">
-                                <div class="entry-meta">
-                                    <span class="date"><i class="fa fa-calendar"></i>&nbsp;<time class="post-time" itemprop="datePublished" datetime="">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
-                                    <span class="entry-author author"><i class="fa fa-user"></i>&nbsp;<a href="#" class="entry-author-link" rel="author"><span class="entry-author-name" itemprop="name"> {{ item.seller.firstName }} {{ item.seller.lastName }} </span></a></span>
-                                    <span class="entry-categories categories-links"><i class="fa fa-folder-open"></i>&nbsp;<a href="#" rel="category tag">{{ item.type }}</a></span>
-                                    <span class="hidden-xs entry-views"><i class="fa fa-eye"></i>&nbsp;321</span>
-                                    <span class="entry-comments-link leave-reply"><i class="fa fa-comments-o"></i> <a href="#">3</a></span>
+                        <article class="post row">
+                            <a class="post-featured-image col-md-4 col-xs-12" href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
+                                <img ng-src="{{ item.featuredImage | imageUrl }}"/>
+                            </a>
+                            
+                            <header class="entry-header col-md-8 col-xs-12">
+                                <h3 class="entry-title">
+                                    <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">
+                                        {{ item.title | limitTo: 64 }}{{item.title.length > 64 ? '...' : ''}}
+                                    </a>
+                                </h3>
+
+                                <div class="entry-excerpt">
+                                    <p>{{ item.description | plainText | limitTo: 300 }}{{item.description.length > 300 ? '...' : ''}}</p>
                                 </div>
-                                <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}" target="_blank">
-                                    <h3>{{ item.title }}</h3>
-                                </a>
-                                <p>{{ item.description }}</p>
-                            </div>
-                        </div>
+
+                                <div class="download-meta">
+                                    <div class="download-meta-price download-price-toggle">
+                                        <div class="download-meta-price-details">
+                                            <a href="#"><span>${{item.price}}</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="download-meta-name">
+                                        <span class="author vcard">
+                                            <a href="/#/profile/{{ item.seller.id }}">
+                                                <img alt="" src="https://secure.gravatar.com/avatar/0aeecce7f483aa2b409fe65c352d034a?s=40&amp;d=mm&amp;r=g" class="avatar" height="20" width="20" originals="20"> {{item.seller.firstName}} {{ item.seller.lastName }}
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </header>
+                        </article>
+
                     </div>
 
-                </div>                 
+                </div>                
 
-                <hr>
-
-                <div class="col-md-12">
+                <div class="row">
 
                     <ul ng-if="vm.pager.pages.length" class="pagination">
-                        <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                        <li ng-class="{hidden:vm.pager.currentPage === 1}">
                             <a ng-click="vm.setPage(1)">First</a>
-                        </li>
-                        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-                            <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
-                        </li>
+                        </li>            
                         <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
                             <a href="#/search" ng-click="vm.setPage(page)">{{page}}</a>
-                        </li>                
-                        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-                            <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
-                        </li>
-                        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                        </li>                            
+                        <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
                             <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
                         </li>
                     </ul>
 
                 </div>
+
             </div>
+
+                
         </div>
+   
         <div class="col-md-4">
-            <div class="form-group" map-lazy-load="https://maps.google.com/maps/api/js">
-                <ng-map center="current-location" zoom="16" on-click="getpos($event)">
-                    <marker position="current-location" title="" on-dragend="getpos($event)" animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
-                </ng-map>
-            </div>
-            <button ng-click="searchByLocation()" class="btn btn-primary pull-right">Search Location</button>
+            
         </div>
     </div>
 </div>

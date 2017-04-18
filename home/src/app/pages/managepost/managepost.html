@@ -1,36 +1,51 @@
 <div class="main-container">
     <div class="col-md-12 col-xs-12">
 
-        <table class="table" st-table="smartTableData">
+        <table class="table table-hover">
             <thead>
-              <tr class="sortable">
-                <th class="table-Index" st-sort="Index" st-sort-default="true">#</th>
-                <th st-sort="title">Title</th>
-                <th st-sort="price">Price (USD)</th>
-                <th st-sort="postDate">Post Date</th>
-                <th st-sort="action"></th>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Price (USD)</th>
+                <th>Post Date</th>
+                <th></th>
               </tr>
             </thead>
 
             <tbody>
               <tr ng-repeat="(key,item) in vm.items | filter:test">
-                <td class="table-Index">{{key+1}}</td>
+                <td>{{key+1}}</td>
                 <td>{{item.title}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td><button type="button" class="btn btn-default" data-toggle="modal" ng-click="open('app/pages/posts/details.html','lg', item)">View</button></td>
+                <td>
+                    <button type="button" class="btn btn-success" ng-click="viewDetail(item)">View</button>
+                    <button type="button" class="btn btn-success" ng-click="editDetail(item)">Edit</button>
+                </td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="7" class="text-center">
-                  <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+                <td colspan="5" class="text-center">
+                    <div class="row">
+                        <ul ng-if="vm.pager.pages.length" class="pagination">
+                            <li ng-class="{hidden:vm.pager.currentPage === 1}">
+                                <a ng-click="vm.setPage(1)">First</a>
+                            </li>            
+                            <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                                <a href="#" ng-click="vm.setPage(page)">{{page}}</a>
+                            </li>                            
+                            <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
+                                <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+                    </div>
                 </td>
               </tr>
             </tfoot>
           </table>
 
-        <div ng-repeat="item in vm.items">
+        <!-- <div ng-repeat="item in vm.items">
 
             <div class="row">
                 <article class="post row">
@@ -62,13 +77,13 @@
                                     </a>
                                 </span>
                             </div>
-                        </div><!-- .download-meta -->
-                    </header><!-- .entry-header -->
+                        </div>
+                    </header>
                 </article>
 
             </div>
 
-        </div>          
+        </div>   
 
         <div class="row">
 
@@ -84,8 +99,8 @@
                 </li>
             </ul>
 
-        </div>
+        </div>-->
 
 
-    </div
+    </div>
 </div>

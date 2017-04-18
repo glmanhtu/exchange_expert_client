@@ -21,9 +21,6 @@
         initController();
 
         $rootScope.$watch('predicates', function (newValue, oldValue) {
-            console.log('predicates');
-            console.log(newValue);
-            console.log(oldValue);
             $scope.searchNull = false;
             vm.dummyItems = [];
             vm.pager = {};
@@ -40,7 +37,7 @@
             if (page < 1 || page > vm.pager.totalPages) {
                 return;
             }
-            searchService.predicateSearch($rootScope.predicates).then(function (response) {
+            searchService.searchGoods($rootScope.predicates.title, page - 1, vm.itemPerPage).then(function (response) {
                 vm.dummyItems = response.data;
                 vm.pager = PagerService.GetPager(vm.dummyItems.totalElements, page, vm.itemPerPage);  
                 vm.items = vm.dummyItems.content;

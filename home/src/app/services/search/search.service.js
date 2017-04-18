@@ -89,15 +89,14 @@
             });
         }
 
-        function searchGoods(key, location) {
+        function searchGoods(key, page, itemsPerPage) {
             var url = DOMAIN_URL + '/api/search/good';
             return $http({
                 url: url,
                 method: "POST",
-                data: JSON.stringify({"pagination":{"currentPage":0,"itemsPerPage":10},"title":key,"order":{"by":"title","isASC":false}}),
+                data: JSON.stringify({"pagination":{"currentPage":page,"itemsPerPage":itemsPerPage},"title":key,"order":{"by":"title","isASC":false}}),
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic Y2xpZW50YXBwOjEyMzQ1Ng=='
+                    'Content-Type': 'application/json'
                 }
             });
         }

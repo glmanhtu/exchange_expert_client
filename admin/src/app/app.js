@@ -1,43 +1,39 @@
 (function () {
-    'use strict';
-    angular
-        .module('ExpertExchange', [
-            'ngCookies',
-            'ngMap',
-            'textAngular',
-            'toastr',            
-            'ui.router',
-            'relativeDate',
-            'ExpertExchange.pages',                 
-            'ExpertExchange.theme',
-            'angular-click-outside',
-            'angular-input-stars'        
-        ])
-        .run(run);
+  'use strict';
+  angular.module('BlurAdmin', [  
+    'ui.bootstrap',
+    'ui.sortable',
+    'ui.router',  
+    'toastr',
+    'smart-table',
+    "xeditable",
+    'ui.slimscroll',  
+    'angular-progress-button-styles',
+    'ngCookies',
+    'ngMap',
+    'BlurAdmin.theme',
+    'BlurAdmin.pages'
+    ]).run(run);
 
-    function run($rootScope, $location, $cookieStore, $http, toastr, loginService, GOOGLE_MAP_KEY) {        
-        $rootScope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;        
+    function run($rootScope, $location, $cookieStore, $http, toastr) {
+        $rootScope.auth = $cookieStore.get('auth') || {};
+
+        if ('access_token' in $rootScope.auth) {
+          $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.auth.access_token;
+        }
+
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            $rootScope.GMapAutocomplete = "";
-            if ($location.path() != '/map') {
-                $rootScope.mapPage = false;                
-            }
-            if ($rootScope.closeSuggest !== undefined) {
-                $rootScope.closeSuggest();
-            }
-            // redirect to login page if not logged in and trying to access a restricted page                
-            var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;                          
-            if (!restrictedPage && !sessionStorage.accessToken) {
-                toastr.error('You have to login to access this resource');
-            } else if (sessionStorage.accessToken) {
-                var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
-                if (expired < 1) {
-                    loginService.logout();
-                    toastr.error('Your access token was expired, please login again');                        
-                } else {
-                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.accessToken;
-                }
+            // redirect to login page if not logged in and trying to access a restricted page
+            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;          
+            var loggedIn = $rootScope.auth.access_token;
+            if (restrictedPage && !loggedIn) {
+                $location.path('/login');
             }            
+            var expired = parseInt($rootScope.auth.expires_in) - Math.round((new Date()).getTime() / 1000);
+            if (expired < 1) {
+              toastr.error('Access token was expired');
+              $location.path('/login');
+            }
         });
     }
-})();
+  })();

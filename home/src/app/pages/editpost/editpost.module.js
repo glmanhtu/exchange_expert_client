@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('ExpertExchange.pages.editpost', [])
+  angular.module('ExpertExchange.pages.editpost', ['ExpertExchange.pages.goods'])
     .config(routeConfig);
 
     /** @ngInject */

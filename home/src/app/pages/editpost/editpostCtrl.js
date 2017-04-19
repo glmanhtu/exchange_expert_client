@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMapService', 'InboxService', 'toastr','$rootScope', 'GOOGLE_MAP_KEY', 'NgMap'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMapService, InboxService, toastr, $rootScope, GOOGLE_MAP_KEY, NgMap) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;
@@ -17,15 +17,15 @@
         var category_slug = $stateParams.category_slug;
         var url = "/" + category_slug + "/" + good_slug;
 
-        $scope.aGood = {
-            postBy: {id: $rootScope.userProfile.id}
-        };
+        // $scope.aGood = {
+        //     postBy: {id: $rootScope.userProfile.id}
+        // };
         $scope.categories = ["Book", "Movie", "Toy", "Computer", "Clothing", "Handmade", "Sport"];
         $scope.centerMap = [44.841225,-0.580036];
 
         $scope.listLocations = [];
-        $scope.aGood.location = [];
-        $scope.aGood.images = [];
+        // $scope.aGood.location = [];
+        // $scope.aGood.images = [];
         $scope.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
         NgMap.getMap().then(function(map) {
             // console.log('map', map);
@@ -40,17 +40,33 @@
 
         function getGood(url) {
             goodService.getGood(url).then(function (response) {
-                $scope.aGood = response.data;
-                console.log($scope.aGood);
-                // $scope.images = response.data.images;
+                $scope.aGood = {
+                    id: response.data.id,
+                    title: response.data.title,
+                    slug: response.data.slug,
+                    description: response.data.description,
+                    category: response.data.category,
+                    price: response.data.price,
+                    postBy: response.data.seller,
+                    postDate: response.data.price,
+                    location: response.data.location,
+                    featuredImage: response.data.featuredImage,
+                    images: response.data.images,
+                    contacts: response.data.contacts
+                };
 
-                // googleMapService.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function (response) {
-                //     $scope.addreses = response.data.results[0].address_components[0].short_name;
-                //     $scope.addresses = response.data.results;
-
-                // }, function (error) {
-                //     console.log(error);
-                // })
+                for (var i = 0; i < response.data.location.length; i++) {
+                    googleMapService.getAddress(response.data.location[i].lat, response.data.location[i].lon).then(function (response) {
+                        $scope.listLocations.push({
+                            nameStreet: response.data.results[0].formatted_address,
+                            lat: response.data.results[0].geometry.location.lat,
+                            lon: response.data.results[0].geometry.location.lon
+                        });
+                    }, function (error) {
+                        console.log(error);
+                    })
+                };
+                
             }, function () {
                 console.log('Something wrong when get good');
             });
@@ -110,6 +126,7 @@
         }
 
         $scope.editGood = function(){
+            $scope.aGood.location = [];
             // edit suitable list locations
             for (var i = 0; i < $scope.listLocations.length; i++) {
                 var position = {
@@ -117,45 +134,60 @@
                     lon: $scope.listLocations[i].lon
                 };
                 $scope.aGood.location.push(position);
-                
             }
 
             // upload multi image
             var ins = document.getElementById('myfile').files.length;
-            var data = new FormData();
 
-            for (var i = 0; i < ins; i++) {
-                data.append("files", document.getElementById('myfile').files[i]);
+            if(ins>0){
+                var data = new FormData();
+                for (var i = 0; i < ins; i++) {
+                    data.append("files", document.getElementById('myfile').files[i]);
+                }
+
+                postService.uploadImage(data).then(
+                    function (response) {
+                        $scope.aGood.images = [];
+                        console.log(response);
+                        // $scope.aGood.images = response;
+                        $scope.aGood.featuredImage = response[0];
+                        for (var i = 0; i < response.length; i++) {
+                            var img = {
+                                url: response[i]
+                            };
+                            $scope.aGood.images.push(img);
+                        }
+
+                        // console.log($scope.addGood);
+                        //call service to create a new post after upload the Image
+                        postService.editPost($scope.aGood, $scope.aGood.id).then(
+                            function (response) {
+                                toastr.success("Edit successful");
+                                $location.path('/home');
+                                // console.log(response);
+                            }, function (error) {
+                                console.log('Something wrong in controller create new good');
+                                console.log(error);
+                            });
+
+                    }, function (error) {
+                        console.log('Controller Something wrong ');
+                        console.log(error);
+                    });
+
+            }else{
+                postService.editPost($scope.aGood, $scope.aGood.id).then(
+                    function (response) {
+                        toastr.success("Edit successful");
+                        $location.path('/home');
+                        // console.log(response);
+                    }, function (error) {
+                        console.log('Something wrong in controller create new good');
+                        console.log(error);
+                    });
             }
 
-            postService.uploadImage(data).then(
-                function (response) {
-                    console.log(response);
-                    // $scope.aGood.images = response;
-                    $scope.aGood.featuredImage = response[0];
-                    for (var i = 0; i < response.length; i++) {
-                        var img = {
-                            url: response[i]
-                        };
-                        $scope.aGood.images.push(img);
-                    }
-
-                    // console.log($scope.addGood);
-                    //call service to create a new post after upload the Image
-                    postService.createNewPost($scope.aGood).then(
-                        function (response) {
-                            toastr.success("Successful");  
-                            $location.path('/home');
-                            // console.log(response);
-                        }, function (error) {
-                            console.log('Something wrong in controller create new good');
-                            console.log(error);
-                        });
-
-                }, function (error) {
-                    console.log('Controller Something wrong ');
-                    console.log(error);
-                });
+            
         }
     }
 })();

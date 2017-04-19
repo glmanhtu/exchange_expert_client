@@ -133,5 +133,13 @@
                     console.log(error);
                 });
         }
+
+        $scope.showSelectFile = function () {
+            $('#myfile').click();
+        }
+
+        $scope.setFileNameToTempFileInput = function () {
+            $('#tempFile').val($('#myfile').val());
+        }
     }
 })();

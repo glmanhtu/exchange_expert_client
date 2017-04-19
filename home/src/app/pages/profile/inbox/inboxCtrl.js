@@ -5,11 +5,11 @@
         .controller('inboxCtrl', inboxCtrl);
 
     /** @ngInject */
-    function inboxCtrl($scope, $stateParams, UserService, InboxService, toastr) {
+    function inboxCtrl($scope, $stateParams, UserService, InboxService, toastr, $rootScope, $location) {
         $scope.mailPosts = {}
         $scope.mailPost = {}
         $scope.feedback = {};
-        $scope.user = JSON.parse(sessionStorage.userProfile);
+        $scope.user = $rootScope.userProfile
         $scope.user_info = {};
         $scope.setInboxPage = setInboxPage;
         GetInfo($scope.user.id);
@@ -52,11 +52,16 @@
             InboxService.GetMailPost(id).then(function (response) {
                 $scope.mailPost = response;
                 MakeAsRead(id);
+                //load unread mail post
+                InboxService.GetUnreadMailPost().then(function (response) {
+                    $rootScope.unreadMailPost = response;
+                }, function (error) {
+                    toastr.error(error);
+                })
             }, function (error) {
                 toastr.error(error);
             });
         }
-
 
         function MakeAsRead(id) {
             InboxService.MakeAsRead(id);

@@ -80,16 +80,21 @@ input[type="submit"], .button {
     font-size: 16px;
     font-weight: 600;
     display: inline-block;
-    padding: .5em 1em;
+    padding: .5em 1em!important;
     height: auto;
     -webkit-transition: .2s ease-in-out;
     transition: .2s ease-in-out;
     color: #fff;
     border: none;
     border-radius: 3px;
-    background: #37BF91;
     line-height: 1.4;
+    background: #37BF91!important;
     -webkit-appearance: none;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
 }
 
 body {
@@ -574,6 +579,9 @@ article{
         margin: 20px 0;
         padding: 20px 0;
         border-top: 1px solid #cccccc;
+        ul.listWithTypeListOrder {
+            list-style: inside decimal;
+        }
     }
 }
 
@@ -588,3 +596,30 @@ article{
         padding: 0 10px;
     }
 }
+.modal-header {
+    background: #37BF91;
+    border-radius: 5px 5px 0px 0px;
+    .modal-title {
+        font-weight: bold;
+        color: #fff;
+    }
+}
+.btn-default.button {
+    background: #26292b!important;
+}
+.btn-default.button:hover {
+    color: #cccccc;
+    background: #5e6163 !important;
+}
+
+.modal-header .close {
+    margin-top: 0;
+    position: absolute;
+    right: 16px;
+}
+thead tr {
+    background: #37BF91;
+    color: #fff;
+}
+
+

@@ -1,124 +1,165 @@
 <div class="main-container">
-	<div class="row">
-		<div class="col-md-9 item-container col-xs-12">
-			<div class="slider-wrapper">
-				<div rslides="item.images"></div>
-			</div>
-			<div class="item-title">
-				<p>{{item.title}}</p>
-			</div>
-			<div class="item-description">
-				<p ng-bind-html="item.description"></p>
-			</div>	
-		</div>
-		<div class="col-md-3 item-purchase col-xs-12">
-			<div id="purchase-box" class="purchase-box">
-							
-				<div class="download-price download-aside">																	
-					<div class="purchase-price">
-						<span class="edd_price">${{ item.price }}</span>
-					</div>
-					<form class="edd_download_purchase_form" method="post">			
-	
-						<div class="edd_purchase_submit_wrapper">
-							<a href="#" class="edd-add-to-cart button blue edd-submit edd-has-js">
-								<span class="edd-add-to-cart-label">Contact seller</span> 
-								<span class="edd-loading" aria-label="Loading"></span>
-							</a>			
-						</div>		
-					</form><!--end #edd_purchase_50-->
+    <div class="row">
+        <div class="col-md-9 item-container col-xs-12">
+            <div class="slider-wrapper">
+                <div rslides="item.images"></div>
+            </div>
+            <div class="item-title">
+                <p>{{item.title}}</p>
+            </div>
+            <div class="item-description">
+                <p ng-bind-html="item.description"></p>
+            </div>
+        </div>
+        <div class="col-md-3 item-purchase col-xs-12">
+            <div id="purchase-box" class="purchase-box">
 
-				</div><!-- .download-price -->
+                <div class="download-price download-aside">
+                    <div class="purchase-price">
+                        <span class="edd_price">${{ item.price }}</span>
+                    </div>
+                    <form class="edd_download_purchase_form" method="post">
 
-				<div class="download-details download-aside">					
-					<div class="post-meta">
-						<!-- Get the download categories -->
-						<span class="meta-cat">
+                        <div class="edd_purchase_submit_wrapper">
+                            <button class="edd-add-to-cart button blue edd-submit edd-has-js" id="btnContactSeller"
+                                    data-toggle="modal" ng-click="modelSendMessage()">
+                                <span class="edd-add-to-cart-label">Contact seller</span>
+                                <span class="edd-loading" aria-label="Loading"></span>
+                            </button>
+                        </div>
+                    </form><!--end #edd_purchase_50-->
+
+                </div><!-- .download-price -->
+
+                <div class="download-details download-aside">
+                    <div class="post-meta">
+                        <!-- Get the download categories -->
+                        <span class="meta-cat">
 							<i class="fa fa-folder"></i>
 							<a href="#" rel="tag">Category: {{ item.category.name }}</a>
 						</span>
-						<span class="meta-tag">
+                        <span class="meta-tag">
 							<i class="fa fa-clock-o"></i>
 							<a href="#" rel="tag">Since: {{ item.postDate | relativeDate}}</a>
-						</span>			
-						<span class="meta-tag">
+						</span>
+                        <span class="meta-tag">
 							<i class="fa fa-user"></i>
 							<a href="#/profile/{{ item.seller.id }}" rel="tag">Seller: {{ item.seller.firstName }}</a>
 						</span>
-						<span class="meta-tag">
+                        <span class="meta-tag">
 							<i class="glyphicon glyphicon-map-marker"></i>
 							<a href="#" rel="tag">{{address}}</a>
-						</span>	
-					</div><!-- .post-meta -->
-				</div>	
-			<div class="download-aside checkout-share">
-				<ul>
-					<li class="share-title">Share this:</li>
+						</span>
+                    </div><!-- .post-meta -->
+                </div>
+                <div class="download-aside checkout-share">
+                    <ul>
+                        <li class="share-title">Share this:</li>
 
-					<li class="share-twitter">
-						<a title="Share on Twitter" href="#">
-							<i class="fa fa-twitter-square"></i>
-						</a>
-					</li>
+                        <li class="share-twitter">
+                            <a title="Share on Twitter" href="#">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                        </li>
 
-					<li class="share-facebook">
-						<a title="Share on Facebook" href="#">
-							<i class="fa fa-facebook-square"></i>
-						</a>
-					</li>
-					<li class="share-google">				
-						<a href="#">
-							<i class="fa fa-google-plus-square"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+                        <li class="share-facebook">
+                            <a title="Share on Facebook" href="#">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li class="share-google">
+                            <a href="#">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-	</div>
+        </div>
 
-	<div class="row col-md-12">
-	    <div class="blog-comment">			
-	        <hr/>
-			<ul class="comments">
-			<li class="clearfix">
+        <div class="row col-md-12">
+            <div class="blog-comment">
+                <hr/>
+                <ul class="comments">
+                    <li class="clearfix">
 
-			  <img src="{{ item.seller.avatar || 'assets/img/user1-128x128.jpg' }}" class="avatar" alt="">
-			  <div class="post-comments">
-			      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">{{ item.seller.firstName || "Seller"}}</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                        <img src="{{ item.seller.avatar || 'assets/img/user1-128x128.jpg' }}" class="avatar" alt="">
+                        <div class="post-comments">
+                            <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">{{
+                                item.seller.firstName || "Seller"}}</a> says : <i class="pull-right"><a href="#">
+                                <small>Reply</small>
+                            </a></i></p>
 
-			      <p>
-			          Hi Expert,
-			          Can you exchange for me?
-			      </p>
-			  </div>
-			</li>
-			<li class="clearfix">
-			  <img src="assets/img/user3-128x128.jpg" class="avatar" alt="">
-			  <div class="post-comments">
+                            <p>
+                                Hi Expert,
+                                Can you exchange for me?
+                            </p>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <img src="assets/img/user3-128x128.jpg" class="avatar" alt="">
+                        <div class="post-comments">
 
-			      <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                            <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says
+                                : <i class="pull-right"><a href="#">
+                                    <small>Reply</small>
+                                </a></i></p>
 
-			      <p>
-			          	Thank you for the feedback.
-			      </p>
-			  </div>
-			
-			  <ul class="comments">
-			      <li class="clearfix">
-			          <img src="assets/img/user7-128x128.jpg" class="avatar" alt="">
-			          <div class="post-comments">
+                            <p>
+                                Thank you for the feedback.
+                            </p>
+                        </div>
 
-			              <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                        <ul class="comments">
+                            <li class="clearfix">
+                                <img src="assets/img/user7-128x128.jpg" class="avatar" alt="">
+                                <div class="post-comments">
 
-			              <p>
-			                  Hello.
-			              </p>
-			          </div>
-			      </li>
-			  </ul>
-			</li>
-			</ul>
-		</div>
-	</div>
-</div>	
+                                    <p class="meta">{{ item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}<a
+                                            href="#">JohnDoe</a> says : <i class="pull-right"><a href="#">
+                                        <small>Reply</small>
+                                    </a></i></p>
+
+                                    <p>
+                                        Hello.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--Model popup-->
+    <div class="modal fade" id="contactSeller" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <form ng-submit="sendMessage()" id="sendMessage">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please, choosing location that you want exchange this product</p>
+                    <br>
+                    <ul>
+                        <li ng-repeat="addr in addresses">
+                           <label><input type="checkbox" name="location" value="{{addr.formatted_address}}"> {{addr.formatted_address}}</label>
+                        </li>
+                    </ul>
+                    <br>
+                    <text-angular name="message.content" ng-model="message.content"></text-angular>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary button" >Send contact</button>
+                </div>
+            </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+

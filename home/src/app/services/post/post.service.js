@@ -9,6 +9,7 @@
 
         this.createNewPost = function (dataOfGood) {
             var url = DOMAIN_URL + '/api/goods';
+            console.log(JSON.stringify(dataOfGood));
             return $http({
                 url: url,
                 method: "POST",

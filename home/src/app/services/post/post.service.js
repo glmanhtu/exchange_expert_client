@@ -55,8 +55,6 @@
 
         this.editPost = function (dataOfGood, id) {
             var url = DOMAIN_URL + '/api/goods/' + id;
-            console.log(JSON.stringify(dataOfGood));
-            console.log(url);
             return $http({
                 url: url,
                 method: "PUT",
@@ -66,7 +64,7 @@
                 }
             }).then(
             function (response) {
-                console.log(response);
+                // console.log(response);
             }, function (error) {
                 console.log('Something wrong in postService');
                 console.log(error);

@@ -123,7 +123,7 @@
                     //call service to create a new post after upload the Image
                     postService.createNewPost($scope.aGood).then(
                         function (response) {
-                            toastr.success("Successful");  
+                            toastr.success("Successful, please wait until administrator approve this post");  
                             $location.path('/home');
                             // console.log(response);
                         }, function (error) {

@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;
@@ -47,6 +47,10 @@
                     description: response.data.description,
                     category: response.data.category,
                     price: response.data.price,
+                    status: {
+                        name: "Pending",
+                        description: ""
+                    },
                     postBy: response.data.seller,
                     postDate: response.data.price,
                     location: response.data.location,
@@ -67,12 +71,17 @@
         }
 
         function fillData(latI, lonI) {
-            googleMapService.getAddress(latI, lonI).then(function (response) {                        
-                $scope.listLocations.push({
-                    nameStreet: response.data.results[0].formatted_address,
-                    lat: latI,
-                    lon: lonI
-                });
+            googleMap.getAddress(latI, lonI).then(function (response) {   
+                if (response.data.results.length > 0) {
+                    $scope.listLocations.push({
+                        nameStreet: response.data.results[0].formatted_address,
+                        lat: latI,
+                        lon: lonI
+                    });
+                } else {
+                    console.log("Can't find location");
+                }                     
+                
             }, function (error) {
                 console.log(error);
             })

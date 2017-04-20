@@ -84,7 +84,7 @@
 
     $scope.approve = function(status){
       getPostsService.getApprove($scope.goodId, status).then(function (response) {
-        $scope.getSearchData($scope.curentPage);        
+        $scope.getSearchData($scope.select);        
       }, function () {
         console.log('Something wrong when approve');
       });

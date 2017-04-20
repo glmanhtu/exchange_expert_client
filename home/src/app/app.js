@@ -37,15 +37,17 @@
             var restrictedPage = $.inArray($location.path(), ['/post', '/profile']) === -1;                          
             if (!restrictedPage && !sessionStorage.accessToken) {
                 toastr.error('You have to login to access this resource');
+                $location.path("/home");
             } else if (sessionStorage.accessToken) {
-                var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);                
+                var expired = parseInt(sessionStorage.expiresIn) - Math.round((new Date()).getTime() / 1000);
                 if (expired < 1) {
-                    loginService.logout();
+                    loginService.logout();                    
                     toastr.error('Your access token was expired, please login again');                        
+                    $location.path("/home");
                 } else {
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.accessToken;
                 }
             }            
         });
-    }
+    }    
 })();

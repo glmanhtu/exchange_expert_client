@@ -3,12 +3,13 @@
     angular
         .module('ExpertExchange')
         .factory('googleMap', googleMap);
-    googleMap.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope', 'NgMap', '$q'];
+    googleMap.$inject = ['$http','$timeout','DOMAIN_URL', '$rootScope', 'NgMap', '$q', 'GOOGLE_MAP_KEY'];
     /* @ngInject */
-    function googleMap($http, $timeout, DOMAIN_URL, $rootScope, NgMap, $q) {
+    function googleMap($http, $timeout, DOMAIN_URL, $rootScope, NgMap, $q, GOOGLE_MAP_KEY) {
         
         var services = {};
         services.searchPlace = searchPlace;
+        services.getAddress = getAddress;
         services.showPath = showPath;
         return services;        
 
@@ -24,6 +25,22 @@
                 });
             });            
             return deferred.promise;
+        }
+
+        function getAddress(lat, lng) {
+            var url = 'https://maps.googleapis.com/maps/api/geocode/json';
+            return $http({
+                url: url,
+                method: "GET",    
+                params: {
+                    result_type: "street_address",
+                    latlng: lat + ',' + lng,
+                    key: GOOGLE_MAP_KEY
+                },
+                headers: {
+                    'Authorization': undefined
+                }
+            });            
         }
 
         function showPath(startLat, startLng, endLat, endLng) {
@@ -45,6 +62,16 @@
                     }
                 });
             });
+        }
+
+        function handleSuccess(res) {
+            return res.data;
+        }
+
+        function handleError(error) {
+            return function () {
+                return { success: false, message: error };
+            };
         }
     }
 })();

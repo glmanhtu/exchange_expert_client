@@ -3,9 +3,9 @@
   angular
   .module('BlurAdmin.pages.posts')
   .controller('postsCtrl', postsCtrl);
-  postsCtrl.$inject = ['$scope', '$timeout', '$location', 'getPostsService', '$uibModal','DOMAIN_URL', 'PagerService'];
+  postsCtrl.$inject = ['$scope', '$timeout', '$location', 'getPostsService', '$uibModal','DOMAIN_URL', 'PagerService', 'toastr', '$cookieStore'];
   /* @ngInject */
-  function postsCtrl($scope, $timeout, $location, getPostsService, $uibModal, DOMAIN_URL, PagerService) {
+  function postsCtrl($scope, $timeout, $location, getPostsService, $uibModal, DOMAIN_URL, PagerService, toastr, $cookieStore) {
     $scope.items;
     $scope.currentItem;   
     $scope.curentPage = 1; 
@@ -48,8 +48,12 @@
             
             // get pager object from service
             vm.pager = PagerService.GetPager(response.data.totalElements, page, vm.itemPerPage);
-        }, function () {
-            // alert('Something wrong');
+        }, function (response) {
+            if (response.data.code == 302) {
+              $cookieStore.remove("auth");
+              toastr.error("You doesn't have permission to access this");
+              $location.path("/login");
+            }
         });        
     }
 

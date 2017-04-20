@@ -8,7 +8,7 @@
     function suggestCtrl($scope, $location, searchService, DOMAIN_URL) {
     	$scope.items = {};
         $scope.DOMAIN_URL = DOMAIN_URL;
-    	searchService.getGoods(0, 10).then(function (response) {
+    	searchService.suggestGoods().then(function (response) {
     		$scope.items = response.data.content;
     		// console.log(response);
     	}, function (response){

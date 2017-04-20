@@ -4,10 +4,10 @@
         .module('ExpertExchange.pages.goods')
         .controller('goodsCtrl', goodsCtrl);
 
-    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMap', 'InboxService', 'toastr','$rootScope'];
+    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMap', 'InboxService', 'toastr','$rootScope','$cookies'];
 
     /* @ngInject */
-    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMap, InboxService, toastr, $rootScope) {
+    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMap, InboxService, toastr, $rootScope, $cookies) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -39,11 +39,17 @@
                     })
                 }
                 googleMap.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function (response) {                    
-                    $scope.addreses = response.data.results[0].address_components[0].short_name;                    
+                    $scope.addreses = response.data.results[0].address_components[0].short_name;
 
                 }, function (error) {
                     console.log(error);
                 });
+                var read = {
+                        "category":response.data.category.name,
+                        "price": {"from": response.data.price - 100, "to": response.data.price + 200}}
+                $cookies.putObject("read", read);
+
+
             }, function () {
                 console.log('Something wrong when get good');
             });

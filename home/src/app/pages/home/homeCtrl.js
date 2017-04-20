@@ -3,9 +3,9 @@
     angular
     .module('ExpertExchange.pages.home')
     .controller('homeCtrl', homeCtrl);
-    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService','DOMAIN_URL'];
+    homeCtrl.$inject = ['$http', '$timeout', '$scope','goodService', 'searchService','PagerService','DOMAIN_URL','$cookies'];
     /* @ngInject */
-    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService, DOMAIN_URL) {
+    function homeCtrl($http, $timeout, $scope, goodService, searchService, PagerService, DOMAIN_URL, $cookies) {
         var vm = this;
         vm.title = 'homeCtrl';
         vm.dummyItems = []; // dummy array of items to be paged

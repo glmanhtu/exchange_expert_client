@@ -5,7 +5,7 @@
         .controller('informationCtrl', informationCtrl);
 
     /** @ngInject */
-    function informationCtrl($scope, $location, $stateParams, UserService, toastr, $rootScope) {
+    function informationCtrl($scope, $location, $stateParams, UserService, toastr, $rootScope, $cookies) {
         $scope.feedback = {};
         $scope.email = $stateParams.user_id;
         $scope.user = $rootScope.userProfile;

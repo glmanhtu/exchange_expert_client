@@ -3,7 +3,8 @@
 
     angular.module('ExpertExchange.theme.components')
         .controller('navigationCtrl', navigationCtrl);
-        navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService', 'UserService', 'toastr', 'registerService', 'InboxService'];
+        navigationCtrl.$inject = ['$rootScope', '$scope', '$location', '$http', 'loginService',
+            'UserService', 'toastr', 'registerService', 'InboxService'];
     /** @ngInject */
     function navigationCtrl($rootScope, $scope, $location, $http, loginService, UserService, toastr, registerService, InboxService) {
         $rootScope.unreadMailPost = 0;
@@ -11,7 +12,6 @@
         $scope.registerParams = {};
         $scope.avatar = "assets/img/no-photo.png";
 
-        //getUnreadMailPost();
 
         if ("userProfile" in $rootScope) {
             $scope.avatar = $rootScope.userProfile.avatar;
@@ -75,6 +75,7 @@
                 toastr.error(error);
             })
         }
+
     }
 
 })();

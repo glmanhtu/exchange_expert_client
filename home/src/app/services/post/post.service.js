@@ -52,5 +52,25 @@
                 console.log('Something wrong ' + error);
             });
         }
+
+        this.editPost = function (dataOfGood, id) {
+            var url = DOMAIN_URL + '/api/goods/' + id;
+            console.log(JSON.stringify(dataOfGood));
+            console.log(url);
+            return $http({
+                url: url,
+                method: "PUT",
+                data: JSON.stringify(dataOfGood),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(
+            function (response) {
+                console.log(response);
+            }, function (error) {
+                console.log('Something wrong in postService');
+                console.log(error);
+            });
+        };
     }
 })();

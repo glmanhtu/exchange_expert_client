@@ -1,12 +1,12 @@
 <div class="main-container">
     <div class="col-md-12 col-xs-12">
 
-        <table class="table table-hover">
+        <table class="table">
             <thead>
               <tr>
                 <th>#</th>
                 <th>Title</th>
-                <th>Price (USD)</th>
+                <th>Price($)</th>
                 <th>Post Date</th>
                 <th></th>
               </tr>
@@ -15,33 +15,32 @@
             <tbody>
               <tr ng-repeat="(key,item) in vm.items | filter:test">
                 <td>{{key+1}}</td>
-                <td>{{item.title}}</td>
+                <td>{{ item.title | limitTo: 70}}{{item.title.length > 70 ? '...' : ''}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.postDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>
-                    <button type="button" class="btn btn-success" ng-click="viewDetail(item)">View</button>
-                    <button type="button" class="btn btn-success" ng-click="editDetail(item)">Edit</button>
+                    <a href="#/goods/{{ item.category.slug }}/{{ item.slug }}">View</a> 
+                    <a href="#/editpost/{{ item.category.slug }}/{{ item.slug }}">Edit</a>
                 </td>
               </tr>
             </tbody>
             <tfoot>
-              <tr>
-                <td colspan="5" class="text-center">
-                    <div class="row">
+                <tr>
+                    <td colspan="5" class="text-center">
                         <ul ng-if="vm.pager.pages.length" class="pagination">
                             <li ng-class="{hidden:vm.pager.currentPage === 1}">
                                 <a ng-click="vm.setPage(1)">First</a>
-                            </li>            
-                            <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                            </li>
+                            <li ng-repeat="page in vm.pager.pages"
+                                ng-class="{active:vm.pager.currentPage === page}">
                                 <a href="#" ng-click="vm.setPage(page)">{{page}}</a>
-                            </li>                            
+                            </li>
                             <li ng-class="{hidden:vm.pager.currentPage === vm.pager.totalPages}">
                                 <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
                             </li>
                         </ul>
-                    </div>
-                </td>
-              </tr>
+                    </td>
+                </tr>
             </tfoot>
           </table>
 

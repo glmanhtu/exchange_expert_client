@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, $location, goodService, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;

@@ -123,6 +123,7 @@
 		                	};
 		                	$scope.lastSelectedLocation = predicates['location'];
 		                	predicates['distance'] = $scope.distance;
+		                	console.log($scope.lastSelectedLocation);
 							return resolve(searchService.predicateSearch(predicates));
 		                }, function(error) {
 		            		reject(error)

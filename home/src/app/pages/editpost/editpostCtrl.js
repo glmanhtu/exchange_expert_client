@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;
@@ -55,21 +55,27 @@
                     contacts: response.data.contacts
                 };
 
-                for (var i = 0; i < response.data.location.length; i++) {
-                    googleMap.getAddress(response.data.location[i].lat, response.data.location[i].lon).then(function (response) {
-                        $scope.listLocations.push({
-                            nameStreet: response.data.results[0].formatted_address,
-                            lat: response.data.results[0].geometry.location.lat,
-                            lon: response.data.results[0].geometry.location.lon
-                        });
-                    }, function (error) {
-                        console.log(error);
-                    })
+                for (var i = 0; i < $scope.aGood.location.length; i++) {
+                    var latI = $scope.aGood.location[i].lat;
+                    var lonI = $scope.aGood.location[i].lon;                  
+                    fillData(latI, lonI);
                 };
                 
             }, function () {
                 console.log('Something wrong when get good');
             });
+        }
+
+        function fillData(latI, lonI) {
+            googleMapService.getAddress(latI, lonI).then(function (response) {                        
+                $scope.listLocations.push({
+                    nameStreet: response.data.results[0].formatted_address,
+                    lat: latI,
+                    lon: lonI
+                });
+            }, function (error) {
+                console.log(error);
+            })
         }
 
         $scope.placeMarker = function(){
@@ -125,6 +131,10 @@
             $('#tempFile').val($('#myfile').val());
         }
 
+        $scope.cancelEditGood = function(){
+            $location.path('/home');
+        }
+
         $scope.editGood = function(){
             $scope.aGood.location = [];
             // edit suitable list locations
@@ -148,7 +158,7 @@
                 postService.uploadImage(data).then(
                     function (response) {
                         $scope.aGood.images = [];
-                        console.log(response);
+                        
                         // $scope.aGood.images = response;
                         $scope.aGood.featuredImage = response[0];
                         for (var i = 0; i < response.length; i++) {
@@ -159,14 +169,14 @@
                         }
 
                         // console.log($scope.addGood);
-                        //call service to create a new post after upload the Image
+                        //call service to edit post after upload the Image
                         postService.editPost($scope.aGood, $scope.aGood.id).then(
                             function (response) {
                                 toastr.success("Edit successful");
                                 $location.path('/home');
                                 // console.log(response);
                             }, function (error) {
-                                console.log('Something wrong in controller create new good');
+                                console.log('Something wrong in controller edit good');
                                 console.log(error);
                             });
 
@@ -182,7 +192,7 @@
                         $location.path('/home');
                         // console.log(response);
                     }, function (error) {
-                        console.log('Something wrong in controller create new good');
+                        console.log('Something wrong in controller edit good');
                         console.log(error);
                     });
             }

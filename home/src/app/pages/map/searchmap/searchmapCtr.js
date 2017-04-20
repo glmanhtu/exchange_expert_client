@@ -17,6 +17,7 @@
 		$scope.placeResult=[];
 		$scope.DOMAIN_URL = DOMAIN_URL;	
 		$scope.loading = false;	
+		$scope.closeSuggestSign = true;
 
         function belongTo(arr, subject) {
             for (var i = 0; i < arr.length; i++) {
@@ -28,20 +29,11 @@
         }		
 
 		$scope.closeSuggest = function() {			
-			$scope.mapHasResults = false;
-			$scope.showMapSearchTips = false;		
-			$scope.showLocationResults = false;	
-			$scope.loading = false;	
+			$scope.closeSuggestSign = true;
 		}
 
 		$scope.showCurrentSuggest = function() {
-			if ($scope.searchResult.length > 0 && !$scope.mapHasResults) {
-				$scope.mapHasResults = true;
-			} else if ($scope.placeResult.length > 0 && !$scope.showLocationResults) {
-				$scope.showLocationResults = true;			
-			} else {
-				$scope.showMapSearchTips = true;		
-			}
+			$scope.closeSuggestSign = false;
 		}
 
 		$scope.openGood = function(item) {
@@ -68,13 +60,14 @@
 		function setResultView(result, lat, lng) {
 			$scope.showLocationResults = false;
 			$scope.searchResult = result;
-			for (var i = 0; i < $scope.searchResult.length; i++) {
-				var minDistanceLocation = getClosedLocation($scope.searchResult[i].location, lat, lng);
-				$scope.searchResult[i]['distance'] = minDistanceLocation.distance;
-				$scope.searchResult[i].location = [minDistanceLocation.coordinate];
-			}							
-			console.log($scope.searchResult);
-			$scope.showMapSearchTips = $scope.searchResult.length == 0;
+			if ($scope.searchResult.length > 0) {
+				for (var i = 0; i < $scope.searchResult.length; i++) {
+					var minDistanceLocation = getClosedLocation($scope.searchResult[i].location, lat, lng);
+					$scope.searchResult[i]['distance'] = minDistanceLocation.distance;
+					$scope.searchResult[i].location = [minDistanceLocation.coordinate];
+				}
+				$scope.showMapSearchTips = $scope.searchResult.length == 0;
+			}			
     		$scope.mapHasResults = $scope.searchResult.length > 0;
 		}
 
@@ -122,8 +115,7 @@
 		                		'lng' : response.lng
 		                	};
 		                	$scope.lastSelectedLocation = predicates['location'];
-		                	predicates['distance'] = $scope.distance;
-		                	console.log($scope.lastSelectedLocation);
+		                	predicates['distance'] = $scope.distance;		                	
 							return resolve(searchService.predicateSearch(predicates));
 		                }, function(error) {
 		            		reject(error)
@@ -131,7 +123,8 @@
 		            } else {
 	            		googleMap.searchPlace($rootScope.locationSearch).then(function(result) {
 	            			$scope.showLocationResults = true;
-            				$scope.placeResult = result;            				
+            				$scope.placeResult = result;
+            				$scope.loading = false;          				
 	            		}, function(error) {
 
 	            		});
@@ -143,6 +136,7 @@
 		}
 
 		$scope.getSearchResult = function() {
+			$scope.closeSuggestSign = false;
 			var predicates = recognizeService.exportKeyword($scope.mapSearchString);
 			if ($scope.mapSearchString.length < 2 || !$rootScope.isCompletedSearch) {
 				$scope.searchResult = [];

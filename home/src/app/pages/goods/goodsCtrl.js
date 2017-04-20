@@ -18,7 +18,7 @@
         $scope.address = '';
         $scope.addresses = [];
         $scope.message = {};
-        $scope.DOMAIN_URL = DOMAIN_URL;
+        $scope.DOMAIN_URL = DOMAIN_URL;        
         var good_slug = $stateParams.good_slug;
         var category_slug = $stateParams.category_slug;
         var url = "/" + category_slug + "/" + good_slug;

@@ -83,7 +83,10 @@
             $scope.latlng = [location.lat, location.lon];
             $scope.centerMap = [location.lat, location.lon];
         }
-            
+
+        $scope.cancelAddGood = function(){
+            $location.path('/home');
+        }            
 
         $scope.addGood = function(){
             // edit suitable list locations

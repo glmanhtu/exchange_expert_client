@@ -16,7 +16,7 @@
         $scope.images = {};
         $scope.path = 0;
         $scope.address = '';
-        $scope.addresses = {};
+        $scope.addresses = [];
         $scope.message = {};
         $scope.DOMAIN_URL = DOMAIN_URL;
         var good_slug = $stateParams.good_slug;
@@ -67,7 +67,7 @@
             $scope.message.content += "<p><a href='#/goods" + url + "'>Link to goods</a></p>";
             $scope.message.forUser = $scope.item.seller.id;
             InboxService.SendMailPost($scope.message).then(function (response) {
-                toastr.success("Your message has been sent. Thank you to you message.");
+                toastr.success("Your message has been sent. Thank you!");
                 $('#contactSeller').modal('hide');
                 $scope.message = {};
             }, function (error) {

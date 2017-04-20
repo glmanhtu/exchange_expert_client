@@ -47,10 +47,6 @@
                     description: response.data.description,
                     category: response.data.category,
                     price: response.data.price,
-                    status: {
-                        name: "Pending",
-                        description: ""
-                    },
                     postBy: response.data.seller,
                     postDate: response.data.price,
                     location: response.data.location,

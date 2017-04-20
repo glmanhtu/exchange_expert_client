@@ -4,10 +4,10 @@
         .module('ExpertExchange.pages.goods')
         .controller('goodsCtrl', goodsCtrl);
 
-    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMapService', 'InboxService', 'toastr','$rootScope'];
+    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMap', 'InboxService', 'toastr','$rootScope'];
 
     /* @ngInject */
-    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMapService, InboxService, toastr, $rootScope) {
+    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMap, InboxService, toastr, $rootScope) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -30,13 +30,20 @@
             goodService.getGood(url).then(function (response) {
                 $scope.item = response.data;
                 $scope.images = response.data.images;
-                googleMapService.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function (response) {
-                    $scope.addreses = response.data.results[0].address_components[0].short_name;
-                    $scope.addresses = response.data.results;
+                for (var i = 0; i < response.data.location.length; i++) {                    
+                    googleMap.getAddress(response.data.location[i].lat, response.data.location[i].lon).then(function (addr) {                                                
+                        $scope.addresses.push(addr.data.results[0].formatted_address);
+
+                    }, function (error) {
+                        console.log(error);
+                    })
+                }
+                googleMap.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function (response) {                    
+                    $scope.addreses = response.data.results[0].address_components[0].short_name;                    
 
                 }, function (error) {
                     console.log(error);
-                })
+                });
             }, function () {
                 console.log('Something wrong when get good');
             });

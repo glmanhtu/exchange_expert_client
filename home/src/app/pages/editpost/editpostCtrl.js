@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, $location, goodService, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;
@@ -56,7 +56,7 @@
                 };
 
                 for (var i = 0; i < response.data.location.length; i++) {
-                    googleMapService.getAddress(response.data.location[i].lat, response.data.location[i].lon).then(function (response) {
+                    googleMap.getAddress(response.data.location[i].lat, response.data.location[i].lon).then(function (response) {
                         $scope.listLocations.push({
                             nameStreet: response.data.results[0].formatted_address,
                             lat: response.data.results[0].geometry.location.lat,

@@ -4,10 +4,10 @@
         .module('ExpertExchange.pages.goods')
         .controller('goodsCtrl', goodsCtrl);
 
-    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMap', 'InboxService', 'toastr','$rootScope'];
+    goodsCtrl.$inject = ['$scope', '$stateParams', 'goodService', 'DOMAIN_URL', 'googleMap', 'InboxService', 'toastr','$rootScope','$cookies'];
 
     /* @ngInject */
-    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMap, InboxService, toastr, $rootScope) {
+    function goodsCtrl($scope, $stateParams, goodService, DOMAIN_URL, googleMap, InboxService, toastr, $rootScope, $cookies) {
         var vm = this;
         vm.title = 'goodsCtrl';
         vm.getGood = getGood;
@@ -45,16 +45,22 @@
                 for (var i = 0; i < response.data.location.length; i++) {                    
                     fillAddress(response.data.location[i]);
                 }
+
                 googleMap.getAddress(response.data.location[0].lat, response.data.location[0].lon).then(function (addr) {  
                     if (addr.data.results.length > 0) {                        
                         $scope.address = addr.data.results[0].formatted_address;                    
                     } else {
                         console.log("Can't find location of ", response.data.location[0]);
                     }
-
                 }, function (error) {
                     console.log(error);
                 });
+                var read = {
+                        "category":response.data.category.name,
+                        "price": {"from": response.data.price - 100, "to": response.data.price + 200}}
+                $cookies.putObject("read", read);
+
+
             }, function () {
                 console.log('Something wrong when get good');
             });

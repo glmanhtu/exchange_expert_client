@@ -3,9 +3,9 @@
     angular
         .module('ExpertExchange')
         .factory('searchService', searchService);
-    searchService.$inject = ['$http','$timeout','$rootScope','DOMAIN_URL'];
+    searchService.$inject = ['$http','$timeout','$rootScope','DOMAIN_URL', '$cookies'];
     /* @ngInject */
-    function searchService($http, $timeout, $rootScope, DOMAIN_URL) {
+    function searchService($http, $timeout, $rootScope, DOMAIN_URL,  $cookies) {
         var service = {
             getGoods: getGoods,
             getUser: getUser,
@@ -13,7 +13,8 @@
             searchGoodsByKeyword: searchGoodsByKeyword,
             searchGoodsByLocation: searchGoodsByLocation,
             predicateSearch: predicateSearch,
-            broadcastItem: broadcastItem
+            broadcastItem: broadcastItem,
+            suggestGoods: suggestGoods
         };
         return service;
       
@@ -38,6 +39,26 @@
                 url: url,
                 method: "POST",
                 data: JSON.stringify({"pagination":{"currentPage":page,"itemsPerPage":itemsPerPage},"order":{"by":"postDate","isASC":false}}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        function suggestGoods() {
+            var url = DOMAIN_URL + '/api/search/good';
+            var read = ($cookies.get("read") != null) ? angular.fromJson($cookies.get("read")): null;
+            var data = {};
+            data["pagination"] = {"currentPage":0,"itemsPerPage":5};
+            if((read != null)) {
+                data["category"] =  read.category;
+                data["price"] =  {"from": read.price.from, "to": read.price.to};
+            }
+            data["order"] = {"by":"postDate","isASC":false};
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }

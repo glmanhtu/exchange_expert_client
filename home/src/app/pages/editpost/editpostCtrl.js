@@ -5,10 +5,10 @@
         .module('ExpertExchange.pages.editpost')
         .controller('editpostCtrl', editpostCtrl);
 
-    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
+    editpostCtrl.$inject = ['$scope', '$stateParams', '$location', 'goodService', 'googleMap', 'googleMapService', 'toastr', 'GOOGLE_MAP_KEY', 'NgMap', 'postService'];
 
     /* @ngInject */
-    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
+    function editpostCtrl($scope, $stateParams, $location, goodService, googleMap, googleMapService, toastr, GOOGLE_MAP_KEY, NgMap, postService) {
         var vm = this;
         vm.title = 'editpostCtrl';
         vm.getGood = getGood;
@@ -131,6 +131,10 @@
             $('#tempFile').val($('#myfile').val());
         }
 
+        $scope.cancelEditGood = function(){
+            $location.path('/home');
+        }
+
         $scope.editGood = function(){
             $scope.aGood.location = [];
             // edit suitable list locations
@@ -143,7 +147,6 @@
             }
 
             // upload multi image
-            console.log($scope.aGood.location);
             var ins = document.getElementById('myfile').files.length;
 
             if(ins>0){

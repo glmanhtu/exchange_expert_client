@@ -26,8 +26,6 @@
 
         this.uploadImage = function (file) {
             var url = DOMAIN_URL + '/api/resource/upload';
-            console.log(url);
-            console.log(file);
 
             return $http.post(url, file, {
                 // transformRequest: angular.identity,

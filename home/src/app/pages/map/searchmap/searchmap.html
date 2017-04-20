@@ -6,7 +6,7 @@
             <input type="submit" class="submit button" name="submit" id="big-search-submit" value="Search" />
         </div><!-- .search-controls -->
     </form><!-- #big-searchform -->
-    <ul class="search-simple-result suggest tip" ng-class="{'hide': !showMapSearchTips || mapHasResults || showLocationResults}">
+    <ul class="search-simple-result suggest tip" ng-if="showMapSearchTips && !mapHasResults && !showLocationResults && !closeSuggestSign">
         <li class="featured-item row">                        
             <div class="col-md-11 featured-title">
                 <h3><strong>You can search with more attributes, for example:</strong></h3>
@@ -19,7 +19,7 @@
             </div>          
         </li>
     </ul>
-    <ul class="search-simple-result suggest" ng-class="{'hide': !showLocationResults}">        
+    <ul class="search-simple-result suggest" ng-if="showLocationResults && !closeSuggestSign">        
         <li class="featured-item row" ng-repeat="(key, item) in placeResult | limitTo:5 ">
             <a>                
                 <div class="col-md-12 featured-title">
@@ -32,14 +32,21 @@
         </li>
     </ul>
     <ul class="search-simple-result suggest">
-        <li class="featured-item row" ng-class="{'hide': !loading}">
+        <li class="featured-item row" ng-if="loading && !closeSuggestSign">
             <div class="cssload-loader" >
                 <div class="cssload-inner cssload-one"></div>
                 <div class="cssload-inner cssload-two"></div>
                 <div class="cssload-inner cssload-three"></div>
             </div>
-        </li>     
-        <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 ">
+        </li>
+        <li class="featured-item row" ng-if="!mapHasResults && !showMapSearchTips && mapSearchString && !loading && !showLocationResults && !closeSuggestSign">
+            <header>                
+                <div class="col-md-12 col-xs-12 featured-title">                    
+                    No good found                    
+                </div>    
+            </header>
+        </li>
+        <li class="featured-item row" ng-repeat="(key, item) in searchResult | limitTo:5 " ng-if="!showLocationResults && mapHasResults && !closeSuggestSign">
             <header>
                 <div class="col-md-2 col-xs-3 featured-img">
                     <img ng-src="{{ DOMAIN_URL + '/api/' + item.featuredImage || 'assets/img/default-50x50.gif' }}">

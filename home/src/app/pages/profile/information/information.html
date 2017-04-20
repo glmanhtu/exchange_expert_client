@@ -89,7 +89,7 @@
                         <h3>{{ user_info.firstName }} {{ user_info.lastName }}</h3>
                         <p class="createdate">Join date: {{user_info.createDate | date: 'yyyy-MM-dd'}}</p>
                         <input-stars max="5" ng-model="user_info.avgRating" id="userRating" class="list-inline"
-                                     on-star-click=""
+                                     on-star-click="sendRating()"
                                      style="color: #FF9800;"></input-stars>
                     </div>
                 </div>

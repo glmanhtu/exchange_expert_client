@@ -62,10 +62,10 @@
             }
         }
 
-        $scope.sendRating = function (index) {
+        $scope.sendRating = function () {
+            var rating = $scope.user_info.avgRating;
             if ($rootScope.userProfile != null) {
                 if ($rootScope.userProfile.id != $scope.email) {
-                    var rating = index + 1;
                     UserService.Rating($scope.email, rating).then(function (res) {
                         toastr.success('Thank you for your rating to ' + $scope.email);
                         GetInfo($scope.email);
@@ -76,7 +76,6 @@
             } else {
                 toastr.error("Please, login to rating this seller");
             }
-
         }
 
         $scope.sendAvatar = function () {

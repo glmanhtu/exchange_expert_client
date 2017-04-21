@@ -16,11 +16,6 @@
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(
-            function (response) {
-                console.log(response);
-            }, function (error) {
-                console.log('Something wrong ' + error);
             });
         };
 

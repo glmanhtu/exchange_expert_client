@@ -124,11 +124,11 @@
                     postService.createNewPost($scope.aGood).then(
                         function (response) {
                             toastr.success("Successful, please wait until administrator approve this post");  
-                            $location.path('/home');
+                            //$location.path('/home');
                             // console.log(response);
                         }, function (error) {
-                            console.log('Something wrong in controller create new good');
                             console.log(error);
+                            toastr.error(error.data.message);
                         });
 
                 }, function (error) {
